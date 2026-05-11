@@ -1,0 +1,1819 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f8fa">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Tidy Team">
+<title>Tidy Team 🧹</title>
+<script>
+  (function() {
+    const t = localStorage.getItem("theme") || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", t);
+  })();
+</script>
+<link rel="manifest" href="/manifest.json">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Broom/3D/broom_3d.png">
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Broom/3D/broom_3d.png">
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --bg-alt: #ffffff;
+    --card: #ffffff;
+    --card-hover: #fbfcfd;
+    --border: #ebedf0;
+    --border-strong: #d8dbe0;
+    --text: #15171c;
+    --text-soft: #3d4148;
+    --muted: #6b7180;
+    --primary: #6366f1;
+    --primary-soft: #eef0ff;
+    --primary-text: #4338ca;
+    --success: #10b981;
+    --success-soft: #d1fae5;
+    --success-text: #047857;
+    --warn: #f59e0b;
+    --warn-soft: #fef3c7;
+    --warn-text: #b45309;
+    --danger: #ef4444;
+    --danger-soft: #fee2e2;
+    --danger-text: #b91c1c;
+    --snooze: #8b5cf6;
+    --snooze-soft: #ede9fe;
+    --snooze-text: #6d28d9;
+    --gold: #f59e0b;
+    --silver: #94a3b8;
+    --bronze: #c2783a;
+    --shadow-sm: 0 1px 2px rgba(15,23,42,0.04), 0 1px 3px rgba(15,23,42,0.06);
+    --shadow-md: 0 4px 12px rgba(15,23,42,0.06), 0 2px 4px rgba(15,23,42,0.04);
+    --shadow-lg: 0 12px 32px rgba(15,23,42,0.10), 0 4px 8px rgba(15,23,42,0.04);
+    --radius: 14px;
+    --radius-lg: 18px;
+    --radius-sm: 10px;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1115;
+    --bg-alt: #181b22;
+    --card: #1a1e26;
+    --card-hover: #232831;
+    --border: #2a2f3a;
+    --border-strong: #3a4150;
+    --text: #e8eaed;
+    --text-soft: #cdd0d6;
+    --muted: #8a90a0;
+    --primary: #818cf8;
+    --primary-soft: #1f1f3c;
+    --primary-text: #a5b4fc;
+    --success: #34d399;
+    --success-soft: #062e22;
+    --success-text: #6ee7b7;
+    --warn: #fbbf24;
+    --warn-soft: #2a1d04;
+    --warn-text: #fcd34d;
+    --danger: #f87171;
+    --danger-soft: #2c0e0e;
+    --danger-text: #fca5a5;
+    --snooze: #a78bfa;
+    --snooze-soft: #1f1934;
+    --snooze-text: #c4b5fd;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.35), 0 2px 4px rgba(0,0,0,0.25);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.55), 0 4px 8px rgba(0,0,0,0.35);
+  }
+  html, body, .card, .lb-row, .btn, .icon-btn, .sheet, .field input, .field select, .field textarea, .person-row, .stat, .invite-box, .chore-row input, .pill-tabs, .week-nav button {
+    transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+  }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html, body { margin:0; padding:0; min-height:100vh; color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; background:var(--bg);
+    font-feature-settings:"cv02","cv03","cv04","cv11";
+  }
+  button { font-family:inherit; }
+
+  /* 3D Emoji image */
+  .e3d { display:inline-block; vertical-align:middle; object-fit:contain; flex-shrink:0; }
+
+  /* Layout */
+  .wrap { max-width:760px; margin:0 auto; padding:calc(16px + env(safe-area-inset-top)) 16px calc(60px + env(safe-area-inset-bottom)); }
+
+  /* Splash */
+  .splash { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:calc(24px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom)); }
+  .splash .card { max-width:420px; text-align:center; padding:36px 28px; width:100%; }
+  .splash h1 { font-size:30px; margin:14px 0 4px; font-weight:700; letter-spacing:-0.02em; }
+  .splash p { color:var(--muted); margin:8px 0 24px; line-height:1.5; font-size:15px; }
+  .splash .hero-emoji { width:80px; height:80px; margin:0 auto; }
+  .gbtn { display:inline-flex; align-items:center; gap:10px; background:#fff; color:#1f2937;
+    border:1px solid var(--border); padding:12px 22px; border-radius:12px; font-size:15px; font-weight:600;
+    cursor:pointer; box-shadow:var(--shadow-sm); transition:all .15s ease; }
+  .gbtn:hover { box-shadow:var(--shadow-md); transform:translateY(-1px); }
+  .gbtn:active { transform:translateY(0); }
+
+  /* Header */
+  header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; gap:12px; }
+  .brand { display:flex; align-items:center; gap:10px; min-width:0; flex:1; }
+  .brand .brand-icon { width:36px; height:36px; flex-shrink:0; }
+  .brand-text { min-width:0; }
+  .brand-text .app-name { font-size:11px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.06em; line-height:1; margin-bottom:2px; }
+  .brand-text h1 { font-size:18px; margin:0; font-weight:700; letter-spacing:-0.01em; line-height:1.2;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .sub { color:var(--muted); font-size:12px; margin-top:3px; display:flex; align-items:center; gap:5px; }
+  .sub .e3d { width:14px; height:14px; }
+  .header-right { display:flex; gap:6px; flex-shrink:0; }
+  .icon-btn { background:var(--card); border:1px solid var(--border); color:var(--text);
+    border-radius:10px; width:38px; height:38px; font-size:17px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; transition:all .15s ease; box-shadow:var(--shadow-sm); }
+  .icon-btn:hover { background:var(--card-hover); }
+  .icon-btn:active { transform:scale(0.95); }
+
+  /* Cards */
+  .card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius-lg);
+    padding:14px; margin-bottom:12px; box-shadow:var(--shadow-sm); }
+  .card.no-pad { padding:6px 8px; }
+  .card h2 { margin:0 0 10px; font-size:12px; color:var(--muted); font-weight:600;
+    text-transform:uppercase; letter-spacing:0.06em; }
+
+  /* Tabs */
+  .pill-tabs { display:flex; gap:4px; margin-bottom:14px; background:var(--card);
+    padding:4px; border-radius:14px; border:1px solid var(--border); box-shadow:var(--shadow-sm); }
+  .pill-tabs button { flex:1; background:transparent; color:var(--muted); border:none;
+    padding:9px; border-radius:10px; font-size:13px; font-weight:600; cursor:pointer; transition:all .15s ease; }
+  .pill-tabs button.active { background:var(--bg); color:var(--text); box-shadow:var(--shadow-sm); }
+
+  /* Week nav */
+  .week-nav { display:flex; align-items:center; gap:10px; justify-content:space-between; margin-bottom:14px; }
+  .week-nav button { background:var(--card); color:var(--text); border:1px solid var(--border);
+    padding:9px 14px; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; box-shadow:var(--shadow-sm); }
+  .week-nav button:active { transform:scale(0.95); }
+  .week-label { text-align:center; flex:1; }
+  .week-label .title { font-size:15px; font-weight:700; color:var(--text); }
+  .week-label .range { color:var(--muted); font-size:12px; margin-top:2px; }
+  .badge { display:inline-block; background:var(--success-soft); color:var(--success-text);
+    font-size:10px; font-weight:700; padding:2px 8px; border-radius:999px; margin-left:6px; vertical-align:2px; }
+
+  /* Progress */
+  .progress { height:6px; background:var(--border); border-radius:999px; overflow:hidden; margin-bottom:12px; }
+  .progress > div { height:100%; background:linear-gradient(90deg,#a78bfa,#6366f1);
+    transition:width .4s ease; border-radius:999px; }
+
+  /* Chore row */
+  .chore { display:flex; align-items:center; gap:12px; padding:14px 12px; border-bottom:1px solid var(--border);
+    cursor:pointer; transition:background .12s ease; }
+  .chore:last-child { border-bottom:none; }
+  .chore:hover { background:var(--card-hover); }
+  .chore:active { background:var(--bg); }
+  .chore .who { width:38px; height:38px; flex-shrink:0; }
+  .chore .info { flex:1; min-width:0; }
+  .chore .name { font-size:15px; font-weight:600; color:var(--text); }
+  .chore .person { font-size:13px; color:var(--muted); margin-top:2px; }
+  .chore .person.me { color:var(--primary-text); font-weight:600; }
+  .chore.done { opacity:0.55; }
+  .chore.done .name { text-decoration:line-through; }
+  .chore .chev { color:var(--muted); font-size:18px; flex-shrink:0; }
+
+  /* Status pills */
+  .status-pill { display:inline-block; font-size:10px; font-weight:700; padding:3px 7px;
+    border-radius:999px; margin-left:6px; vertical-align:1px; white-space:nowrap; }
+  .status-pill.late { background:var(--warn-soft); color:var(--warn-text); }
+  .status-pill.urgent { background:var(--danger-soft); color:var(--danger-text); }
+  .status-pill.done { background:var(--success-soft); color:var(--success-text); }
+  .status-pill.missed { background:var(--danger-soft); color:var(--danger-text); }
+  .status-pill.snoozed { background:var(--snooze-soft); color:var(--snooze-text); }
+
+  /* Buttons */
+  .btn { background:var(--card); color:var(--text); border:1px solid var(--border);
+    padding:10px 14px; border-radius:10px; font-size:14px; cursor:pointer; font-weight:600;
+    transition:all .15s ease; box-shadow:var(--shadow-sm); display:inline-flex; align-items:center; justify-content:center; gap:6px; }
+  .btn:hover { background:var(--card-hover); }
+  .btn:active { transform:scale(0.97); }
+  .btn.primary { background:var(--primary); border-color:var(--primary); color:#fff; }
+  .btn.primary:hover { background:#5558e6; }
+  .btn.success { background:var(--success); border-color:var(--success); color:#fff; }
+  .btn.success:hover { background:#059669; }
+  .btn.danger { background:var(--card); color:var(--danger-text); border-color:var(--danger-soft); }
+  .btn.danger:hover { background:var(--danger-soft); }
+  .btn.snooze { background:var(--card); color:var(--snooze-text); border-color:var(--snooze-soft); }
+  .btn.snooze:hover { background:var(--snooze-soft); }
+  .btn.lg { padding:14px; font-size:15px; }
+  .btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+  .btn.full { width:100%; }
+  .btn.ghost { background:transparent; border-color:transparent; box-shadow:none; }
+  .btn.ghost:hover { background:var(--card-hover); }
+
+  /* Leaderboard */
+  .lb-row { display:flex; align-items:center; gap:12px; padding:12px;
+    background:var(--card); border:1px solid var(--border); border-radius:14px; margin-bottom:8px;
+    box-shadow:var(--shadow-sm); }
+  .lb-row .rank { font-size:16px; font-weight:800; width:24px; text-align:center; color:var(--muted); }
+  .lb-row.r1 .rank { color:var(--gold); } .lb-row.r2 .rank { color:var(--silver); } .lb-row.r3 .rank { color:var(--bronze); }
+  .lb-row.last { border-color:var(--danger-soft); }
+  .lb-row .who { width:36px; height:36px; }
+  .lb-row .name { flex:1; font-weight:600; min-width:0; }
+  .lb-row .pts { font-weight:800; font-variant-numeric:tabular-nums; color:var(--text); }
+  .lb-row .pts small { color:var(--muted); font-weight:500; }
+  .lb-row .pts.neg { color:var(--danger-text); }
+  .lb-row .streak { color:var(--warn-text); font-size:12px; margin-left:8px; }
+
+  /* Stats */
+  .stats-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+  .stat { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px; box-shadow:var(--shadow-sm); }
+  .stat .v { font-size:24px; font-weight:800; color:var(--text); }
+  .stat .l { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-top:4px; }
+
+  /* Treat banner */
+  .treat-banner { background:linear-gradient(135deg,#fde68a 0%,#fca5a5 50%,#f9a8d4 100%);
+    color:#3f2c08; border-radius:18px; padding:22px 18px; margin-bottom:14px; text-align:center;
+    box-shadow:var(--shadow-md); }
+  .treat-banner .pizza { width:64px; height:64px; margin:0 auto 10px; display:block; filter:drop-shadow(0 6px 8px rgba(0,0,0,0.15)); }
+  .treat-banner h3 { margin:0 0 4px; font-size:19px; font-weight:800; }
+  .treat-banner p { margin:4px 0; font-size:14px; }
+  .treat-banner .actions { display:flex; gap:8px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
+  .treat-banner .btn { background:rgba(255,255,255,0.55); color:#3f2c08; border:1px solid rgba(63,44,8,0.15); font-weight:700; }
+  .treat-banner .btn.primary { background:#3f2c08; color:#fde68a; border:none; }
+  .treat-banner.paid { background:linear-gradient(135deg,#bbf7d0 0%,#86efac 100%); color:#064e3b; }
+  .treat-banner.paid .btn.primary { background:#064e3b; color:#bbf7d0; }
+
+  /* Sheets */
+  .sheet-bg { position:fixed; inset:0; background:rgba(15,23,42,0.40); display:none; z-index:50;
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); animation:fadeIn .2s ease; }
+  .sheet-bg.open { display:block; }
+  .sheet { position:fixed; left:0; right:0; bottom:0; max-height:90vh; overflow-y:auto;
+    background:var(--bg-alt); border-radius:22px 22px 0 0;
+    padding:20px 18px calc(24px + env(safe-area-inset-bottom)); z-index:51;
+    transform:translateY(100%); transition:transform .25s cubic-bezier(0.4,0,0.2,1);
+    box-shadow:0 -10px 30px rgba(15,23,42,0.10); }
+  .sheet.open { transform:translateY(0); }
+  .sheet::before { content:""; display:block; width:36px; height:4px; border-radius:2px;
+    background:var(--border-strong); margin:0 auto 14px; }
+  .sheet h2 { margin:0 0 16px; font-size:18px; font-weight:700; letter-spacing:-0.01em; }
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+  /* Forms */
+  .field { margin-bottom:14px; }
+  .field label { display:block; font-size:11px; color:var(--muted); margin-bottom:6px;
+    text-transform:uppercase; letter-spacing:0.06em; font-weight:600; }
+  .field input, .field select, .field textarea { width:100%; background:var(--card); color:var(--text);
+    border:1px solid var(--border); border-radius:10px; padding:11px 13px; font-size:14px; font-family:inherit; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline:none; border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-soft); }
+
+  /* Profile section in settings */
+  .profile-card { display:flex; gap:14px; align-items:center; padding:14px; background:var(--primary-soft);
+    border-radius:14px; margin-bottom:16px; }
+  .profile-card .pe { width:54px; height:54px; cursor:pointer; flex-shrink:0; padding:0; border:none; background:none; }
+  .profile-card .pe img { width:100%; height:100%; }
+  .profile-card .pi { flex:1; min-width:0; }
+  .profile-card .pi input { background:transparent; border:none; font-weight:700; font-size:16px;
+    color:var(--text); width:100%; padding:2px 0; }
+  .profile-card .pi input:focus { outline:none; border-bottom:2px solid var(--primary); }
+  .profile-card .pi .pe-meta { font-size:12px; color:var(--muted); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  /* Members list */
+  .person-row { display:grid; grid-template-columns:48px 1fr auto; gap:12px; margin-bottom:8px; align-items:center;
+    padding:10px 12px; background:var(--card); border:1px solid var(--border); border-radius:12px; }
+  .person-row .em { width:36px; height:36px; cursor:pointer; padding:0; border:none; background:none; }
+  .person-row .em img { width:100%; height:100%; }
+  .person-row .info-col { min-width:0; }
+  .person-row .info-col .nm { font-weight:600; font-size:14px; color:var(--text); }
+  .person-row .info-col .em-line { font-size:11px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  /* Emoji picker */
+  .emoji-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:6px; padding:10px;
+    background:var(--card); border:1px solid var(--border); border-radius:12px; margin-top:6px; }
+  .emoji-grid div { padding:6px; cursor:pointer; border-radius:10px; transition:all .12s ease; display:flex; align-items:center; justify-content:center; }
+  .emoji-grid div:hover { background:var(--card-hover); transform:scale(1.05); }
+  .emoji-grid div:active { background:var(--bg); transform:scale(0.92); }
+  .emoji-grid div.selected { background:var(--primary-soft); }
+  .emoji-grid div img { width:36px; height:36px; }
+
+  /* Chore management */
+  .chore-row { display:flex; gap:8px; align-items:center; margin-bottom:6px; }
+  .chore-row input { flex:1; background:var(--card); color:var(--text); border:1px solid var(--border);
+    border-radius:10px; padding:11px 13px; font-size:14px; }
+  .chore-row button { padding:8px 11px; }
+
+  .sheet-close { position:absolute; top:14px; right:14px; font-size:22px; background:none;
+    border:none; color:var(--muted); cursor:pointer; line-height:1; padding:6px; }
+
+  /* Toast */
+  .toast { position:fixed; bottom:calc(20px + env(safe-area-inset-bottom)); left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:var(--text); color:var(--bg); padding:12px 20px; border-radius:12px;
+    font-size:14px; font-weight:500; box-shadow:var(--shadow-lg);
+    transition:transform .25s cubic-bezier(0.4,0,0.2,1); z-index:100; max-width:90vw; }
+  .toast.show { transform:translateX(-50%) translateY(0); }
+
+  .legend { font-size:12px; color:var(--muted); margin-top:8px; line-height:1.5; }
+  .sync-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--success); }
+  .sync-dot.off { background:var(--muted); }
+
+  /* Snooze sheet */
+  .snooze-opts { display:flex; flex-direction:column; gap:8px; }
+  .snooze-opts button { padding:14px; font-size:15px; }
+
+  /* Action sheet (chore tap) */
+  .action-header { display:flex; align-items:center; gap:14px; margin-bottom:18px; padding:4px 0; }
+  .action-header .who { width:54px; height:54px; flex-shrink:0; }
+  .action-header .info { flex:1; min-width:0; }
+  .action-header .info .name { font-size:18px; font-weight:700; color:var(--text); }
+  .action-header .info .person { font-size:13px; color:var(--muted); margin-top:2px; }
+  .action-list { display:flex; flex-direction:column; gap:8px; }
+  .action-list button { display:flex; align-items:center; gap:14px; padding:16px;
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    text-align:left; cursor:pointer; font-size:15px; font-weight:600; color:var(--text);
+    width:100%; transition:all .15s ease; box-shadow:var(--shadow-sm); }
+  .action-list button:hover { background:var(--card-hover); transform:translateY(-1px); box-shadow:var(--shadow-md); }
+  .action-list button:active { transform:translateY(0); }
+  .action-list button .ai { font-size:24px; line-height:1; }
+  .action-list button .ai img { width:28px; height:28px; vertical-align:middle; }
+  .action-list button.primary { background:var(--primary); color:#fff; border-color:var(--primary); }
+  .action-list button.primary:hover { background:#5558e6; }
+  .action-list button.danger { color:var(--danger-text); border-color:var(--danger-soft); }
+  .action-list button.snooze { color:var(--snooze-text); border-color:var(--snooze-soft); }
+  .action-list button.success { background:var(--success); color:#fff; border-color:var(--success); }
+  .action-list button:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+
+  /* RPS */
+  .rps-arena { text-align:center; padding:6px; }
+  .rps-arena h3 { margin:8px 0 4px; font-size:20px; }
+  .rps-arena .turn { font-size:14px; color:var(--muted); margin:8px 0 16px; }
+  .rps-arena .player-emoji { width:80px; height:80px; margin:8px auto; display:block; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.15)); }
+  .rps-choices { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:16px 0; }
+  .rps-choices button { padding:18px; background:var(--card); border:1px solid var(--border); border-radius:14px; cursor:pointer; box-shadow:var(--shadow-sm); display:flex; align-items:center; justify-content:center; }
+  .rps-choices button:active { background:var(--bg); transform:scale(0.95); }
+  .rps-choices button img { width:54px; height:54px; }
+  .rps-reveal { display:flex; gap:20px; justify-content:center; align-items:center; margin:20px 0; }
+  .rps-reveal .side { text-align:center; }
+  .rps-reveal .side .e { width:54px; height:54px; }
+  .rps-reveal .side .c { width:54px; height:54px; margin-top:8px; }
+  .rps-reveal .side.win .c { filter:drop-shadow(0 0 14px var(--success)); }
+  .rps-reveal .vs { font-size:24px; font-weight:800; color:var(--muted); }
+  .rps-score { display:flex; justify-content:center; gap:20px; font-size:14px; color:var(--muted); margin:12px 0; font-weight:600; align-items:center; }
+  .rps-score .e3d { width:24px; height:24px; }
+
+  /* Invite */
+  .invite-box { background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:12px; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:12px; word-break:break-all; margin-bottom:8px; user-select:all; color:var(--text); }
+  .invite-actions { display:flex; gap:6px; }
+
+  .pill { display:inline-block; padding:3px 9px; background:var(--bg); border:1px solid var(--border); border-radius:999px; font-size:11px; color:var(--muted); font-weight:500; }
+
+  /* Loading spinner */
+  .splash-loading { min-height:100vh; display:flex; align-items:center; justify-content:center; }
+  .spinner { width:32px; height:32px; border:3px solid var(--border); border-top-color:var(--primary);
+    border-radius:50%; animation:spin .8s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  p.legend { font-size:12px; color:var(--muted); line-height:1.5; }
+
+  /* Info popover */
+  .info-pop { position:fixed; bottom:calc(80px + env(safe-area-inset-bottom)); left:16px; right:16px;
+    background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px;
+    box-shadow:var(--shadow-lg); z-index:60; display:none; max-width:728px; margin:0 auto;
+    animation:slideUp .2s ease; }
+  .info-pop.open { display:block; }
+  .info-pop .legend { margin:0; }
+  @keyframes slideUp { from { transform:translateY(20px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="splash-loading" id="loading"><div class="spinner"></div></div>
+
+<!-- SIGN IN -->
+<div class="splash" id="splash" style="display:none">
+  <div class="card">
+    <img class="hero-emoji" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Broom/3D/broom_3d.png" alt="">
+    <h1>Tidy Team</h1>
+    <p>The household chore game. Sign in to start or join a household.</p>
+    <button class="gbtn" id="signInBtn">
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+      Sign in with Google
+    </button>
+  </div>
+</div>
+
+<!-- NO HOUSEHOLD -->
+<div class="splash" id="noHousehold" style="display:none">
+  <div class="card">
+    <img class="hero-emoji" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/House/3D/house_3d.png" alt="" onerror="this.style.display='none'">
+    <h1>Welcome!</h1>
+    <p>You're signed in. Now create a household or join one your friend invited you to.</p>
+    <button class="btn primary lg full" id="openCreate" style="margin-bottom:8px;">🏠 Create a household</button>
+    <button class="btn lg full" id="openJoin">🎟️ Join with invite link</button>
+    <button class="btn ghost full" id="signOutNH" style="margin-top:18px;">Sign out</button>
+  </div>
+</div>
+
+<!-- BLOCKED -->
+<div class="splash" id="blocked" style="display:none">
+  <div class="card">
+    <div style="font-size:48px;">🚫</div>
+    <h1 id="blockedTitle">Not on the list</h1>
+    <p id="blockedMsg"></p>
+    <button class="btn full" id="leaveBlocked">Back to start</button>
+    <button class="btn ghost full" id="signOutBlocked" style="margin-top:8px;">Sign out</button>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div class="wrap" id="app" style="display:none">
+  <header>
+    <div class="brand">
+      <img class="brand-icon e3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Broom/3D/broom_3d.png" alt="">
+      <div class="brand-text">
+        <div class="app-name">Tidy Team</div>
+        <h1 id="householdNameDisplay">Loading…</h1>
+        <div class="sub" id="meSubtitle"></div>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <button class="icon-btn" id="openSettings" aria-label="Settings">⚙️</button>
+      <button class="icon-btn" id="signOut" aria-label="Sign out">↪</button>
+    </div>
+  </header>
+
+  <div id="treatBannerSlot"></div>
+
+  <div class="pill-tabs">
+    <button data-tab="week" class="active">📅 Week</button>
+    <button data-tab="board">🏆 Board</button>
+    <button data-tab="stats">📊 Stats</button>
+  </div>
+
+  <div class="tab" id="tab-week">
+    <div class="week-nav">
+      <button id="prev">←</button>
+      <div class="week-label">
+        <div class="title"><span id="weekTitle">This week</span><span class="badge" id="todayBadge" style="display:none">today</span></div>
+        <div class="range" id="weekRange"></div>
+      </div>
+      <button id="next">→</button>
+    </div>
+    <div class="progress"><div id="weekProgress" style="width:0%"></div></div>
+    <div class="card no-pad">
+      <div id="schedule"></div>
+    </div>
+    <div style="display:flex; justify-content:center; margin-top:14px;">
+      <button class="btn ghost" id="howItWorks" style="font-size:12px; color:var(--muted);">ⓘ How scoring works</button>
+    </div>
+  </div>
+
+  <div class="tab" id="tab-board" style="display:none">
+    <div class="card">
+      <h2>🏆 Leaderboard · all-time</h2>
+      <div id="leaderboard"></div>
+    </div>
+    <div class="card">
+      <h2>🎖️ Achievements</h2>
+      <div id="achievements" class="legend"></div>
+    </div>
+  </div>
+
+  <div class="tab" id="tab-stats" style="display:none">
+    <div class="card">
+      <h2>📊 This month so far</h2>
+      <div class="stats-grid" id="monthStats"></div>
+    </div>
+    <div class="card">
+      <h2>📈 Per-person · this month</h2>
+      <div id="perPersonMonth"></div>
+    </div>
+    <div class="card">
+      <h2>📜 Past months</h2>
+      <div id="pastMonths"></div>
+    </div>
+    <div class="card">
+      <h2>📤 Monthly report</h2>
+      <p class="legend" style="margin-top:0">Generate a summary — copy or open mail app pre-filled.</p>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn" id="copyReport">📋 Copy report</button>
+        <button class="btn primary" id="emailReport">📧 Email report</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INFO POPOVER -->
+<div class="info-pop" id="infoPop">
+  <p class="legend">
+    ⏰ <b>Reminder Wed</b> · 🚨 <b>Overdue Thu+</b> · 💤 <b>Snooze</b> 24h or 48h (max 48h/week, deadline shifts).<br>
+    🎯 Done on time <b>+10</b> · Done late <b>+5</b> · Missed <b>−5</b> · 🥇 Lowest scorer of the month buys treats!
+  </p>
+</div>
+
+<!-- CHORE ACTION SHEET -->
+<div class="sheet-bg" id="actionBg"></div>
+<div class="sheet" id="actionSheet">
+  <button class="sheet-close" id="closeAction">×</button>
+  <div id="actionBody"></div>
+</div>
+
+<!-- CREATE HOUSEHOLD -->
+<div class="sheet-bg" id="createBg"></div>
+<div class="sheet" id="createSheet">
+  <button class="sheet-close" id="closeCreate">×</button>
+  <h2>🏠 Create household</h2>
+  <div class="field">
+    <label>Household name</label>
+    <input type="text" id="createName" placeholder="The Doe House">
+  </div>
+  <div class="field">
+    <label>Your name</label>
+    <input type="text" id="createMyName" placeholder="John Doe">
+  </div>
+  <div class="field">
+    <label>Your emoji</label>
+    <div id="createMyEmoji" class="emoji-grid"></div>
+  </div>
+  <div class="field">
+    <label>Roommate emails (one per line, optional)</label>
+    <textarea id="createEmails" rows="4" placeholder="jane.doe@example.com&#10;john.doe@example.com"></textarea>
+  </div>
+  <div class="field">
+    <label>Chores (one per line)</label>
+    <textarea id="createChores" rows="5">Small bathroom + trash
+Big bathroom
+Common area + trash
+Kitchen</textarea>
+  </div>
+  <button class="btn primary full lg" id="createSubmit">🚀 Create household</button>
+</div>
+
+<!-- JOIN -->
+<div class="sheet-bg" id="joinBg"></div>
+<div class="sheet" id="joinSheet">
+  <button class="sheet-close" id="closeJoin">×</button>
+  <h2>🎟️ Join household</h2>
+  <p class="legend" style="margin-top:0;">Paste the invite link your roommate sent you, or just the household ID.</p>
+  <div class="field">
+    <label>Invite link or household ID</label>
+    <input type="text" id="joinCode" placeholder="https://…?h=tidy-…">
+  </div>
+  <button class="btn primary full lg" id="joinSubmit">Join</button>
+  <p class="legend" style="margin-top:12px;">Your roommate also needs to add your email to the household first, otherwise you'll be blocked.</p>
+</div>
+
+<!-- SETTINGS -->
+<div class="sheet-bg" id="sheetBg"></div>
+<div class="sheet" id="sheet">
+  <button class="sheet-close" id="closeSettings">×</button>
+  <h2>⚙️ Settings</h2>
+
+  <div class="profile-card" id="profileCard">
+    <button class="pe" id="profileEmoji"></button>
+    <div class="pi">
+      <input type="text" id="profileName" placeholder="Your name">
+      <div class="pe-meta" id="profileEmail"></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Household name</label>
+    <input type="text" id="settingsName" placeholder="The Doe House">
+  </div>
+
+  <div class="field">
+    <label>Members <span class="pill" id="memberCount"></span></label>
+    <div id="peopleEdit"></div>
+    <button class="btn full" id="addMemberBtn" style="margin-top:6px;">➕ Add member</button>
+    <p class="legend">Order = chore rotation order. Removing keeps past completions in records.</p>
+  </div>
+
+  <div class="field">
+    <label>Invite link</label>
+    <div class="invite-box" id="inviteBox"></div>
+    <div class="invite-actions">
+      <button class="btn" id="copyInvite">📋 Copy</button>
+      <button class="btn" id="shareInvite">📤 Share</button>
+    </div>
+    <p class="legend">Roommate must already be in Members above before they can join.</p>
+  </div>
+
+  <div class="field">
+    <label>Chores</label>
+    <div id="choresEdit"></div>
+    <button class="btn full" id="addChoreBtn" style="margin-top:6px;">➕ Add chore</button>
+  </div>
+
+  <div class="field">
+    <label>Notifications on this device</label>
+    <button class="btn primary full" id="enableNotif">🔔 Enable phone notifications</button>
+    <div class="legend" id="notifStatus" style="margin-top:6px;"></div>
+  </div>
+
+  <div class="field">
+    <label>Monthly report email recipients</label>
+    <input type="text" id="emailRecipients" placeholder="john.doe@example.com, jane.doe@example.com">
+  </div>
+
+  <div class="field">
+    <label>Rotation start (a Monday)</label>
+    <input type="date" id="anchor">
+  </div>
+
+  <button class="btn primary full" id="saveClose">Done</button>
+  <button class="btn danger full" id="leaveHouseholdBtn" style="margin-top:8px;">🚪 Leave this household</button>
+
+  <p class="legend" style="margin-top:16px;">📱 For background notifications, install: tap Share → "Add to Home Screen" (iOS) or Chrome's install icon (Android).</p>
+</div>
+
+<!-- ADD MEMBER -->
+<div class="sheet-bg" id="addBg"></div>
+<div class="sheet" id="addSheet">
+  <button class="sheet-close" id="closeAdd">×</button>
+  <h2>➕ Add member</h2>
+  <div class="field">
+    <label>Email (their Google account)</label>
+    <input type="email" id="addEmail" placeholder="john.doe@example.com">
+  </div>
+  <div class="field">
+    <label>Display name</label>
+    <input type="text" id="addName" placeholder="John Doe">
+  </div>
+  <div class="field">
+    <label>Emoji</label>
+    <div id="addEmojiGrid" class="emoji-grid"></div>
+  </div>
+  <button class="btn primary full lg" id="addSubmit">Add to household</button>
+  <p class="legend" style="margin-top:12px;">Their name will auto-update to their Google name when they first sign in (unless you set one above).</p>
+</div>
+
+<!-- EMOJI PICKER -->
+<div class="sheet-bg" id="emojiBg"></div>
+<div class="sheet" id="emojiSheet">
+  <button class="sheet-close" id="closeEmoji">×</button>
+  <h2>Pick an emoji</h2>
+  <div class="emoji-grid" id="emojiGrid"></div>
+</div>
+
+<!-- SNOOZE -->
+<div class="sheet-bg" id="snoozeBg"></div>
+<div class="sheet" id="snoozeSheet">
+  <button class="sheet-close" id="closeSnooze">×</button>
+  <h2>💤 Snooze chore</h2>
+  <p class="legend" id="snoozeRemaining" style="margin-top:0;"></p>
+  <div class="snooze-opts" id="snoozeOpts"></div>
+  <p class="legend" style="margin-top:14px;">Snoozing pushes your deadline. Roommates will see you've snoozed. Past the snooze deadline without finishing → −5 pts.</p>
+</div>
+
+<!-- RPS -->
+<div class="sheet-bg" id="rpsBg"></div>
+<div class="sheet" id="rpsSheet">
+  <button class="sheet-close" id="closeRps">×</button>
+  <h2>🪨📄✂️ Tie breaker</h2>
+  <div id="rpsBody" class="rps-arena"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged, setPersistence, indexedDBLocalPersistence, browserLocalPersistence }
+  from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, serverTimestamp, deleteField, deleteDoc }
+  from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import { getMessaging, getToken, onMessage, isSupported }
+  from "https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB7j1ohDOXh6izP0lkVx93_0b9r9Y8Opsw",
+  authDomain: "tidy-team-c729a.firebaseapp.com",
+  projectId: "tidy-team-c729a",
+  storageBucket: "tidy-team-c729a.firebasestorage.app",
+  messagingSenderId: "645574159002",
+  appId: "1:645574159002:web:4e216beef0b9dbe9eb8d23",
+  measurementId: "G-FXN6342XRW",
+};
+const VAPID_KEY = "BDz6t2aisLP14bveuYuNAC8pRmWP7cWX2InPd8WCWpvTbISXonIrseEIpOyRMfDki4snD3pY5IxHIs9JE7KG9LQ";
+const SNOOZE_CAP_HOURS = 48;
+const HOUR_MS = 3600000;
+const DAY_MS = 86400000;
+const MIN_MEMBERS = 1;
+const MAX_MEMBERS = 8;
+const MIN_CHORES = 1;
+const MAX_CHORES = 10;
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+setPersistence(auth, indexedDBLocalPersistence).catch(() => setPersistence(auth, browserLocalPersistence).catch(() => {}));
+
+// ----- 3D Emoji rendering (Microsoft Fluent Emoji) -----
+const EMOJI_MAP = {
+  "🦁":["Lion face","lion_face"], "🐯":["Tiger face","tiger_face"], "🐼":["Panda","panda"],
+  "🐸":["Frog","frog"], "🦊":["Fox","fox"], "🐨":["Koala","koala"],
+  "🐵":["Monkey face","monkey_face"], "🦄":["Unicorn","unicorn"],
+  "🐶":["Dog face","dog_face"], "🐱":["Cat face","cat_face"], "🐰":["Rabbit face","rabbit_face"],
+  "🐻":["Bear","bear"], "🐷":["Pig face","pig_face"], "🐮":["Cow face","cow_face"],
+  "🦝":["Raccoon","raccoon"], "🐧":["Penguin","penguin"], "🦉":["Owl","owl"],
+  "🐢":["Turtle","turtle"], "🐙":["Octopus","octopus"], "🦋":["Butterfly","butterfly"],
+  "🌸":["Cherry blossom","cherry_blossom"], "🌟":["Glowing star","glowing_star"],
+  "⚡":["High voltage","high_voltage"], "🔥":["Fire","fire"],
+  "💎":["Gem stone","gem_stone"], "🚀":["Rocket","rocket"],
+  "🎯":["Bullseye","bullseye"], "🎮":["Video game","video_game"],
+  "🍕":["Pizza","pizza"], "🥑":["Avocado","avocado"],
+  "☕":["Hot beverage","hot_beverage"], "🌈":["Rainbow","rainbow"],
+  "🧹":["Broom","broom"], "🏆":["Trophy","trophy"],
+  "🪨":["Rock","rock"], "📄":["Page facing up","page_facing_up"], "✂️":["Scissors","scissors"],
+};
+const EMOJIS = ["🦁","🐯","🐼","🐸","🦊","🐨","🐵","🦄","🐶","🐱","🐰","🐻","🐷","🐮","🦝","🐧","🦉","🐢","🐙","🦋","🌸","🌟","⚡","🔥","💎","🚀","🎯","🎮","🍕","🥑","☕","🌈"];
+
+function emojiUrl(emoji) {
+  const m = EMOJI_MAP[emoji]; if (!m) return null;
+  return `https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/${encodeURIComponent(m[0])}/3D/${m[1]}_3d.png`;
+}
+function emojiHtml(emoji, size = 28, extraStyle = "") {
+  const url = emojiUrl(emoji);
+  if (!url) return `<span class="e3d" style="font-size:${size}px;line-height:1;${extraStyle}">${emoji}</span>`;
+  return `<img class="e3d" src="${url}" alt="${emoji}" loading="lazy" style="width:${size}px;height:${size}px;${extraStyle}" onerror="this.outerHTML='<span class=&quot;e3d&quot; style=&quot;font-size:${size}px;${extraStyle}&quot;>${emoji}</span>'">`;
+}
+
+// ----- LINES (roast/celebration) -----
+const LINES = {
+  loser_savage: [
+    { en: "{name} ({pts} pts). Did you forget the app exists, or is laziness your entire personality?", de: "{name} ({pts} Punkte). App vergessen oder ist Faulheit dein ganzer Charakter?" },
+    { en: "{name}, {pts} pts. The dust bunnies have a Slack channel about you.", de: "{name}, {pts} Punkte. Die Staubmäuse haben eine Slack-Gruppe über dich." },
+    { en: "{name} scored {pts}. Even the trash takes itself out at this point.", de: "{name} hat {pts} Punkte. Selbst der Müll bringt sich mittlerweile selbst raus." },
+    { en: "Congratulations {name}, {pts} pts of pure horizontal achievement.", de: "Glückwunsch {name}, {pts} Punkte für reine horizontale Leistung." },
+    { en: "{name} ({pts} pts). Marie Kondo wouldn't spark joy looking at you.", de: "{name} ({pts} Punkte). Marie Kondo würde bei deinem Anblick die Freude verlieren." },
+    { en: "{name}: {pts} pts. Productivity called. It hung up.", de: "{name}: {pts} Punkte. Die Produktivität rief an. Hat dann aufgelegt." },
+    { en: "{name}, {pts} pts. The bathroom filed a missing person report on you.", de: "{name}, {pts} Punkte. Das Badezimmer hat dich als vermisst gemeldet." },
+    { en: "{name} ({pts} pts) — Olympic torch carrier of doing nothing.", de: "{name} ({pts} Punkte) — Olympia-Goldmedaille im Nichtstun." },
+    { en: "{name}: {pts}. Born to delegate, forced to be assigned.", de: "{name}: {pts}. Zum Delegieren geboren, zum Putzen verdammt." },
+    { en: "{name} ({pts} pts). The chore wheel turned. Your brain did not.", de: "{name} ({pts} Punkte). Der Putzplan hat sich gedreht. Dein Hirn nicht." },
+    { en: "{name}: {pts} pts. We checked — yes, you actually live here.", de: "{name}: {pts} Punkte. Wir haben nachgeschaut — ja, du wohnst tatsächlich hier." },
+    { en: "{name} ({pts} pts). The sponge is filing a restraining order.", de: "{name} ({pts} Punkte). Der Schwamm beantragt eine einstweilige Verfügung." },
+    { en: "{name}, {pts} pts of pure performance art: 'man avoiding bucket'.", de: "{name}, {pts} Punkte reine Performance-Kunst: 'Mensch vermeidet Eimer'." },
+    { en: "{name} scored {pts}. Even your snooze button needs a break.", de: "{name} hat {pts} Punkte. Sogar dein Snooze-Knopf braucht eine Pause." },
+    { en: "{name}: {pts}. Putzplan was a suggestion, apparently.", de: "{name}: {pts}. Putzplan war wohl nur ein Vorschlag." },
+  ],
+  loser_mild: [
+    { en: "{name} ({pts} pts). Last but not lazy. OK, slightly lazy. Pizza on you.", de: "{name} ({pts} Punkte). Letzter, aber nicht faul. Naja, etwas faul. Pizza geht auf dich." },
+    { en: "{name} came last with {pts}. Honourable defeat. Now pay up.", de: "{name} ist Letzter mit {pts} Punkten. Ehrenvolle Niederlage. Jetzt bezahl mal." },
+    { en: "{name}: {pts} pts. So close. So tragic. So pizza-buying.", de: "{name}: {pts} Punkte. So nah dran. So tragisch. So pizzakaufend." },
+    { en: "{name} ({pts} pts) — the silver of last places. Wallet open.", de: "{name} ({pts} Punkte) — der Vize-Verlierer. Geldbeutel auf." },
+    { en: "{name}, {pts} pts. Bare minimum achieved. Punishment incoming.", de: "{name}, {pts} Punkte. Minimum erreicht. Bestrafung folgt." },
+    { en: "{name}: {pts}. Effort detected. Loserdom confirmed.", de: "{name}: {pts}. Anstrengung erkannt. Verlierer bestätigt." },
+    { en: "{name} ({pts} pts). You tried. The trophy disagrees.", de: "{name} ({pts} Punkte). Du hast es versucht. Der Pokal widerspricht." },
+  ],
+  winner: [
+    { en: "{name} ({pts} pts). Apartment dominance. We'll allow it.", de: "{name} ({pts} Punkte). Wohnungs-Dominanz. Akzeptiert." },
+    { en: "{name}: {pts}. Marie Kondo took notes.", de: "{name}: {pts}. Marie Kondo hat sich Notizen gemacht." },
+    { en: "All hail {name} ({pts} pts) of unhinged competence.", de: "Alle gehorcht {name} ({pts} Punkte) — übertriebene Kompetenz." },
+    { en: "{name} ({pts} pts). The kitchen wrote a sonnet.", de: "{name} ({pts} Punkte). Die Küche hat ein Sonett geschrieben." },
+    { en: "{name}: {pts} pts. Show-off energy. Keep it.", de: "{name}: {pts} Punkte. Angeber-Energie. Bitte beibehalten." },
+    { en: "{name} ({pts} pts). Chore game so strong it's borderline aggressive.", de: "{name} ({pts} Punkte). So gutes Putz-Game, fast aggressiv." },
+    { en: "{name} scored {pts}. The bathroom is genuinely emotional.", de: "{name} hat {pts} Punkte. Das Bad ist emotional bewegt." },
+    { en: "{name}, {pts} pts. Insufferable in the best way.", de: "{name}, {pts} Punkte. Unerträglich auf die beste Art." },
+    { en: "{name} ({pts} pts) — peak roommate. Try to be more annoying about it.", de: "{name} ({pts} Punkte) — Spitzen-Mitbewohner. Versuch nervig zu sein damit." },
+    { en: "{name}: {pts}. The trash bag thanks you personally.", de: "{name}: {pts}. Der Müllbeutel dankt dir persönlich." },
+    { en: "{name} ({pts} pts). Cleaning influencer. Disgusting.", de: "{name} ({pts} Punkte). Putz-Influencer. Widerlich." },
+    { en: "{name}: {pts} pts of weaponised tidiness.", de: "{name}: {pts} Punkte bewaffneter Sauberkeit." },
+  ],
+  mid: [
+    { en: "{name} ({pts} pts). Reliable. Boring. Acceptable.", de: "{name} ({pts} Punkte). Zuverlässig. Langweilig. Akzeptabel." },
+    { en: "{name}: {pts}. Mid-tier excellence.", de: "{name}: {pts}. Mittelmäßige Exzellenz." },
+    { en: "{name} ({pts} pts) — the diplomatic middle child.", de: "{name} ({pts} Punkte) — das diplomatische mittlere Kind." },
+    { en: "{name}: {pts} pts. Doing enough to not get roasted. Almost.", de: "{name}: {pts} Punkte. Genug, um nicht gegrillt zu werden. Fast." },
+    { en: "{name} ({pts} pts). Existing. Cleaning. Functional.", de: "{name} ({pts} Punkte). Existiert. Putzt. Funktioniert." },
+    { en: "{name}: {pts}. Solidly forgettable.", de: "{name}: {pts}. Solide vergesslich." },
+    { en: "{name} ({pts} pts). The grey area, personified.", de: "{name} ({pts} Punkte). Die Grauzone, personifiziert." },
+    { en: "{name}: {pts} pts. Could be worse. Could be a lot better.", de: "{name}: {pts} Punkte. Könnte schlimmer sein. Könnte deutlich besser sein." },
+    { en: "{name} ({pts} pts). Not the hero. Not the villain. The padding.", de: "{name} ({pts} Punkte). Weder Held noch Bösewicht. Das Füllmaterial." },
+    { en: "{name}: {pts}. Beige energy. Maintained.", de: "{name}: {pts}. Beige Energie. Beibehalten." },
+  ],
+};
+
+// helpers
+const $ = (id) => document.getElementById(id);
+const show = (id) => $(id).style.display = "";
+const hide = (id) => $(id).style.display = "none";
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let toastTimer;
+function toast(msg) {
+  const t = $("toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 2400);
+}
+function hashStr(s) { let h = 5381; for (let i = 0; i < s.length; i++) h = (((h << 5) + h) + s.charCodeAt(i)) | 0; return Math.abs(h); }
+function pickLine(category, seed) { const pool = LINES[category] || LINES.mid; return pool[hashStr(seed) % pool.length]; }
+function fillLine(line, vars) { const fill = (s) => s.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? ""); return { en: fill(line.en), de: fill(line.de) }; }
+function pickLanguage(seed) { return (hashStr(seed + ":lang") % 2) === 0 ? "en" : "de"; }
+function dayKey(d = new Date()) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
+function genHouseholdId() {
+  const rand = (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36)).replace(/[^a-z0-9]/gi, "").toLowerCase().substring(0, 8);
+  return `tidy-${rand}`;
+}
+function mondayOf(d) {
+  const x = new Date(d); x.setHours(0,0,0,0);
+  const day = x.getDay();
+  x.setDate(x.getDate() + (day === 0 ? -6 : 1 - day));
+  return x;
+}
+const mondayStr = (d) => mondayOf(d).toISOString().slice(0,10);
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate()+n); return x; };
+const fmt = (d) => d.toLocaleDateString(undefined, { month:"short", day:"numeric" });
+const fmtTime = (ms) => new Date(ms).toLocaleString(undefined, { weekday:"short", hour:"numeric", minute:"2-digit" });
+const monthKeyOf = (d) => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+const monthName = (key) => { const [y,m] = key.split("-").map(Number); return new Date(y,m-1).toLocaleDateString(undefined,{month:"long",year:"numeric"}); };
+function isoWeekKey(monday) {
+  const d = new Date(Date.UTC(monday.getFullYear(), monday.getMonth(), monday.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  const weekNo = Math.ceil((((d-yearStart)/86400000)+1)/7);
+  return `${d.getUTCFullYear()}-W${String(weekNo).padStart(2,"0")}`;
+}
+function weekIndexFromAnchor(monday) {
+  const a = mondayOf(new Date(household.anchor + "T00:00:00"));
+  return Math.floor((monday - a) / (7*DAY_MS));
+}
+function personForChore(monday, choreIdx) {
+  const n = household.people.length;
+  if (n === 0) return -1;
+  const wi = weekIndexFromAnchor(monday);
+  const off = ((wi % n) + n) % n;
+  return (choreIdx + off) % n;
+}
+function meIdx() {
+  if (!user || !household) return -1;
+  return household.people.findIndex(p => (p.email || "").toLowerCase() === user.email.toLowerCase());
+}
+function inviteUrl() {
+  if (!householdId) return "";
+  const base = location.origin + location.pathname;
+  return `${base}?h=${householdId}`;
+}
+
+// state
+let user = null;
+let household = null;
+let householdId = null;
+let unsubHousehold = null;
+let viewMonday = mondayOf(new Date());
+let editingEmojiIdx = null;
+let snoozingChoreIdx = null;
+let actionChoreIdx = null;
+let rpsState = null;
+let createMyEmoji = "🦁";
+let addMemberEmoji = "🐼";
+let firstHouseholdLoad = true;
+
+// AUTH
+$("signInBtn").onclick = async () => {
+  const provider = new GoogleAuthProvider();
+  try { await signInWithPopup(auth, provider); }
+  catch (e) {
+    if (e.code === "auth/popup-blocked" || e.code === "auth/popup-closed-by-user") {
+      await signInWithRedirect(auth, provider);
+    } else { toast("Sign-in failed: " + e.code); }
+  }
+};
+$("signOut").onclick = () => signOut(auth);
+$("signOutNH").onclick = () => signOut(auth);
+$("signOutBlocked").onclick = () => signOut(auth);
+$("leaveBlocked").onclick = async () => {
+  if (user) await setDoc(doc(db, "users", user.uid), { householdId: deleteField() }, { merge: true });
+  history.replaceState({}, "", location.pathname);
+  decideRoute();
+};
+getRedirectResult(auth).catch(() => {});
+
+onAuthStateChanged(auth, async (u) => {
+  user = u;
+  if (unsubHousehold) { unsubHousehold(); unsubHousehold = null; }
+  household = null; householdId = null; firstHouseholdLoad = true;
+  if (!u) { showSplash("splash"); return; }
+  await decideRoute();
+});
+
+function showSplash(which) {
+  ["loading","splash","noHousehold","blocked","app"].forEach(id => $(id).style.display = "none");
+  show(which);
+}
+
+async function decideRoute() {
+  const params = new URLSearchParams(location.search);
+  const urlHid = params.get("h");
+  let userDoc;
+  try { userDoc = (await getDoc(doc(db, "users", user.uid))).data() || {}; } catch { userDoc = {}; }
+  await setDoc(doc(db, "users", user.uid), {
+    email: user.email, name: user.displayName || "", lastSeen: serverTimestamp(),
+  }, { merge: true });
+  if (urlHid) {
+    await setDoc(doc(db, "users", user.uid), { householdId: urlHid }, { merge: true });
+    history.replaceState({}, "", location.pathname);
+    return attachHouseholdListener(urlHid);
+  }
+  if (userDoc.householdId) return attachHouseholdListener(userDoc.householdId);
+  showSplash("noHousehold");
+}
+
+function attachHouseholdListener(hid) {
+  householdId = hid;
+  const ref = doc(db, "households", hid);
+  unsubHousehold = onSnapshot(ref, async (snap) => {
+    if (!snap.exists()) {
+      $("blockedTitle").textContent = "Household not found";
+      $("blockedMsg").innerHTML = `The household <code>${esc(hid)}</code> doesn't exist (or was deleted). Try a different invite, or create a new one.`;
+      showSplash("blocked"); return;
+    }
+    household = snap.data();
+    const allow = (household.memberEmails || []).map(e => (e||"").toLowerCase());
+    if (!allow.includes(user.email.toLowerCase())) {
+      $("blockedTitle").textContent = "Not on the list";
+      $("blockedMsg").innerHTML = `Your account <b>${esc(user.email)}</b> isn't a member of <b>${esc(household.name || "this household")}</b>. Ask whoever invited you to add you in Settings.`;
+      showSplash("blocked"); return;
+    }
+    showSplash("app");
+    if (firstHouseholdLoad) {
+      firstHouseholdLoad = false;
+      await maybeAutoSyncName();
+      await maybeSettleLastMonth();
+    }
+    renderAll();
+  }, (err) => {
+    if (err.code === "permission-denied") {
+      $("blockedTitle").textContent = "Not on the list";
+      $("blockedMsg").innerHTML = `Your account <b>${esc(user.email)}</b> can't access this household.`;
+      showSplash("blocked");
+    } else { toast("Sync error: " + err.code); }
+  });
+}
+
+async function maybeAutoSyncName() {
+  const me = meIdx(); if (me < 0) return;
+  const p = household.people[me];
+  const googleName = (user.displayName || "").trim();
+  if (!googleName) return;
+  const localPart = (user.email || "").split("@")[0].toLowerCase();
+  const currentName = (p.name || "").trim();
+  const needsSync = !currentName ||
+    currentName.toLowerCase() === user.email.toLowerCase() ||
+    currentName.toLowerCase() === localPart;
+  if (!needsSync) return;
+  const people = [...household.people]; people[me] = { ...people[me], name: googleName };
+  await patch({ people });
+}
+
+async function patch(updates) {
+  if (!householdId) return;
+  try { await updateDoc(doc(db, "households", householdId), updates); }
+  catch (e) { toast("Save failed: " + e.code); }
+}
+
+// CREATE / JOIN
+$("openCreate").onclick = () => openCreateSheet();
+$("openJoin").onclick = () => openJoinSheet();
+$("closeCreate").onclick = closeCreateSheet;
+$("createBg").onclick = closeCreateSheet;
+$("closeJoin").onclick = closeJoinSheet;
+$("joinBg").onclick = closeJoinSheet;
+
+function openCreateSheet() {
+  $("createName").value = "";
+  $("createMyName").value = (user.displayName || user.email.split("@")[0]) || "";
+  createMyEmoji = "🦁";
+  const refresh = () => renderEmojiGrid("createMyEmoji", createMyEmoji, (e) => { createMyEmoji = e; refresh(); });
+  refresh();
+  $("createBg").classList.add("open"); $("createSheet").classList.add("open");
+}
+function closeCreateSheet() { $("createBg").classList.remove("open"); $("createSheet").classList.remove("open"); }
+function openJoinSheet() { $("joinCode").value = ""; $("joinBg").classList.add("open"); $("joinSheet").classList.add("open"); }
+function closeJoinSheet() { $("joinBg").classList.remove("open"); $("joinSheet").classList.remove("open"); }
+
+function renderEmojiGrid(elId, current, onPick) {
+  const el = $(elId);
+  el.innerHTML = EMOJIS.map(e => `<div data-e="${e}" class="${e===current?"selected":""}">${emojiHtml(e, 36)}</div>`).join("");
+  el.querySelectorAll("div[data-e]").forEach(d => d.onclick = () => onPick(d.dataset.e));
+}
+
+$("createSubmit").onclick = async () => {
+  const name = $("createName").value.trim() || "My household";
+  const myName = $("createMyName").value.trim() || (user.displayName || user.email.split("@")[0]);
+  const extraEmails = $("createEmails").value.split("\n").map(s => s.trim().toLowerCase()).filter(s => s.includes("@"));
+  const chores = $("createChores").value.split("\n").map(s => s.trim()).filter(Boolean);
+  if (chores.length < MIN_CHORES) { toast("Add at least 1 chore"); return; }
+  if (chores.length > MAX_CHORES) { toast(`Max ${MAX_CHORES} chores`); return; }
+  const myEmail = user.email.toLowerCase();
+  const allEmails = [myEmail, ...extraEmails.filter(e => e !== myEmail)].slice(0, MAX_MEMBERS);
+  const people = allEmails.map((e, i) => ({
+    email: e,
+    name: i === 0 ? myName : "",
+    emoji: i === 0 ? createMyEmoji : EMOJIS[(i * 7) % EMOJIS.length],
+    phone: "",
+  }));
+  const newHid = genHouseholdId();
+  const data = {
+    name, memberEmails: allEmails, people, chores,
+    anchor: mondayStr(new Date()), history: {}, treats: {}, emailTo: "",
+    createdAt: serverTimestamp(), createdBy: user.uid, ownerUid: user.uid,
+  };
+  try {
+    await setDoc(doc(db, "households", newHid), data);
+    await setDoc(doc(db, "users", user.uid), { householdId: newHid }, { merge: true });
+    closeCreateSheet(); toast("Household created!");
+    attachHouseholdListener(newHid);
+  } catch (e) { toast("Create failed: " + (e.code || e.message)); }
+};
+
+$("joinSubmit").onclick = async () => {
+  let v = $("joinCode").value.trim();
+  if (!v) { toast("Paste an invite link or ID"); return; }
+  if (v.includes("?h=")) v = v.split("?h=")[1].split("&")[0];
+  if (v.includes("/")) v = v.split("/").pop();
+  v = v.replace(/[?&].*$/, "").trim();
+  if (!v) { toast("Couldn't parse"); return; }
+  await setDoc(doc(db, "users", user.uid), { householdId: v }, { merge: true });
+  closeJoinSheet(); attachHouseholdListener(v);
+};
+
+// chore status
+function choreStatus(monday, choreIdx) {
+  const key = `${isoWeekKey(monday)}-c${choreIdx}`;
+  const h = household.history?.[key] || null;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const now = Date.now();
+  const sun = addDays(monday, 6); sun.setHours(23,59,59,999);
+  const shiftHours = h?.shiftHours || 0;
+  const effectiveDeadline = sun.getTime() + shiftHours * HOUR_MS;
+  const snoozedUntil = h?.snoozedUntil || 0;
+  const daysIn = Math.floor((today - monday) / DAY_MS);
+  if (h?.completedAt) return { state:"done", h, onTime: h.completedAt <= effectiveDeadline, effectiveDeadline };
+  if (now > effectiveDeadline) return { state:"missed", h, effectiveDeadline };
+  if (today < monday) return { state:"upcoming", h, effectiveDeadline };
+  if (now < snoozedUntil) return { state:"snoozed", h, effectiveDeadline, snoozedUntil };
+  if (daysIn >= 3) return { state:"urgent", h, effectiveDeadline };
+  if (daysIn >= 2) return { state:"late", h, effectiveDeadline };
+  return { state:"open", h, effectiveDeadline };
+}
+
+// WEEK
+function renderWeek() {
+  const wrap = $("schedule"); wrap.innerHTML = "";
+  if (!household.chores.length) { wrap.innerHTML = `<div style="padding:18px;color:var(--muted);text-align:center;font-size:13px;">No chores yet — add some in ⚙️ Settings.</div>`; $("weekProgress").style.width="0%"; return; }
+  let doneCount = 0;
+  const me = meIdx();
+  household.chores.forEach((chore, i) => {
+    const personIdx = personForChore(viewMonday, i);
+    const p = household.people[personIdx];
+    if (!p) return;
+    const st = choreStatus(viewMonday, i);
+    const isMe = personIdx === me;
+    if (st.state === "done") doneCount++;
+
+    let pill = "";
+    if (st.state === "done") pill = `<span class="status-pill done">✓ done${st.onTime ? "" : " (late)"}</span>`;
+    else if (st.state === "snoozed") pill = `<span class="status-pill snoozed">💤 ${fmtTime(st.snoozedUntil)}</span>`;
+    else if (st.state === "missed") pill = `<span class="status-pill missed">−5 missed</span>`;
+    else if (st.state === "urgent") pill = `<span class="status-pill urgent">overdue</span>`;
+    else if (st.state === "late") pill = `<span class="status-pill late">due soon</span>`;
+
+    const row = document.createElement("div");
+    row.className = "chore" + (st.state === "done" ? " done" : "");
+    row.innerHTML = `
+      <div class="who">${emojiHtml(p.emoji, 38)}</div>
+      <div class="info">
+        <div class="name">${esc(chore)}${pill}</div>
+        <div class="person ${isMe ? "me" : ""}">${esc(p.name || p.email)}${isMe ? " · you" : ""}</div>
+      </div>
+      <div class="chev">›</div>`;
+    row.onclick = () => openActionSheet(i);
+    wrap.appendChild(row);
+  });
+
+  $("weekProgress").style.width = `${(doneCount/household.chores.length)*100}%`;
+  const sun = addDays(viewMonday, 6);
+  $("weekRange").textContent = `${fmt(viewMonday)} – ${fmt(sun)}`;
+  const thisM = mondayOf(new Date());
+  const diff = Math.round((viewMonday - thisM) / (7*DAY_MS));
+  let title = "This week";
+  if (diff === 1) title = "Next week"; else if (diff === -1) title = "Last week";
+  else if (diff > 1) title = `In ${diff} weeks`; else if (diff < -1) title = `${Math.abs(diff)} weeks ago`;
+  $("weekTitle").textContent = title;
+  $("todayBadge").style.display = diff === 0 ? "" : "none";
+}
+
+// ACTION SHEET
+function openActionSheet(choreIdx) {
+  actionChoreIdx = choreIdx;
+  renderActionSheet();
+  $("actionBg").classList.add("open"); $("actionSheet").classList.add("open");
+}
+function closeActionSheet() { $("actionBg").classList.remove("open"); $("actionSheet").classList.remove("open"); actionChoreIdx = null; }
+
+function renderActionSheet() {
+  if (actionChoreIdx === null) return;
+  const i = actionChoreIdx;
+  const personIdx = personForChore(viewMonday, i);
+  const p = household.people[personIdx];
+  const chore = household.chores[i];
+  const st = choreStatus(viewMonday, i);
+  const isMe = personIdx === meIdx();
+  const isCurrent = +viewMonday === +mondayOf(new Date());
+
+  let pill = "";
+  if (st.state === "done") pill = `<span class="status-pill done">✓ done${st.onTime ? "" : " (late)"}</span>`;
+  else if (st.state === "snoozed") pill = `<span class="status-pill snoozed">💤 until ${fmtTime(st.snoozedUntil)}</span>`;
+  else if (st.state === "missed") pill = `<span class="status-pill missed">−5 missed</span>`;
+  else if (st.state === "urgent") pill = `<span class="status-pill urgent">overdue</span>`;
+  else if (st.state === "late") pill = `<span class="status-pill late">due soon</span>`;
+
+  const usedSnooze = st.h?.shiftHours || 0;
+  let actions = "";
+  if (st.state === "done") {
+    if (st.h?.byUid === user.uid || isMe) actions += `<button data-act="undo"><span class="ai">↩</span> Undo completion</button>`;
+  } else {
+    if (isMe && (isCurrent || st.state === "missed")) {
+      actions += `<button class="primary" data-act="done"><span class="ai">✓</span> Mark done</button>`;
+      if (isCurrent && st.state !== "missed" && st.state !== "upcoming" && usedSnooze < SNOOZE_CAP_HOURS) {
+        actions += `<button class="snooze" data-act="snooze"><span class="ai">💤</span> Snooze (${SNOOZE_CAP_HOURS - usedSnooze}h left)</button>`;
+      }
+    } else if (!isMe && (st.state === "urgent" || st.state === "missed") && isCurrent) {
+      actions += `<button class="danger" data-act="nudge"><span class="ai">📣</span> Nudge ${esc(p.name || p.email.split("@")[0])}</button>`;
+    }
+  }
+  if (!actions) actions = `<div style="text-align:center; color:var(--muted); padding:16px; font-size:13px;">No actions available for this chore right now.</div>`;
+
+  $("actionBody").innerHTML = `
+    <div class="action-header">
+      <div class="who">${emojiHtml(p.emoji, 54)}</div>
+      <div class="info">
+        <div class="name">${esc(chore)}</div>
+        <div class="person">${esc(p.name || p.email)}${isMe ? " · you" : ""} ${pill}</div>
+      </div>
+    </div>
+    <div class="action-list">${actions}</div>`;
+
+  $("actionBody").querySelectorAll("button[data-act]").forEach(b => b.onclick = () => {
+    const a = b.dataset.act;
+    if (a === "done") { markDone(i); closeActionSheet(); }
+    else if (a === "undo") { undoDone(i); closeActionSheet(); }
+    else if (a === "snooze") { closeActionSheet(); openSnooze(i); }
+    else if (a === "nudge") { nudge(i); closeActionSheet(); }
+  });
+}
+
+async function markDone(choreIdx) {
+  const key = `${isoWeekKey(viewMonday)}-c${choreIdx}`;
+  const personIdx = personForChore(viewMonday, choreIdx);
+  const existing = household.history?.[key] || {};
+  await patch({ [`history.${key}`]: { ...existing, completedAt: Date.now(), byUid: user.uid, byIdx: personIdx, byEmail: user.email } });
+  const st = choreStatus(viewMonday, choreIdx);
+  const pts = st.onTime ? 10 : 5;
+  const p = household.people[personIdx];
+  toast(`+${pts} pts to ${p.emoji} ${p.name || p.email.split("@")[0]}`);
+}
+async function undoDone(choreIdx) {
+  const key = `${isoWeekKey(viewMonday)}-c${choreIdx}`;
+  const existing = household.history?.[key] || {};
+  const { completedAt, byUid, byIdx, byEmail, ...rest } = existing;
+  if (Object.keys(rest).length === 0) await patch({ [`history.${key}`]: deleteField() });
+  else await patch({ [`history.${key}`]: rest });
+}
+
+// SNOOZE
+function openSnooze(choreIdx) {
+  snoozingChoreIdx = choreIdx;
+  const key = `${isoWeekKey(viewMonday)}-c${choreIdx}`;
+  const h = household.history?.[key] || {};
+  const used = h.shiftHours || 0;
+  const remaining = SNOOZE_CAP_HOURS - used;
+  $("snoozeRemaining").textContent = used > 0
+    ? `Already snoozed ${used}h this week. ${remaining}h left of your 48h cap.`
+    : `You have 48h of snooze available this week.`;
+  const opts = $("snoozeOpts"); opts.innerHTML = "";
+  [24, 48].forEach(hrs => {
+    const btn = document.createElement("button");
+    btn.className = "btn snooze";
+    btn.disabled = hrs > remaining;
+    btn.textContent = `💤 Snooze ${hrs}h${hrs > remaining ? " (over cap)" : ""}`;
+    btn.onclick = () => doSnooze(choreIdx, hrs);
+    opts.appendChild(btn);
+  });
+  $("snoozeBg").classList.add("open"); $("snoozeSheet").classList.add("open");
+}
+function closeSnoozeSheet() { $("snoozeBg").classList.remove("open"); $("snoozeSheet").classList.remove("open"); }
+async function doSnooze(choreIdx, hours) {
+  const key = `${isoWeekKey(viewMonday)}-c${choreIdx}`;
+  const h = household.history?.[key] || {};
+  const used = h.shiftHours || 0;
+  if (used + hours > SNOOZE_CAP_HOURS) { toast("Over cap"); return; }
+  const now = Date.now();
+  const newSnoozedUntil = Math.max(now, h.snoozedUntil || 0) + hours * HOUR_MS;
+  await patch({ [`history.${key}`]: { ...h, shiftHours: used + hours, snoozedUntil: newSnoozedUntil, lastSnoozeBy: user.uid } });
+  toast(`Snoozed ${hours}h. Deadline shifted.`);
+  closeSnoozeSheet();
+}
+
+function nudge(choreIdx) {
+  const personIdx = personForChore(viewMonday, choreIdx);
+  const p = household.people[personIdx];
+  const chore = household.chores[choreIdx];
+  const me = meIdx() >= 0 ? household.people[meIdx()] : null;
+  const meName = me?.name || me?.email.split("@")[0] || "";
+  const targetName = p.name || p.email.split("@")[0];
+  const msg = `${p.emoji} hey ${targetName}! gentle nudge — "${chore}" is overdue 🧹${me ? ` — ${me.emoji} ${meName}` : ""}`;
+  if (p.phone) {
+    const cleaned = p.phone.replace(/[^\d+]/g, "");
+    window.open(`https://wa.me/${cleaned.replace(/^\+/, "")}?text=${encodeURIComponent(msg)}`, "_blank");
+  } else {
+    navigator.clipboard?.writeText(msg);
+    toast("Nudge copied — paste into WhatsApp");
+  }
+}
+
+// SCORING
+function iterateWeeks(fromMonday, toMonday, fn) {
+  let m = mondayOf(fromMonday); const stop = mondayOf(toMonday);
+  while (m <= stop) { fn(new Date(m)); m = addDays(m, 7); }
+}
+function computeScores(filterFn) {
+  const totals = household.people.map(() => ({ pts:0, done:0, onTime:0, late:0, missed:0, snoozed:0 }));
+  const anchor = mondayOf(new Date(household.anchor + "T00:00:00"));
+  const thisM = mondayOf(new Date());
+  iterateWeeks(anchor, thisM, (m) => {
+    if (!filterFn(m)) return;
+    for (let c = 0; c < household.chores.length; c++) {
+      const idx = personForChore(m, c);
+      if (idx < 0 || idx >= household.people.length) continue;
+      const st = choreStatus(m, c);
+      if (st.state === "done") {
+        totals[idx].done++;
+        if (st.onTime) { totals[idx].pts += 10; totals[idx].onTime++; } else { totals[idx].pts += 5; totals[idx].late++; }
+        if (st.h?.shiftHours) totals[idx].snoozed++;
+      } else if (st.state === "missed") { totals[idx].pts -= 5; totals[idx].missed++; }
+    }
+  });
+  return totals;
+}
+function scoresAllTime() {
+  const totals = computeScores(() => true);
+  const streaks = household.people.map(() => 0);
+  const thisM = mondayOf(new Date());
+  for (let p = 0; p < household.people.length; p++) {
+    for (let w = 0; w < 52; w++) {
+      const m = addDays(thisM, -7*w);
+      let cIdx = -1;
+      for (let c = 0; c < household.chores.length; c++) if (personForChore(m, c) === p) { cIdx = c; break; }
+      if (cIdx < 0) continue;
+      const st = choreStatus(m, cIdx);
+      if (w === 0 && st.state !== "done") continue;
+      if (st.state === "done" && st.onTime) streaks[p]++; else break;
+    }
+  }
+  return household.people.map((p, i) => ({ ...p, idx:i, ...totals[i], streak:streaks[i] }));
+}
+function scoresMonth(monthKey) {
+  return computeScores((m) => monthKeyOf(addDays(m, 6)) === monthKey);
+}
+
+function categoryFor(rank, lastRank, pts) {
+  if (rank === 0) return "winner";
+  if (rank === lastRank && lastRank > 0) return pts <= 0 ? "loser_savage" : "loser_mild";
+  return "mid";
+}
+
+function renderBoard() {
+  const data = scoresAllTime().sort((a,b) => b.pts - a.pts || b.onTime - a.onTime);
+  const lastIdx = data.length - 1;
+  const dk = dayKey();
+  $("leaderboard").innerHTML = data.map((d, i) => {
+    const cat = categoryFor(i, lastIdx, d.pts);
+    const seed = `${dk}:lb:${d.idx}:${cat}`;
+    const line = fillLine(pickLine(cat, seed), { name: d.name || d.email.split("@")[0], pts: d.pts });
+    const lang = pickLanguage(seed);
+    const tagline = lang === "en" ? line.en : line.de;
+    return `
+    <div class="lb-row r${i+1} ${i === lastIdx && data.length > 1 ? "last" : ""}" style="flex-wrap:wrap;">
+      <div class="rank">${i === 0 ? "👑" : i === lastIdx && data.length > 1 ? "🍕" : i+1}</div>
+      <div class="who">${emojiHtml(d.emoji, 36)}</div>
+      <div class="name">${esc(d.name || d.email.split("@")[0])}${d.streak >= 2 ? `<span class="streak">🔥 ${d.streak}</span>` : ""}
+        <div style="font-size:11px;color:var(--muted);font-weight:400;font-style:italic;margin-top:3px;line-height:1.35;">${esc(tagline)}</div>
+      </div>
+      <div class="pts ${d.pts < 0 ? "neg" : ""}">${d.pts}<small> pts</small></div>
+    </div>`;
+  }).join("");
+
+  const lines = [];
+  data.forEach(d => {
+    const nm = d.name || d.email.split("@")[0];
+    if (d.done >= 4) lines.push(`${emojiHtml(d.emoji, 16)} <b>${esc(nm)}</b> — Reliable (${d.done} done)`);
+    if (d.streak >= 4) lines.push(`${emojiHtml(d.emoji, 16)} <b>${esc(nm)}</b> — On fire 🔥 (${d.streak}-week streak)`);
+    if (d.onTime >= 8) lines.push(`${emojiHtml(d.emoji, 16)} <b>${esc(nm)}</b> — Punctual ⭐ (${d.onTime} on-time)`);
+    if (d.missed >= 3) lines.push(`${emojiHtml(d.emoji, 16)} <b>${esc(nm)}</b> — Slacker 🐢 (${d.missed} missed)`);
+    if (d.snoozed >= 4) lines.push(`${emojiHtml(d.emoji, 16)} <b>${esc(nm)}</b> — Snoozer 💤 (${d.snoozed} snoozes used)`);
+  });
+  $("achievements").innerHTML = lines.length ? lines.join("<br>") : "<i>Complete chores to unlock achievements.</i>";
+}
+
+function renderStats() {
+  const mk = monthKeyOf(new Date());
+  const m = scoresMonth(mk);
+  const totalDone = m.reduce((a,b) => a+b.done, 0);
+  const totalOnTime = m.reduce((a,b) => a+b.onTime, 0);
+  const totalPts = m.reduce((a,b) => a+b.pts, 0);
+  const onTimePct = totalDone ? Math.round((totalOnTime/totalDone)*100) : 0;
+  const now = new Date();
+  const lastDay = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  const daysLeft = lastDay - now.getDate();
+  $("monthStats").innerHTML = `
+    <div class="stat"><div class="v">${totalDone}</div><div class="l">chores done</div></div>
+    <div class="stat"><div class="v">${onTimePct}%</div><div class="l">on time</div></div>
+    <div class="stat"><div class="v">${totalPts}</div><div class="l">total points</div></div>
+    <div class="stat"><div class="v">${daysLeft}</div><div class="l">days left in month</div></div>`;
+  const sorted = household.people.map((p, i) => ({ ...p, ...m[i] })).sort((a,b) => b.pts - a.pts);
+  $("perPersonMonth").innerHTML = sorted.map(p => `
+    <div class="lb-row">
+      <div class="who">${emojiHtml(p.emoji, 36)}</div>
+      <div class="name">${esc(p.name || p.email.split("@")[0])}<div style="font-size:11px;color:var(--muted);font-weight:400;">${p.done} done · ${p.onTime} on-time · ${p.missed} missed${p.snoozed?" · "+p.snoozed+"× 💤":""}</div></div>
+      <div class="pts ${p.pts < 0 ? "neg" : ""}">${p.pts}<small> pts</small></div>
+    </div>`).join("");
+
+  const treats = household.treats || {};
+  const keys = Object.keys(treats).sort().reverse();
+  $("pastMonths").innerHTML = keys.length ? keys.map(k => {
+    const t = treats[k];
+    if (t.tied && t.tied.length > 1 && (t.loserIdx === undefined || t.loserIdx === null)) {
+      return `<div class="lb-row"><div class="name">${monthName(k)}</div><div class="pts" style="font-size:13px;">tie — needs RPS</div></div>`;
+    }
+    const loser = household.people[t.loserIdx];
+    if (!loser) return `<div class="lb-row"><div class="name">${monthName(k)}<div style="font-size:11px;color:var(--muted);font-weight:400;">former member — ${t.loserPts} pts</div></div></div>`;
+    const cat = t.loserPts <= 0 ? "loser_savage" : "loser_mild";
+    const seed = `${k}:treat:${t.loserIdx}:${cat}`;
+    const nm = loser.name || loser.email.split("@")[0];
+    const line = fillLine(pickLine(cat, seed), { name: nm, pts: t.loserPts });
+    const lang = pickLanguage(seed + ":past");
+    const tag = lang === "en" ? line.en : line.de;
+    return `<div class="lb-row ${t.paid ? "" : "last"}" style="flex-wrap:wrap;">
+      <div class="who">${emojiHtml(loser.emoji, 36)}</div>
+      <div class="name">${monthName(k)}
+        <div style="font-size:11px;color:var(--muted);font-weight:400;">${esc(nm)} — ${t.loserPts} pts ${t.paid ? "· ✅ paid" : "· 🍕 owed"}</div>
+        <div style="font-size:11px;font-style:italic;margin-top:4px;line-height:1.35;opacity:0.85;">${esc(tag)}</div>
+      </div>
+    </div>`;
+  }).join("") : "<i style='color:var(--muted);font-size:13px;'>Past months will appear here once a month ends.</i>";
+}
+
+// MONTHLY SETTLEMENT
+async function maybeSettleLastMonth() {
+  if (!household) return;
+  const now = new Date();
+  const lastMonth = new Date(now.getFullYear(), now.getMonth()-1, 15);
+  const lastKey = monthKeyOf(lastMonth);
+  const treats = household.treats || {};
+  if (treats[lastKey]) return;
+  const scores = scoresMonth(lastKey);
+  const totalActivity = scores.reduce((a,b) => a + b.done + b.missed, 0);
+  if (totalActivity === 0) return;
+  const ranked = scores.map((s, i) => ({ ...s, idx:i })).sort((a,b) => a.pts - b.pts);
+  const minPts = ranked[0].pts;
+  const tied = ranked.filter(r => r.pts === minPts).map(r => r.idx);
+  const entry = { monthKey: lastKey, loserPts: minPts, settledAt: serverTimestamp(), paid: false, tied };
+  if (tied.length === 1) entry.loserIdx = tied[0];
+  else if (tied.length >= 3) { entry.loserIdx = -1; entry.note = "Multi-way tie"; }
+  await patch({ [`treats.${lastKey}`]: entry });
+}
+
+function renderTreatBanner() {
+  const slot = $("treatBannerSlot"); slot.innerHTML = "";
+  const treats = household.treats || {};
+  const keys = Object.keys(treats).sort().reverse();
+  if (!keys.length) return;
+  const k = keys[0]; const t = treats[k];
+  if (t.paid) return;
+  if (t.tied && t.tied.length === 2 && (t.loserIdx === undefined || t.loserIdx === null)) {
+    const a = household.people[t.tied[0]], b = household.people[t.tied[1]];
+    if (!a || !b) return;
+    slot.innerHTML = `<div class="treat-banner">
+      <img class="pizza" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Balance%20scale/3D/balance_scale_3d.png" alt="">
+      <h3>Tie for last! ${monthName(k)}</h3>
+      <p>${emojiHtml(a.emoji, 24)} ${esc(a.name || a.email.split("@")[0])} vs ${emojiHtml(b.emoji, 24)} ${esc(b.name || b.email.split("@")[0])} — both at ${t.loserPts} pts</p>
+      <div class="actions"><button class="btn primary" id="startRps">🪨📄✂️ Play RPS</button></div>
+    </div>`;
+    $("startRps").onclick = () => openRps(k, t.tied);
+    return;
+  }
+  if (t.tied && t.tied.length >= 3) {
+    const names = t.tied.map(i => household.people[i] ? `${emojiHtml(household.people[i].emoji, 20)} ${household.people[i].name || household.people[i].email.split("@")[0]}` : "?").join(", ");
+    slot.innerHTML = `<div class="treat-banner">
+      <img class="pizza" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Pizza/3D/pizza_3d.png" alt="">
+      <h3>${monthName(k)} — group treat!</h3>
+      <p>${names} all tied at ${t.loserPts} pts. Everyone chips in.</p>
+      <div class="actions"><button class="btn primary" data-paid="${k}">✅ Mark paid</button></div>
+    </div>`;
+    slot.querySelector("[data-paid]").onclick = () => markTreatPaid(k);
+    return;
+  }
+  if (typeof t.loserIdx === "number" && t.loserIdx >= 0) {
+    const loser = household.people[t.loserIdx];
+    if (!loser) return;
+    const cat = t.loserPts <= 0 ? "loser_savage" : "loser_mild";
+    const seed = `${k}:treat:${t.loserIdx}:${cat}`;
+    const nm = loser.name || loser.email.split("@")[0];
+    const line = fillLine(pickLine(cat, seed), { name: nm, pts: t.loserPts });
+    slot.innerHTML = `<div class="treat-banner">
+      <img class="pizza" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Pizza/3D/pizza_3d.png" alt="">
+      <h3>${emojiHtml(loser.emoji, 24)} ${esc(nm)}'s treat!</h3>
+      <p style="font-weight:600; margin:6px 0 2px;">${esc(line.en)}</p>
+      <p style="font-style:italic; opacity:0.78; margin:2px 0;">${esc(line.de)}</p>
+      <p style="font-size:11px; opacity:0.65; margin-top:8px;">${monthName(k)} · ${t.loserPts} pts</p>
+      <div class="actions"><button class="btn primary" data-paid="${k}">✅ Mark paid</button></div>
+    </div>`;
+    slot.querySelector("[data-paid]").onclick = () => markTreatPaid(k);
+  }
+}
+async function markTreatPaid(monthKey) {
+  await patch({ [`treats.${monthKey}.paid`]: true, [`treats.${monthKey}.paidAt`]: serverTimestamp() });
+  toast("Treat marked as paid 🍕");
+}
+
+// RPS
+function openRps(monthKey, tiedIdxs) {
+  rpsState = { monthKey, players: tiedIdxs, round: 1, wins: [0,0], picks: [null,null], phase: "p0" };
+  $("rpsBg").classList.add("open"); $("rpsSheet").classList.add("open"); renderRps();
+}
+function closeRpsSheet() { $("rpsBg").classList.remove("open"); $("rpsSheet").classList.remove("open"); rpsState = null; }
+function renderRps() {
+  if (!rpsState) return;
+  const body = $("rpsBody");
+  const p0 = household.people[rpsState.players[0]];
+  const p1 = household.people[rpsState.players[1]];
+  const score = `<div class="rps-score">${emojiHtml(p0.emoji, 24)} ${rpsState.wins[0]} &nbsp;·&nbsp; ${rpsState.wins[1]} ${emojiHtml(p1.emoji, 24)}</div>`;
+  if (rpsState.phase === "p0" || rpsState.phase === "p1") {
+    const pIdx = rpsState.phase === "p0" ? 0 : 1;
+    const p = pIdx === 0 ? p0 : p1;
+    const nm = p.name || p.email.split("@")[0];
+    body.innerHTML = `<h3>Round ${rpsState.round}</h3>
+      <div class="turn">Pass to ${emojiHtml(p.emoji, 20)} ${esc(nm)} — pick (other shouldn't peek)</div>
+      <img class="player-emoji" src="${emojiUrl(p.emoji) || ""}" alt="${p.emoji}">${score}
+      <div class="rps-choices">
+        <button data-c="rock">${emojiHtml("🪨", 54)}</button>
+        <button data-c="paper">${emojiHtml("📄", 54)}</button>
+        <button data-c="scissors">${emojiHtml("✂️", 54)}</button>
+      </div>`;
+    body.querySelectorAll("button[data-c]").forEach(b => b.onclick = () => {
+      rpsState.picks[pIdx] = b.dataset.c;
+      if (pIdx === 0) {
+        rpsState.phase = "p1";
+        const nm1 = p1.name || p1.email.split("@")[0];
+        body.innerHTML = `<h3>Locked in ✓</h3><div class="turn">Now pass to ${emojiHtml(p1.emoji, 20)} ${esc(nm1)}</div>
+          <button class="btn primary lg full" id="rpsContinue" style="margin-top:14px;">Continue</button>`;
+        $("rpsContinue").onclick = renderRps;
+      } else { rpsState.phase = "reveal"; renderRps(); }
+    });
+    return;
+  }
+  if (rpsState.phase === "reveal") {
+    const winner = rpsWinner(rpsState.picks[0], rpsState.picks[1]);
+    if (winner === 0) rpsState.wins[0]++; else if (winner === 1) rpsState.wins[1]++;
+    const cMap = { rock:"🪨", paper:"📄", scissors:"✂️" };
+    const winnerP = winner === 0 ? p0 : (winner === 1 ? p1 : null);
+    const winNm = winnerP ? (winnerP.name || winnerP.email.split("@")[0]) : "";
+    body.innerHTML = `<h3>Round ${rpsState.round} reveal</h3>
+      <div class="rps-reveal">
+        <div class="side ${winner === 0 ? "win" : ""}">${emojiHtml(p0.emoji, 54, "display:block;margin:0 auto;")}${emojiHtml(cMap[rpsState.picks[0]], 54, "display:block;margin:8px auto 0;")}</div>
+        <div class="vs">vs</div>
+        <div class="side ${winner === 1 ? "win" : ""}">${emojiHtml(p1.emoji, 54, "display:block;margin:0 auto;")}${emojiHtml(cMap[rpsState.picks[1]], 54, "display:block;margin:8px auto 0;")}</div>
+      </div>
+      <div class="turn">${winner === -1 ? "Tie — replay round" : `${emojiHtml(winnerP.emoji, 18)} ${esc(winNm)} wins the round`}</div>
+      ${score}
+      <button class="btn primary lg full" id="rpsNext" style="margin-top:14px;">${shouldEndRps() ? "See result" : "Next round"}</button>`;
+    $("rpsNext").onclick = () => {
+      if (shouldEndRps()) finishRps();
+      else { rpsState.round++; rpsState.phase = "p0"; rpsState.picks = [null,null]; renderRps(); }
+    };
+    return;
+  }
+  if (rpsState.phase === "done") {
+    const loserI = rpsState.wins[0] > rpsState.wins[1] ? 1 : 0;
+    const loser = loserI === 0 ? p0 : p1;
+    const nm = loser.name || loser.email.split("@")[0];
+    body.innerHTML = `<h3>${emojiHtml(loser.emoji, 28)} ${esc(nm)} loses!</h3>
+      <p style="text-align:center;">Final: ${emojiHtml(p0.emoji, 18)} ${rpsState.wins[0]} – ${rpsState.wins[1]} ${emojiHtml(p1.emoji, 18)}</p>
+      <p style="text-align:center;">🍕 Time to buy treats!</p>
+      <button class="btn primary lg full" id="rpsConfirm" style="margin-top:14px;">Confirm result</button>`;
+    $("rpsConfirm").onclick = async () => {
+      const loserIdx = rpsState.players[loserI];
+      await patch({ [`treats.${rpsState.monthKey}.loserIdx`]: loserIdx, [`treats.${rpsState.monthKey}.rpsWins`]: rpsState.wins });
+      closeRpsSheet(); toast(`${loser.emoji} ${nm} owes treats!`);
+    };
+  }
+}
+function rpsWinner(a,b) { if (a===b) return -1; const beats={rock:"scissors",paper:"rock",scissors:"paper"}; return beats[a]===b ? 0 : 1; }
+function shouldEndRps() { return rpsState.wins[0] >= 2 || rpsState.wins[1] >= 2 || rpsState.round >= 3; }
+function finishRps() { rpsState.phase = "done"; renderRps(); }
+
+// REPORT
+function buildReport() {
+  const now = new Date();
+  const mk = monthKeyOf(now);
+  const m = scoresMonth(mk);
+  const ranked = household.people.map((p,i) => ({ ...p, ...m[i] })).sort((a,b) => b.pts - a.pts);
+  let txt = `${household.name || "Tidy Team"} — ${monthName(mk)}\n\n🏆 Leaderboard:\n`;
+  ranked.forEach((p, i) => {
+    const nm = p.name || p.email.split("@")[0];
+    txt += `${i+1}. ${p.emoji} ${nm} — ${p.pts} pts (${p.done} done, ${p.onTime} on-time, ${p.missed} missed)\n`;
+  });
+  const totalDone = m.reduce((a,b) => a+b.done, 0);
+  const onTimePct = totalDone ? Math.round((m.reduce((a,b) => a+b.onTime, 0)/totalDone)*100) : 0;
+  txt += `\n📊 House total: ${totalDone} chores · ${onTimePct}% on time\n\n🍕 Lowest scorer of the month buys treats!`;
+  return { subject:`${household.name || "Tidy Team"} — ${monthName(mk)}`, body:txt };
+}
+
+// SETTINGS
+function renderSettings() {
+  const me = meIdx();
+  if (me >= 0) {
+    const p = household.people[me];
+    $("profileEmoji").innerHTML = emojiHtml(p.emoji, 54);
+    $("profileName").value = p.name || "";
+    $("profileEmail").textContent = p.email;
+    $("profileEmoji").onclick = () => openEmojiPicker(me);
+    $("profileName").onchange = e => {
+      const people = [...household.people]; people[me] = { ...people[me], name: e.target.value };
+      patch({ people });
+    };
+    show("profileCard");
+  } else { hide("profileCard"); }
+
+  $("settingsName").value = household.name || "";
+  $("memberCount").textContent = `${household.people.length}/${MAX_MEMBERS}`;
+
+  const peopleEdit = $("peopleEdit");
+  peopleEdit.innerHTML = household.people.map((p, i) => {
+    const isMe = (p.email || "").toLowerCase() === (user.email || "").toLowerCase();
+    return `<div class="person-row">
+      <button class="em" data-emoji-idx="${i}">${emojiHtml(p.emoji, 36)}</button>
+      <div class="info-col">
+        <div class="nm"><input type="text" data-name-idx="${i}" value="${esc(p.name)}" placeholder="${esc(p.email.split("@")[0])}" style="background:transparent;border:none;color:var(--text);font-size:14px;font-weight:600;width:100%;padding:0;"></div>
+        <div class="em-line">${esc(p.email)}${isMe?" · you":""}</div>
+        <div class="em-line"><input type="tel" data-phone-idx="${i}" placeholder="phone (e.g. +49…)" value="${esc(p.phone||"")}" style="background:transparent;border:none;color:var(--muted);font-size:11px;width:100%;padding:0;"></div>
+      </div>
+      <button class="btn danger" data-remove-idx="${i}" ${household.people.length <= MIN_MEMBERS ? "disabled" : ""}>×</button>
+    </div>`;
+  }).join("");
+
+  const choresEdit = $("choresEdit");
+  choresEdit.innerHTML = household.chores.map((c, i) => `
+    <div class="chore-row">
+      <input type="text" data-chore-idx="${i}" value="${esc(c)}">
+      <button class="btn danger" data-remove-chore="${i}" ${household.chores.length <= MIN_CHORES ? "disabled" : ""}>×</button>
+    </div>`).join("");
+
+  $("inviteBox").textContent = inviteUrl();
+  $("anchor").value = household.anchor;
+  $("emailRecipients").value = household.emailTo || "";
+
+  peopleEdit.querySelectorAll("[data-name-idx]").forEach(inp => inp.onchange = e => {
+    const i = +e.target.dataset.nameIdx;
+    const people = [...household.people]; people[i] = { ...people[i], name: e.target.value };
+    patch({ people });
+  });
+  peopleEdit.querySelectorAll("[data-phone-idx]").forEach(inp => inp.onchange = e => {
+    const i = +e.target.dataset.phoneIdx;
+    const people = [...household.people]; people[i] = { ...people[i], phone: e.target.value };
+    patch({ people });
+  });
+  peopleEdit.querySelectorAll("[data-emoji-idx]").forEach(el => el.onclick = e => {
+    const idx = +(e.currentTarget.dataset.emojiIdx);
+    openEmojiPicker(idx);
+  });
+  peopleEdit.querySelectorAll("[data-remove-idx]").forEach(b => b.onclick = () => removeMember(+b.dataset.removeIdx));
+
+  choresEdit.querySelectorAll("[data-chore-idx]").forEach(inp => inp.onchange = e => {
+    const i = +e.target.dataset.choreIdx;
+    const chores = [...household.chores]; chores[i] = e.target.value;
+    patch({ chores });
+  });
+  choresEdit.querySelectorAll("[data-remove-chore]").forEach(b => b.onclick = () => removeChore(+b.dataset.removeChore));
+
+  $("settingsName").onchange = e => patch({ name: e.target.value || "My household" });
+  $("anchor").onchange = e => patch({ anchor: e.target.value || mondayStr(new Date()) });
+  $("emailRecipients").onchange = e => patch({ emailTo: e.target.value });
+  updateNotifStatus();
+}
+
+async function removeMember(i) {
+  if (household.people.length <= MIN_MEMBERS) { toast("Need at least 1 member"); return; }
+  const p = household.people[i];
+  const nm = p.name || p.email.split("@")[0];
+  const msg = (p.email || "").toLowerCase() === user.email.toLowerCase()
+    ? `Remove yourself? You'll be signed out of this household.`
+    : `Remove ${p.emoji} ${nm}? Their past completions stay in records but they won't get new chores.`;
+  if (!confirm(msg)) return;
+  const people = household.people.filter((_, idx) => idx !== i);
+  const memberEmails = people.map(p => (p.email || "").toLowerCase());
+  await patch({ people, memberEmails });
+  if ((p.email || "").toLowerCase() === user.email.toLowerCase()) {
+    await setDoc(doc(db, "users", user.uid), { householdId: deleteField() }, { merge: true });
+  }
+  toast(`Removed ${nm}`);
+}
+
+async function removeChore(i) {
+  if (household.chores.length <= MIN_CHORES) { toast("Need at least 1 chore"); return; }
+  if (!confirm(`Remove chore "${household.chores[i]}"?`)) return;
+  const chores = household.chores.filter((_, idx) => idx !== i);
+  await patch({ chores });
+}
+
+function openEmojiPicker(idx) {
+  editingEmojiIdx = idx;
+  renderEmojiGrid("emojiGrid", household.people[idx].emoji, async (e) => {
+    const people = [...household.people]; people[editingEmojiIdx] = { ...people[editingEmojiIdx], emoji: e };
+    await patch({ people }); closeEmojiSheet();
+  });
+  $("emojiBg").classList.add("open"); $("emojiSheet").classList.add("open");
+}
+const closeEmojiSheet = () => { $("emojiBg").classList.remove("open"); $("emojiSheet").classList.remove("open"); };
+
+function openAddMember() {
+  if (household.people.length >= MAX_MEMBERS) { toast(`Max ${MAX_MEMBERS} members`); return; }
+  $("addEmail").value = ""; $("addName").value = "";
+  addMemberEmoji = EMOJIS[(household.people.length * 7) % EMOJIS.length];
+  const refresh = () => renderEmojiGrid("addEmojiGrid", addMemberEmoji, (e) => { addMemberEmoji = e; refresh(); });
+  refresh();
+  $("addBg").classList.add("open"); $("addSheet").classList.add("open");
+}
+const closeAddSheet = () => { $("addBg").classList.remove("open"); $("addSheet").classList.remove("open"); };
+
+$("addSubmit").onclick = async () => {
+  const email = $("addEmail").value.trim().toLowerCase();
+  const name = $("addName").value.trim();
+  if (!email.includes("@")) { toast("Invalid email"); return; }
+  if (household.memberEmails.map(e => e.toLowerCase()).includes(email)) { toast("Already added"); return; }
+  if (household.people.length >= MAX_MEMBERS) { toast(`Max ${MAX_MEMBERS} members`); return; }
+  const people = [...household.people, { email, name, emoji: addMemberEmoji, phone: "" }];
+  const memberEmails = people.map(p => p.email.toLowerCase());
+  await patch({ people, memberEmails });
+  closeAddSheet();
+  toast(`Added ${name || email}. Send them the invite link.`);
+};
+
+async function addChore() {
+  if (household.chores.length >= MAX_CHORES) { toast(`Max ${MAX_CHORES} chores`); return; }
+  const name = prompt("New chore name?");
+  if (!name || !name.trim()) return;
+  await patch({ chores: [...household.chores, name.trim()] });
+}
+
+async function leaveHousehold() {
+  const isLast = household.people.length === 1;
+  const msg = isLast
+    ? `You're the last member. Leaving will permanently delete this household and all its data. Continue?`
+    : `Leave ${household.name || "this household"}? You can rejoin if invited again.`;
+  if (!confirm(msg)) return;
+  const myEmail = user.email.toLowerCase();
+  if (isLast) {
+    try { await deleteDoc(doc(db, "households", householdId)); } catch (e) { toast("Delete failed: " + e.code); return; }
+  } else {
+    const people = household.people.filter(p => (p.email || "").toLowerCase() !== myEmail);
+    const memberEmails = people.map(p => p.email.toLowerCase());
+    await patch({ people, memberEmails });
+  }
+  await setDoc(doc(db, "users", user.uid), { householdId: deleteField() }, { merge: true });
+  closeSettings(); showSplash("noHousehold"); toast("Left household");
+}
+
+const openSettings = () => { renderSettings(); $("sheetBg").classList.add("open"); $("sheet").classList.add("open"); };
+const closeSettings = () => { $("sheetBg").classList.remove("open"); $("sheet").classList.remove("open"); };
+
+function updateMeSubtitle() {
+  const me = meIdx();
+  $("householdNameDisplay").textContent = household.name || "My household";
+  if (me >= 0) {
+    const p = household.people[me];
+    const nm = p.name || p.email.split("@")[0];
+    $("meSubtitle").innerHTML = `<span class="sync-dot"></span> ${emojiHtml(p.emoji, 14)} ${esc(nm)}`;
+  } else $("meSubtitle").innerHTML = `<span class="sync-dot"></span> signed in`;
+}
+
+// NOTIFICATIONS
+let messaging = null;
+async function setupMessaging() {
+  if (!(await isSupported().catch(() => false))) return;
+  messaging = getMessaging(app);
+  onMessage(messaging, (payload) => {
+    const { title, body } = payload.notification || {};
+    if (Notification.permission === "granted") new Notification(title || "Tidy Team", { body: body || "" });
+  });
+}
+async function enableNotifications() {
+  if (!("Notification" in window)) { toast("Not supported"); return; }
+  const perm = await Notification.requestPermission();
+  if (perm !== "granted") { updateNotifStatus(); return; }
+  if (!messaging) await setupMessaging();
+  try {
+    const reg = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
+    const token = await getToken(messaging, { vapidKey: VAPID_KEY, serviceWorkerRegistration: reg });
+    if (token) {
+      await setDoc(doc(db, "users", user.uid), { fcmToken: token, fcmUpdated: serverTimestamp() }, { merge: true });
+      new Notification("🧹 Tidy Team", { body: "Notifications enabled!" });
+      toast("Notifications on");
+    }
+  } catch (e) { toast("Couldn't get token: " + (e.code || e.message)); }
+  updateNotifStatus();
+}
+function updateNotifStatus() {
+  const el = $("notifStatus");
+  if (!("Notification" in window)) { el.textContent = "❌ Not supported."; return; }
+  if (Notification.permission === "granted") el.textContent = "✅ Enabled. Background pushes need Phase 2 backend; local notifications fire while app is open.";
+  else if (Notification.permission === "denied") el.textContent = "⚠️ Blocked. Enable in browser settings.";
+  else el.textContent = "Tap to grant permission.";
+}
+function checkLocalReminders() {
+  if (!user || !household || Notification.permission !== "granted") return;
+  const me = meIdx(); if (me < 0) return;
+  const m = mondayOf(new Date());
+  for (let i = 0; i < household.chores.length; i++) {
+    if (personForChore(m, i) !== me) continue;
+    const st = choreStatus(m, i);
+    if (st.state === "snoozed") continue;
+    const lk = `notif-${householdId}-${isoWeekKey(m)}-c${i}-${st.state}`;
+    if (localStorage.getItem(lk)) continue;
+    if (st.state === "late") { new Notification("⏰ Chore reminder", { body: `Your chore "${household.chores[i]}" is due in a few days.` }); localStorage.setItem(lk, "1"); }
+    else if (st.state === "urgent") { new Notification("🚨 Overdue!", { body: `"${household.chores[i]}" is overdue. Roommates can nudge you.` }); localStorage.setItem(lk, "1"); }
+    else if (st.state === "missed") { new Notification("💔 Chore missed", { body: `"${household.chores[i]}" wasn't done — −5 pts this week.` }); localStorage.setItem(lk, "1"); }
+  }
+}
+
+// TABS
+document.querySelectorAll(".pill-tabs button").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".pill-tabs button").forEach(x => x.classList.remove("active"));
+  b.classList.add("active");
+  document.querySelectorAll(".tab").forEach(t => t.style.display = "none");
+  $("tab-" + b.dataset.tab).style.display = "";
+  if (b.dataset.tab === "board") renderBoard();
+  if (b.dataset.tab === "stats") renderStats();
+});
+
+// WIRE UP
+$("prev").onclick = () => { viewMonday = addDays(viewMonday, -7); renderWeek(); };
+$("next").onclick = () => { viewMonday = addDays(viewMonday, 7); renderWeek(); };
+$("openSettings").onclick = openSettings;
+$("closeSettings").onclick = closeSettings;
+$("saveClose").onclick = closeSettings;
+$("sheetBg").onclick = closeSettings;
+$("closeEmoji").onclick = closeEmojiSheet;
+$("emojiBg").onclick = closeEmojiSheet;
+$("closeSnooze").onclick = closeSnoozeSheet;
+$("snoozeBg").onclick = closeSnoozeSheet;
+$("closeRps").onclick = closeRpsSheet;
+$("addMemberBtn").onclick = openAddMember;
+$("closeAdd").onclick = closeAddSheet;
+$("addBg").onclick = closeAddSheet;
+$("addChoreBtn").onclick = addChore;
+$("leaveHouseholdBtn").onclick = leaveHousehold;
+$("enableNotif").onclick = enableNotifications;
+$("closeAction").onclick = closeActionSheet;
+$("actionBg").onclick = closeActionSheet;
+$("copyInvite").onclick = () => { navigator.clipboard?.writeText(inviteUrl()); toast("Invite link copied"); };
+$("shareInvite").onclick = async () => {
+  const url = inviteUrl();
+  if (navigator.share) { try { await navigator.share({ title: household.name || "Tidy Team", text: `Join my Tidy Team household:`, url }); } catch {} }
+  else { navigator.clipboard?.writeText(url); toast("Invite link copied"); }
+};
+$("copyReport").onclick = () => { const r = buildReport(); navigator.clipboard?.writeText(`${r.subject}\n\n${r.body}`); toast("Report copied"); };
+$("emailReport").onclick = () => { const r = buildReport(); const to = household.emailTo || ""; window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(r.subject)}&body=${encodeURIComponent(r.body)}`; };
+$("howItWorks").onclick = () => { $("infoPop").classList.toggle("open"); };
+
+function applyTheme(t) {
+  document.documentElement.setAttribute("data-theme", t);
+  localStorage.setItem("theme", t);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.content = t === "dark" ? "#0f1115" : "#f7f8fa";
+  const btn = $("themeToggle");
+  if (btn) btn.textContent = t === "dark" ? "☀️" : "🌙";
+}
+$("themeToggle").onclick = () => {
+  const current = document.documentElement.getAttribute("data-theme") || "light";
+  applyTheme(current === "dark" ? "light" : "dark");
+};
+applyTheme(document.documentElement.getAttribute("data-theme") || "light");
+document.addEventListener("click", (e) => {
+  const pop = $("infoPop"); const btn = $("howItWorks");
+  if (pop.classList.contains("open") && !pop.contains(e.target) && e.target !== btn && !btn.contains(e.target)) pop.classList.remove("open");
+});
+
+function renderAll() {
+  renderTreatBanner();
+  renderWeek();
+  updateMeSubtitle();
+  const active = document.querySelector(".pill-tabs button.active")?.dataset.tab;
+  if (active === "board") renderBoard();
+  if (active === "stats") renderStats();
+  checkLocalReminders();
+}
+
+setInterval(checkLocalReminders, 30 * 60 * 1000);
+setInterval(() => { if (household) renderAll(); }, 60 * 1000);
+setupMessaging();
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function emailLower() { return request.auth.token.email.lower(); }
+
+    match /households/{id} {
+      allow create: if signedIn()
+        && request.resource.data.memberEmails is list
+        && request.resource.data.memberEmails.size() >= 1
+        && emailLower() in request.resource.data.memberEmails;
+      allow read: if signedIn() && emailLower() in resource.data.memberEmails;
+      allow update: if signedIn() && emailLower() in resource.data.memberEmails;
+      allow delete: if signedIn()
+        && resource.data.memberEmails.size() <= 1
+        && emailLower() in resource.data.memberEmails;
+    }
+
+    match /users/{uid} {
+      allow read, write: if signedIn() && request.auth.uid == uid;
+    }
+  }
+}
