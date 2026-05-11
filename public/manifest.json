@@ -3,7 +3,9 @@
   "short_name": "Tidy Team",
   "description": "Household chore rotation for the team",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "background_color": "#f7f8fa",
   "theme_color": "#f7f8fa",
   "orientation": "portrait",
@@ -18,7 +20,15 @@
       "src": "https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Broom/3D/broom_3d.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Open chores",
+      "short_name": "Chores",
+      "url": "/",
+      "description": "Jump back into this week's Tidy Team chores"
     }
   ]
 }
