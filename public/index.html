@@ -114,7 +114,7 @@
   .wrap { max-width:560px; min-height:100vh; margin:0 auto; padding:calc(12px + env(safe-area-inset-top)) 16px calc(164px + env(safe-area-inset-bottom)); }
 
   /* Splash */
-  .splash { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:calc(24px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom)); }
+  .splash { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:calc(24px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom)); }
   .splash .card { max-width:460px; text-align:center; padding:0; width:100%; overflow:hidden; border-radius:30px; }
   .splash-hero { position:relative; padding:28px 24px 22px; color:#fff; background:
     linear-gradient(135deg, rgba(67,56,202,0.96), rgba(99,102,241,0.92) 52%, rgba(16,185,129,0.90));
@@ -126,14 +126,58 @@
     background:#fff; border-radius:24px; padding:8px; filter:drop-shadow(0 16px 22px rgba(15,23,42,0.22)); }
   .splash-body { padding:22px 24px 26px; background:var(--card); }
   .splash-chips { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:18px; }
-  .splash-chip { background:var(--bg); border:1px solid var(--border); border-radius:16px; padding:10px 8px; color:var(--muted); font-size:11px; font-weight:750; line-height:1.25; }
-  .splash-chip b { display:block; color:var(--text); font-size:16px; margin-bottom:3px; }
+  .splash-chip { background:rgba(255,255,255,0.045); border:1px solid rgba(148,163,184,0.18); border-radius:16px; padding:9px 8px 10px; color:var(--text-soft); font-size:12px; font-weight:800; line-height:1.2; box-shadow:inset 0 1px 0 rgba(255,255,255,0.04); }
+  .splash-chip img { width:42px; height:42px; object-fit:contain; display:block; margin:0 auto 6px; border-radius:12px; background:#fff; }
   .gbtn { display:inline-flex; align-items:center; gap:10px; background:#fff; color:#1f2937;
     border:1px solid var(--border); padding:14px 22px; border-radius:16px; font-size:15px; font-weight:800;
     cursor:pointer; box-shadow:var(--shadow-sm); transition:all .15s ease; }
   .gbtn:hover { box-shadow:var(--shadow-md); transform:translateY(-1px); }
   .gbtn:active { transform:translateY(0); }
   .splash .splash-note { margin:16px auto 0; color:#8f96a3; font-size:12px; line-height:1.45; max-width:300px; text-align:center; }
+  .state-card { max-width:460px; width:100%; overflow:hidden; border-radius:30px; text-align:center; padding:0; }
+  .state-hero { position:relative; padding:34px 24px 30px; color:#fff; background:
+    linear-gradient(135deg, rgba(67,56,202,0.96), rgba(99,102,241,0.92) 52%, rgba(16,185,129,0.90)); }
+  .state-hero::after { content:""; position:absolute; right:-58px; top:-62px; width:170px; height:170px; border-radius:999px; background:rgba(255,255,255,0.14); }
+  .state-icon { position:relative; z-index:1; width:86px; height:86px; margin:0 auto 16px; display:grid; place-items:center;
+    border-radius:26px; background:#fff; color:#ef4444; font-size:44px; box-shadow:0 18px 30px rgba(15,23,42,0.22); }
+  .state-icon img { width:68px; height:68px; object-fit:contain; display:block; }
+  .state-hero h1 { position:relative; z-index:1; margin:0 0 10px; color:#fff; font-size:32px; font-weight:850; letter-spacing:-0.03em; }
+  .splash .state-hero p { position:relative; z-index:1; margin:0 auto; max-width:330px; color:rgba(255,255,255,0.84); font-size:15px; line-height:1.45; }
+  .splash .state-body { padding:46px 30px 40px; background:var(--card); display:flex; flex-direction:column; align-items:center; }
+  .splash .state-message { margin:0 0 36px; color:var(--text-soft); font-size:14px; line-height:1.55; max-width:360px; text-align:center; }
+  .splash .state-message b, .splash .state-message code { color:var(--text); font-weight:850; }
+  .splash .state-message .account-line { display:block; color:var(--text-soft); white-space:nowrap; font-size:13px; font-weight:650; }
+  .splash .state-message .account-line b { font-size:13px; }
+  .splash .state-message .detail { display:block; margin-top:18px; color:var(--muted); font-size:13px; font-weight:650; }
+  .splash .state-body .btn { width:100%; max-width:330px; margin-left:auto; margin-right:auto; }
+  .setup-card { max-width:460px; width:100%; overflow:hidden; border-radius:30px; text-align:center; padding:0; }
+  .setup-hero { position:relative; overflow:hidden; padding:32px 24px 28px; color:#fff; background:
+    linear-gradient(135deg, rgba(67,56,202,0.96), rgba(99,102,241,0.92) 52%, rgba(16,185,129,0.90)); }
+  .setup-hero::after { content:""; position:absolute; right:-54px; top:-58px; width:170px; height:170px; border-radius:999px; background:rgba(255,255,255,0.14); }
+  .setup-hero .hero-emoji { width:104px; height:104px; margin:0 auto 18px; }
+  .setup-hero h1 { position:relative; z-index:1; margin:0 0 10px; color:#fff; font-size:32px; font-weight:850; letter-spacing:-0.03em; }
+  .splash .setup-hero p { position:relative; z-index:1; margin:0 auto; max-width:330px; color:rgba(255,255,255,0.84); font-size:15px; line-height:1.45; }
+  .setup-body { padding:24px; background:var(--card); }
+  .setup-actions { display:grid; gap:14px; margin-bottom:20px; }
+  .setup-action { width:100%; display:grid; grid-template-columns:38px 1fr auto; align-items:center; gap:12px;
+    padding:14px; border-radius:18px; border:1px solid var(--border); background:var(--bg); color:var(--text);
+    text-align:left; cursor:pointer; box-shadow:var(--shadow-sm); transition:all .15s ease; }
+  .setup-action:hover { transform:translateY(-1px); box-shadow:var(--shadow-md); }
+  .setup-action.primary { background:var(--primary); border-color:var(--primary); color:#fff; }
+  .setup-action .mark { width:38px; height:38px; display:grid; place-items:center; border-radius:14px;
+    background:rgba(255,255,255,0.18); font-size:20px; }
+  .setup-action:not(.primary) .mark { background:var(--card); }
+  .setup-action b { display:block; font-size:15px; line-height:1.2; }
+  .setup-action span { display:block; margin-top:3px; color:currentColor; opacity:0.72; font-size:12px; font-weight:650; line-height:1.3; }
+  .setup-action .chev { opacity:0.58; font-size:22px; font-weight:700; }
+  .setup-signout { margin-top:12px; background:rgba(148,163,184,0.12); color:var(--text-soft);
+    border-color:rgba(148,163,184,0.24); }
+  .setup-signout:hover { background:rgba(148,163,184,0.18); color:var(--text); }
+  .bug-report-btn { margin-top:10px; color:var(--muted); border-style:dashed; }
+  .bug-report-btn:hover { color:var(--text); border-color:var(--border-strong); }
+  .setup-outside-report { margin:14px auto 0; max-width:460px; width:100%; display:flex; justify-content:center; flex:0 0 auto; }
+  .setup-outside-report .bug-report-btn { width:auto; padding:10px 16px; border-radius:999px; background:rgba(255,255,255,0.06);
+    border:1px solid var(--border); border-style:solid; box-shadow:none; }
 
   /* Header */
   header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; gap:10px; padding:10px;
@@ -154,10 +198,15 @@
   .sub-pill .e3d { width:16px !important; height:16px !important; }
   .sub-pill.person-pill { background:var(--primary-soft); color:var(--primary-text); border-color:rgba(99,102,241,0.20); }
   .sub-pill.live { color:var(--success-text); background:var(--success-soft); border-color:rgba(16,185,129,0.18); }
-  .header-right { display:flex; gap:6px; flex:0 0 auto; align-items:center; }
+  .person-status { display:inline-flex; align-items:center; gap:7px; min-height:22px; color:var(--text-soft); font-weight:760; }
+  .person-status .e3d { width:17px !important; height:17px !important; }
+  .online-dot { width:8px; height:8px; border-radius:999px; background:var(--success);
+    box-shadow:0 0 0 4px rgba(16,185,129,0.14); flex:0 0 auto; }
+  :root[data-theme="dark"] .online-dot { box-shadow:0 0 0 4px rgba(52,211,153,0.14); }
+  .header-right { display:grid; grid-template-columns:repeat(3, 46px); gap:8px; flex:0 0 auto; align-items:center; justify-content:end; align-self:center; }
   .icon-btn { position:relative; overflow:hidden; background:rgba(255,255,255,0.74);
     border:1px solid var(--border); color:var(--text);
-    border-radius:18px; min-width:46px; height:46px; padding:0 16px; font-size:15px; cursor:pointer;
+    border-radius:18px; width:46px; min-width:46px; height:46px; padding:0; font-size:15px; cursor:pointer;
     display:flex; align-items:center; justify-content:center; gap:11px; transition:all .15s ease; box-shadow:var(--shadow-sm);
     font-weight:750; letter-spacing:-0.01em; }
   :root[data-theme="dark"] .icon-btn { background:rgba(26,30,38,0.82); }
@@ -172,14 +221,13 @@
 
   @media (max-width: 900px) {
     .icon-btn .label { display:none; }
-    .icon-btn { width:46px; min-width:46px; padding:0; }
   }
 
   @media (max-width: 560px) {
-    header { align-items:flex-start; }
-    .header-right { align-self:flex-start; }
+    header { align-items:center; }
+    .header-right { grid-template-columns:repeat(3, 42px); gap:7px; align-self:center; }
     .brand-text h1 { font-size:15px; max-width:190px; }
-    .icon-btn { width:40px; min-width:40px; height:40px; border-radius:14px; }
+    .icon-btn { width:42px; min-width:42px; height:42px; border-radius:15px; }
     .icon-btn .ui-icon { width:18px; height:18px; }
   }
 
@@ -214,17 +262,18 @@
   .brief-stat .l { font-size:10px; line-height:1.25; opacity:0.78; margin-top:7px; text-transform:uppercase; letter-spacing:0.06em; }
 
   /* Tabs */
-  .pill-tabs { position:fixed; left:50%; bottom:calc(28px + env(safe-area-inset-bottom)); transform:translateX(-50%);
+  .pill-tabs { position:fixed; left:50%; bottom:calc(24px + env(safe-area-inset-bottom)); transform:translateX(-50%);
     width:min(528px, calc(100vw - 28px)); display:grid; grid-template-columns:repeat(3,1fr); gap:6px;
-    margin:0; background:rgba(255,255,255,0.78); padding:7px; border-radius:24px; border:1px solid var(--border);
-    box-shadow:0 20px 48px rgba(15,23,42,0.20), 0 2px 8px rgba(15,23,42,0.08);
-    backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); z-index:45; }
-  :root[data-theme="dark"] .pill-tabs { background:rgba(26,30,38,0.82); }
+    margin:0; background:linear-gradient(135deg, rgba(255,255,255,0.52), rgba(255,255,255,0.28));
+    padding:7px; border-radius:26px; border:1px solid rgba(255,255,255,0.72);
+    box-shadow:0 18px 42px rgba(15,23,42,0.15), inset 0 1px 0 rgba(255,255,255,0.72), inset 0 -1px 0 rgba(255,255,255,0.26);
+    backdrop-filter:blur(30px) saturate(1.75); -webkit-backdrop-filter:blur(30px) saturate(1.75); z-index:45; }
+  :root[data-theme="dark"] .pill-tabs { background:linear-gradient(135deg, rgba(30,35,45,0.48), rgba(20,24,31,0.28)); border-color:rgba(255,255,255,0.12); box-shadow:0 22px 54px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(255,255,255,0.04); }
   .pill-tabs button { min-height:50px; background:transparent; color:var(--muted); border:none;
     padding:8px 6px; border-radius:18px; font-size:12px; font-weight:800; cursor:pointer; transition:all .15s ease;
     display:flex; align-items:center; justify-content:center; gap:7px; }
-  .pill-tabs button.active { background:var(--text); color:var(--bg); box-shadow:var(--shadow-sm); }
-  :root[data-theme="dark"] .pill-tabs button.active { background:var(--card); color:var(--text); }
+  .pill-tabs button.active { background:rgba(17,24,39,0.86); color:#fff; box-shadow:0 10px 24px rgba(15,23,42,0.18); }
+  :root[data-theme="dark"] .pill-tabs button.active { background:rgba(255,255,255,0.13); color:var(--text); border:1px solid rgba(255,255,255,0.08); }
   .tab-icon { width:20px; height:20px; object-fit:contain; flex-shrink:0; }
 
   /* Week nav */
@@ -463,6 +512,26 @@
   .section-title { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:16px 4px 10px; }
   .section-title h2 { margin:0; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
   .section-title span { color:var(--muted); font-size:12px; font-weight:650; }
+  .activity-card { margin:0 0 14px; padding:12px; border-radius:22px; background:var(--card);
+    border:1px solid var(--border); box-shadow:var(--shadow-sm); }
+  .activity-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
+  .activity-head h2 { margin:0; font-size:12px; color:var(--muted); font-weight:850; letter-spacing:0.08em; text-transform:uppercase; }
+  .activity-head span { color:var(--muted); font-size:11px; font-weight:750; }
+  .activity-list { display:flex; flex-direction:column; gap:8px; }
+  .activity-item { display:grid; grid-template-columns:34px 1fr; gap:10px; align-items:center; padding:9px;
+    border-radius:16px; background:var(--bg); border:1px solid color-mix(in srgb, var(--border) 72%, transparent); }
+  .activity-icon { width:34px; height:34px; display:grid; place-items:center; border-radius:12px;
+    background:var(--card); box-shadow:var(--shadow-sm); font-size:17px; }
+  .activity-copy { min-width:0; }
+  .activity-copy .line { font-size:13px; font-weight:760; color:var(--text); line-height:1.25; }
+  .activity-copy .meta { margin-top:3px; color:var(--muted); font-size:11px; font-weight:650; }
+  .activity-empty { padding:10px; color:var(--muted); font-size:12px; text-align:center; }
+  .latest-activity { margin:-4px 0 14px; padding:9px 11px; border-radius:16px; background:var(--card);
+    border:1px solid var(--border); box-shadow:var(--shadow-sm); color:var(--muted); font-size:12px; font-weight:680;
+    display:flex; align-items:center; justify-content:space-between; gap:10px; cursor:pointer; }
+  .latest-activity strong { color:var(--text); font-weight:800; }
+  .latest-activity .latest-copy { min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .latest-activity .latest-go { color:var(--primary-text); font-weight:850; flex:0 0 auto; }
 
   @media (min-width: 540px) {
     .wrap { padding-left:22px; padding-right:22px; }
@@ -482,17 +551,23 @@
     .brand-text .app-name { font-size:10px; }
     .sub { font-size:12px; gap:5px; }
     .sub-pill { padding:3px 7px; }
-    .header-right { gap:5px; }
-    .icon-btn { height:42px; min-width:42px; border-radius:15px; padding:0 11px; font-size:14px; }
-    .icon-btn.compact { width:42px; min-width:42px; padding:0; }
-    .icon-btn .ui-icon { width:19px; height:19px; }
+    .header-right { grid-template-columns:repeat(3, 40px); gap:6px; }
+    .icon-btn, .icon-btn.compact { width:40px; min-width:40px; height:40px; border-radius:14px; padding:0; font-size:14px; }
+    .icon-btn .ui-icon { width:18px; height:18px; }
     .icon-btn .label { display:none; }
     .brief-grid { gap:6px; }
     .brief-stat { padding:9px 8px; }
   }
 
-  /* Loading spinner */
-  .splash-loading { min-height:100vh; display:flex; align-items:center; justify-content:center; }
+  /* Loading */
+  .splash-loading { min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:calc(24px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom)); }
+  .loading-card { width:min(360px, 100%); padding:34px 26px; border-radius:30px; background:var(--card);
+    border:1px solid var(--border); box-shadow:var(--shadow-lg); text-align:center; }
+  .loading-card img { width:96px; height:96px; object-fit:contain; display:block; margin:0 auto 18px;
+    background:#fff; border-radius:24px; padding:8px; filter:drop-shadow(0 16px 22px rgba(15,23,42,0.18)); }
+  .loading-card h1 { margin:0 0 8px; font-size:24px; letter-spacing:-0.03em; }
+  .loading-card p { margin:0 auto; color:var(--muted); font-size:13px; line-height:1.45; max-width:260px; }
   .spinner { width:32px; height:32px; border:3px solid var(--border); border-top-color:var(--primary);
     border-radius:50%; animation:spin .8s linear infinite; }
   @keyframes spin { to { transform:rotate(360deg); } }
@@ -512,7 +587,13 @@
 <body>
 
 <!-- LOADING -->
-<div class="splash-loading" id="loading"><div class="spinner"></div></div>
+<div class="splash-loading" id="loading">
+  <div class="loading-card">
+    <img src="/icons/loading.gif" alt="">
+    <h1>Getting your house ready</h1>
+    <p>Syncing your household, scores, and chore drama.</p>
+  </div>
+</div>
 
 <!-- SIGN IN -->
 <div class="splash" id="splash" style="display:none">
@@ -524,9 +605,9 @@
     </div>
     <div class="splash-body">
       <div class="splash-chips" aria-label="App highlights">
-        <div class="splash-chip"><b>Live</b>sync</div>
-        <div class="splash-chip"><b>+10</b>points</div>
-        <div class="splash-chip"><b>🍕</b>treats</div>
+        <div class="splash-chip"><img src="/icons/live.gif" alt="">Sync</div>
+        <div class="splash-chip"><img src="/icons/ten.gif" alt="">Points</div>
+        <div class="splash-chip"><img src="/icons/pizza.gif" alt="">Treats</div>
       </div>
       <button class="gbtn" id="signInBtn">
         <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
@@ -539,24 +620,47 @@
 
 <!-- NO HOUSEHOLD -->
 <div class="splash" id="noHousehold" style="display:none">
-  <div class="card">
-    <img class="hero-emoji" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/House/3D/house_3d.png" alt="" onerror="this.style.display='none'">
-    <h1>Welcome!</h1>
-    <p>You're signed in. Now create a household or join one your friend invited you to.</p>
-    <button class="btn primary lg full" id="openCreate" style="margin-bottom:8px;">🏠 Create a household</button>
-    <button class="btn lg full" id="openJoin">🎟️ Join with invite link</button>
-    <button class="btn ghost full" id="signOutNH" style="margin-top:18px;">Sign out</button>
+  <div class="card setup-card">
+    <div class="setup-hero">
+      <img class="hero-emoji" src="/icons/cleaning-cart.gif" alt="">
+      <h1>Set up your house</h1>
+      <p>Create your chore arena or join the one your roommate already started.</p>
+    </div>
+    <div class="setup-body">
+      <div class="setup-actions">
+        <button class="setup-action primary" id="openCreate">
+          <span class="mark">🏠</span>
+          <span><b>Create a household</b><span>Start fresh with chores, roommates, and the first rotation.</span></span>
+          <span class="chev">›</span>
+        </button>
+        <button class="setup-action" id="openJoin">
+          <span class="mark">🎟️</span>
+          <span><b>Join with invite link</b><span>Use a roommate's household link after they add your email.</span></span>
+          <span class="chev">›</span>
+        </button>
+      </div>
+      <p class="splash-note">One house. One chore scoreboard. Zero spreadsheet diplomacy.</p>
+      <button class="btn full setup-signout" id="signOutNH">Sign out</button>
+    </div>
+  </div>
+  <div class="setup-outside-report">
+    <button class="btn ghost bug-report-btn" data-report-bug>🐞 Report a bug</button>
   </div>
 </div>
 
 <!-- BLOCKED -->
 <div class="splash" id="blocked" style="display:none">
-  <div class="card">
-    <div style="font-size:48px;">🚫</div>
-    <h1 id="blockedTitle">Not on the list</h1>
-    <p id="blockedMsg"></p>
-    <button class="btn full" id="leaveBlocked">Back to start</button>
-    <button class="btn ghost full" id="signOutBlocked" style="margin-top:8px;">Sign out</button>
+  <div class="card state-card">
+    <div class="state-hero">
+      <div class="state-icon"><img src="/icons/protesting.gif" alt=""></div>
+      <h1 id="blockedTitle">Not on the list</h1>
+      <p>The mop has standards. Your cleaning career is pending review.</p>
+    </div>
+    <div class="state-body">
+      <p class="state-message" id="blockedMsg"></p>
+      <button class="btn primary lg full" id="leaveBlocked">Back to start</button>
+      <button class="btn ghost full" id="signOutBlocked" style="margin-top:10px;">Sign out</button>
+    </div>
   </div>
 </div>
 
@@ -584,6 +688,7 @@
   <div id="treatBannerSlot"></div>
 
   <section class="home-brief" id="homeBrief" aria-label="Weekly household summary"></section>
+  <section class="latest-activity" id="latestActivity" aria-label="Latest household activity"></section>
 
   <div class="pill-tabs">
     <button data-tab="week" class="active"><img class="tab-icon" src="/icons/tuesday.gif" alt=""> Week</button>
@@ -614,6 +719,7 @@
   </div>
 
   <div class="tab" id="tab-board" style="display:none">
+    <section class="activity-card" id="activityFeed" aria-label="Recent household activity"></section>
     <div class="card">
       <h2>🏆 Leaderboard · all-time</h2>
       <div id="leaderboard"></div>
@@ -767,6 +873,7 @@ Kitchen</textarea>
   </div>
 
   <button class="btn primary full" id="saveClose">Done</button>
+  <button class="btn full bug-report-btn" data-report-bug>🐞 Report a bug</button>
   <button class="btn danger full" id="leaveHouseholdBtn" style="margin-top:8px;">🚪 Leave this household</button>
 
   <p class="legend" style="margin-top:16px;">📱 For background notifications, install: tap Share → "Add to Home Screen" (iOS) or Chrome's install icon (Android).</p>
@@ -848,6 +955,7 @@ const MIN_MEMBERS = 1;
 const MAX_MEMBERS = 8;
 const MIN_CHORES = 1;
 const MAX_CHORES = 10;
+const BUG_REPORT_EMAIL = "mukulsachdeva1997@gmail.com";
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -1020,11 +1128,12 @@ let authReady = false;
 // AUTH
 $("signInBtn").onclick = async () => {
   const provider = new GoogleAuthProvider();
-  try { await signInWithPopup(auth, provider); }
+  showSplash("loading");
+  try { await signInWithPopup(auth, provider); showSplash("loading"); }
   catch (e) {
     if (e.code === "auth/popup-blocked" || e.code === "auth/popup-closed-by-user") {
       await signInWithRedirect(auth, provider);
-    } else { toast("Sign-in failed: " + e.code); }
+    } else { showSplash("splash"); toast("Sign-in failed: " + e.code); }
   }
 };
 $("signOut").onclick = () => signOut(auth);
@@ -1054,6 +1163,7 @@ onAuthStateChanged(auth, async (u) => {
   if (unsubHousehold) { unsubHousehold(); unsubHousehold = null; }
   household = null; householdId = null; firstHouseholdLoad = true;
   if (!u) { showSplash("splash"); return; }
+  showSplash("loading");
   await decideRoute();
 });
 
@@ -1085,14 +1195,14 @@ function attachHouseholdListener(hid) {
   unsubHousehold = onSnapshot(ref, async (snap) => {
     if (!snap.exists()) {
       $("blockedTitle").textContent = "Household not found";
-      $("blockedMsg").innerHTML = `The household <code>${esc(hid)}</code> doesn't exist (or was deleted). Try a different invite, or create a new one.`;
+      $("blockedMsg").innerHTML = `<span class="account-line">Invite code <b>${esc(hid)}</b></span><span class="detail">This household does not exist or was deleted.</span>`;
       showSplash("blocked"); return;
     }
     household = snap.data();
     const allow = (household.memberEmails || []).map(e => (e||"").toLowerCase());
     if (!allow.includes(user.email.toLowerCase())) {
       $("blockedTitle").textContent = "Not on the list";
-      $("blockedMsg").innerHTML = `Your account <b>${esc(user.email)}</b> isn't a member of <b>${esc(household.name || "this household")}</b>. Ask whoever invited you to add you in Settings.`;
+      $("blockedMsg").innerHTML = `<span class="account-line">Signed in as <b>${esc(user.email)}</b></span><span class="detail">This account cannot access this household yet.</span>`;
       showSplash("blocked"); return;
     }
     showSplash("app");
@@ -1105,7 +1215,7 @@ function attachHouseholdListener(hid) {
   }, (err) => {
     if (err.code === "permission-denied") {
       $("blockedTitle").textContent = "Not on the list";
-      $("blockedMsg").innerHTML = `Your account <b>${esc(user.email)}</b> can't access this household.`;
+      $("blockedMsg").innerHTML = `<span class="account-line">Signed in as <b>${esc(user.email)}</b></span><span class="detail">This account cannot access this household yet.</span>`;
       showSplash("blocked");
     } else { toast("Sync error: " + err.code); }
   });
@@ -1130,6 +1240,45 @@ async function patch(updates) {
   if (!householdId) return;
   try { await updateDoc(doc(db, "households", householdId), updates); }
   catch (e) { toast("Save failed: " + e.code); }
+}
+
+function actorSnapshot() {
+  const me = meIdx();
+  const p = me >= 0 ? household.people[me] : null;
+  return {
+    uid: user?.uid || "",
+    email: user?.email || "",
+    name: p?.name || user?.displayName || user?.email?.split("@")[0] || "Someone",
+    emoji: p?.emoji || "👤",
+  };
+}
+function activityItems() {
+  return Object.values(household?.activity || {})
+    .filter(Boolean)
+    .sort((a, b) => (b.at || 0) - (a.at || 0));
+}
+function activityUpdate(type, text, icon, meta = {}) {
+  const now = Date.now();
+  const id = `${now}-${Math.random().toString(36).slice(2, 7)}`;
+  const actor = actorSnapshot();
+  const updates = {
+    [`activity.${id}`]: { id, type, text, icon, at: now, actor, ...meta },
+  };
+  activityItems().slice(30).forEach(item => {
+    if (item.id) updates[`activity.${item.id}`] = deleteField();
+  });
+  return updates;
+}
+function relativeTime(ts) {
+  if (!ts) return "just now";
+  const diff = Math.max(0, Date.now() - ts);
+  if (diff < 45_000) return "just now";
+  const mins = Math.floor(diff / 60_000);
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
 }
 
 // CREATE / JOIN
@@ -1174,9 +1323,21 @@ $("createSubmit").onclick = async () => {
     phone: "",
   }));
   const newHid = genHouseholdId();
+  const now = Date.now();
+  const firstActivityId = `${now}-created`;
   const data = {
     name, memberEmails: allEmails, people, chores,
     anchor: mondayStr(new Date()), history: {}, treats: {}, emailTo: "",
+    activity: {
+      [firstActivityId]: {
+        id: firstActivityId,
+        type: "created",
+        text: `created ${name}`,
+        icon: "🏠",
+        at: now,
+        actor: { uid: user.uid, email: user.email, name: myName, emoji: createMyEmoji },
+      },
+    },
     createdAt: serverTimestamp(), createdBy: user.uid, ownerUid: user.uid,
   };
   try {
@@ -1260,10 +1421,56 @@ function renderHomeBrief() {
     </div>`;
 }
 
+function renderLatestActivity() {
+  const el = $("latestActivity");
+  if (!el) return;
+  const latest = activityItems()[0];
+  if (!latest) {
+    el.innerHTML = `<span class="latest-copy"><strong>Latest:</strong> No activity yet</span><span class="latest-go">Board</span>`;
+  } else {
+    const actor = latest.actor || {};
+    const actorName = actor.name || actor.email || "Someone";
+    el.innerHTML = `<span class="latest-copy"><strong>Latest:</strong> ${esc(latest.icon || "•")} ${esc(actorName)} ${esc(latest.text || "updated the household")} · ${esc(relativeTime(latest.at))}</span><span class="latest-go">Board</span>`;
+  }
+  el.onclick = () => {
+    const boardBtn = document.querySelector('.pill-tabs button[data-tab="board"]');
+    boardBtn?.click();
+  };
+}
+
+function renderActivityFeed() {
+  const feed = $("activityFeed");
+  if (!feed) return;
+  const items = activityItems().slice(0, 5);
+  const count = activityItems().length;
+  const body = items.length
+    ? `<div class="activity-list">${items.map(item => {
+        const actor = item.actor || {};
+        const actorName = actor.name || actor.email || "Someone";
+        const actorEmoji = actor.emoji || "👤";
+        return `
+          <div class="activity-item">
+            <div class="activity-icon">${esc(item.icon || "•")}</div>
+            <div class="activity-copy">
+              <div class="line">${emojiHtml(actorEmoji, 15)} ${esc(actorName)} ${esc(item.text || "updated the household")}</div>
+              <div class="meta">${esc(relativeTime(item.at))}</div>
+            </div>
+          </div>`;
+      }).join("")}</div>`
+    : `<div class="activity-empty">No activity yet. Complete, snooze, or nudge a chore to start the timeline.</div>`;
+  feed.innerHTML = `
+    <div class="activity-head">
+      <h2>House activity</h2>
+      <span>${count ? `${Math.min(count, 5)} recent` : "live log"}</span>
+    </div>
+    ${body}`;
+}
+
 // WEEK
 function renderWeek() {
   const wrap = $("schedule"); wrap.innerHTML = "";
   renderHomeBrief();
+  renderLatestActivity();
   const summary = weekSummary(viewMonday);
   $("weekMiniSummary").textContent = `${summary.open} open · ${summary.done} done`;
   if (!household.chores.length) { wrap.innerHTML = `<div style="padding:18px;color:var(--muted);text-align:center;font-size:13px;">No chores yet — add some in ⚙️ Settings.</div>`; $("weekProgress").style.width="0%"; return; }
@@ -1376,18 +1583,28 @@ async function markDone(choreIdx) {
   const key = `${isoWeekKey(viewMonday)}-c${choreIdx}`;
   const personIdx = personForChore(viewMonday, choreIdx);
   const existing = household.history?.[key] || {};
-  await patch({ [`history.${key}`]: { ...existing, completedAt: Date.now(), byUid: user.uid, byIdx: personIdx, byEmail: user.email } });
-  const st = choreStatus(viewMonday, choreIdx);
-  const pts = st.onTime ? 10 : 5;
+  const before = choreStatus(viewMonday, choreIdx);
+  const completedAt = Date.now();
+  const onTime = completedAt <= before.effectiveDeadline;
+  const pts = onTime ? 10 : 5;
   const p = household.people[personIdx];
+  const chore = household.chores[choreIdx];
+  await patch({
+    [`history.${key}`]: { ...existing, completedAt, byUid: user.uid, byIdx: personIdx, byEmail: user.email },
+    ...activityUpdate("done", `completed ${chore} for ${p.name || p.email.split("@")[0]} (+${pts})`, "✅", { chore, week: isoWeekKey(viewMonday) }),
+  });
   toast(`+${pts} pts to ${p.emoji} ${p.name || p.email.split("@")[0]}`);
 }
 async function undoDone(choreIdx) {
   const key = `${isoWeekKey(viewMonday)}-c${choreIdx}`;
   const existing = household.history?.[key] || {};
   const { completedAt, byUid, byIdx, byEmail, ...rest } = existing;
-  if (Object.keys(rest).length === 0) await patch({ [`history.${key}`]: deleteField() });
-  else await patch({ [`history.${key}`]: rest });
+  const chore = household.chores[choreIdx];
+  if (Object.keys(rest).length === 0) {
+    await patch({ [`history.${key}`]: deleteField(), ...activityUpdate("undo", `undid ${chore}`, "↩", { chore, week: isoWeekKey(viewMonday) }) });
+  } else {
+    await patch({ [`history.${key}`]: rest, ...activityUpdate("undo", `undid ${chore}`, "↩", { chore, week: isoWeekKey(viewMonday) }) });
+  }
 }
 
 // SNOOZE
@@ -1419,12 +1636,16 @@ async function doSnooze(choreIdx, hours) {
   if (used + hours > SNOOZE_CAP_HOURS) { toast("Over cap"); return; }
   const now = Date.now();
   const newSnoozedUntil = Math.max(now, h.snoozedUntil || 0) + hours * HOUR_MS;
-  await patch({ [`history.${key}`]: { ...h, shiftHours: used + hours, snoozedUntil: newSnoozedUntil, lastSnoozeBy: user.uid } });
+  const chore = household.chores[choreIdx];
+  await patch({
+    [`history.${key}`]: { ...h, shiftHours: used + hours, snoozedUntil: newSnoozedUntil, lastSnoozeBy: user.uid },
+    ...activityUpdate("snooze", `snoozed ${chore} for ${hours}h`, "💤", { chore, week: isoWeekKey(viewMonday), hours }),
+  });
   toast(`Snoozed ${hours}h. Deadline shifted.`);
   closeSnoozeSheet();
 }
 
-function nudge(choreIdx) {
+async function nudge(choreIdx) {
   const personIdx = personForChore(viewMonday, choreIdx);
   const p = household.people[personIdx];
   const chore = household.chores[choreIdx];
@@ -1439,6 +1660,7 @@ function nudge(choreIdx) {
     navigator.clipboard?.writeText(msg);
     toast("Nudge copied — paste into WhatsApp");
   }
+  await patch(activityUpdate("nudge", `nudged ${targetName} about ${chore}`, "📣", { chore, targetEmail: p.email, week: isoWeekKey(viewMonday) }));
 }
 
 // SCORING
@@ -1493,6 +1715,7 @@ function categoryFor(rank, lastRank, pts) {
 }
 
 function renderBoard() {
+  renderActivityFeed();
   const data = scoresAllTime().sort((a,b) => b.pts - a.pts || b.onTime - a.onTime);
   const lastIdx = data.length - 1;
   const dk = dayKey();
@@ -1642,7 +1865,11 @@ function renderTreatBanner() {
   }
 }
 async function markTreatPaid(monthKey) {
-  await patch({ [`treats.${monthKey}.paid`]: true, [`treats.${monthKey}.paidAt`]: serverTimestamp() });
+  await patch({
+    [`treats.${monthKey}.paid`]: true,
+    [`treats.${monthKey}.paidAt`]: serverTimestamp(),
+    ...activityUpdate("treat-paid", `marked ${monthKey} treats as paid`, "🍕", { monthKey }),
+  });
   toast("Treat marked as paid 🍕");
 }
 
@@ -1713,7 +1940,11 @@ function renderRps() {
       <button class="btn primary lg full" id="rpsConfirm" style="margin-top:14px;">Confirm result</button>`;
     $("rpsConfirm").onclick = async () => {
       const loserIdx = rpsState.players[loserI];
-      await patch({ [`treats.${rpsState.monthKey}.loserIdx`]: loserIdx, [`treats.${rpsState.monthKey}.rpsWins`]: rpsState.wins });
+      await patch({
+        [`treats.${rpsState.monthKey}.loserIdx`]: loserIdx,
+        [`treats.${rpsState.monthKey}.rpsWins`]: rpsState.wins,
+        ...activityUpdate("rps", `settled ${rpsState.monthKey} tie-breaker: ${nm} owes treats`, "✂️", { monthKey: rpsState.monthKey }),
+      });
       closeRpsSheet(); toast(`${loser.emoji} ${nm} owes treats!`);
     };
   }
@@ -1737,6 +1968,37 @@ function buildReport() {
   const onTimePct = totalDone ? Math.round((m.reduce((a,b) => a+b.onTime, 0)/totalDone)*100) : 0;
   txt += `\n📊 House total: ${totalDone} chores · ${onTimePct}% on time\n\n🍕 Lowest scorer of the month buys treats!`;
   return { subject:`${household.name || "Tidy Team"} — ${monthName(mk)}`, body:txt };
+}
+
+function openBugReport() {
+  const active = document.querySelector(".pill-tabs button.active")?.dataset.tab || "not in app";
+  const subject = `Tidy Team bug report${household?.name ? ` — ${household.name}` : ""}`;
+  const body = [
+    "Hi Mukul,",
+    "",
+    "I found a bug in Tidy Team:",
+    "",
+    "What happened:",
+    "- ",
+    "",
+    "What I expected:",
+    "- ",
+    "",
+    "Steps to reproduce:",
+    "1. ",
+    "2. ",
+    "3. ",
+    "",
+    "--- App context ---",
+    `Signed in as: ${user?.email || "not signed in"}`,
+    `Household: ${household?.name || "none"}`,
+    `Household ID: ${householdId || "none"}`,
+    `Current tab/state: ${active}`,
+    `Page URL: ${location.href}`,
+    `Device/browser: ${navigator.userAgent}`,
+    `Time: ${new Date().toISOString()}`,
+  ].join("\n");
+  window.location.href = `mailto:${encodeURIComponent(BUG_REPORT_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 // SETTINGS
@@ -1822,7 +2084,11 @@ async function removeMember(i) {
   if (!confirm(msg)) return;
   const people = household.people.filter((_, idx) => idx !== i);
   const memberEmails = people.map(p => (p.email || "").toLowerCase());
-  await patch({ people, memberEmails });
+  await patch({
+    people,
+    memberEmails,
+    ...activityUpdate("member-removed", `removed ${nm} from the household`, "−", { targetEmail: p.email || "" }),
+  });
   if ((p.email || "").toLowerCase() === user.email.toLowerCase()) {
     await setDoc(doc(db, "users", user.uid), { householdId: deleteField() }, { merge: true });
   }
@@ -1832,8 +2098,9 @@ async function removeMember(i) {
 async function removeChore(i) {
   if (household.chores.length <= MIN_CHORES) { toast("Need at least 1 chore"); return; }
   if (!confirm(`Remove chore "${household.chores[i]}"?`)) return;
+  const removed = household.chores[i];
   const chores = household.chores.filter((_, idx) => idx !== i);
-  await patch({ chores });
+  await patch({ chores, ...activityUpdate("chore-removed", `removed ${removed}`, "−", { chore: removed }) });
 }
 
 function openEmojiPicker(idx) {
@@ -1864,7 +2131,11 @@ $("addSubmit").onclick = async () => {
   if (household.people.length >= MAX_MEMBERS) { toast(`Max ${MAX_MEMBERS} members`); return; }
   const people = [...household.people, { email, name, emoji: addMemberEmoji, phone: "" }];
   const memberEmails = people.map(p => p.email.toLowerCase());
-  await patch({ people, memberEmails });
+  await patch({
+    people,
+    memberEmails,
+    ...activityUpdate("member-added", `added ${name || email} to the household`, "➕", { targetEmail: email }),
+  });
   closeAddSheet();
   toast(`Added ${name || email}. Send them the invite link.`);
 };
@@ -1873,7 +2144,8 @@ async function addChore() {
   if (household.chores.length >= MAX_CHORES) { toast(`Max ${MAX_CHORES} chores`); return; }
   const name = prompt("New chore name?");
   if (!name || !name.trim()) return;
-  await patch({ chores: [...household.chores, name.trim()] });
+  const chore = name.trim();
+  await patch({ chores: [...household.chores, chore], ...activityUpdate("chore-added", `added ${chore}`, "🧹", { chore }) });
 }
 
 async function leaveHousehold() {
@@ -1888,7 +2160,7 @@ async function leaveHousehold() {
   } else {
     const people = household.people.filter(p => (p.email || "").toLowerCase() !== myEmail);
     const memberEmails = people.map(p => p.email.toLowerCase());
-    await patch({ people, memberEmails });
+    await patch({ people, memberEmails, ...activityUpdate("member-left", "left the household", "👋", { targetEmail: myEmail }) });
   }
   await setDoc(doc(db, "users", user.uid), { householdId: deleteField() }, { merge: true });
   closeSettings(); showSplash("noHousehold"); toast("Left household");
@@ -1903,8 +2175,8 @@ function updateMeSubtitle() {
   if (me >= 0) {
     const p = household.people[me];
     const nm = p.name || p.email.split("@")[0];
-    $("meSubtitle").innerHTML = `<span class="sub-pill live"><span class="sync-dot"></span> Live</span><span class="sub-pill person-pill">${emojiHtml(p.emoji, 16)} ${esc(nm)}</span>`;
-  } else $("meSubtitle").innerHTML = `<span class="sub-pill live"><span class="sync-dot"></span> Live</span><span class="sub-pill person-pill">signed in</span>`;
+    $("meSubtitle").innerHTML = `<span class="person-status">${emojiHtml(p.emoji, 17)} <span>${esc(nm)}</span><span class="online-dot" aria-label="Online"></span></span>`;
+  } else $("meSubtitle").innerHTML = `<span class="person-status">Signed in<span class="online-dot" aria-label="Online"></span></span>`;
 }
 
 // NOTIFICATIONS
@@ -1995,6 +2267,7 @@ $("shareInvite").onclick = async () => {
 $("copyReport").onclick = () => { const r = buildReport(); navigator.clipboard?.writeText(`${r.subject}\n\n${r.body}`); toast("Report copied"); };
 $("emailReport").onclick = () => { const r = buildReport(); const to = household.emailTo || ""; window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(r.subject)}&body=${encodeURIComponent(r.body)}`; };
 $("howItWorks").onclick = () => { $("infoPop").classList.toggle("open"); };
+document.querySelectorAll("[data-report-bug]").forEach(btn => btn.onclick = openBugReport);
 
 function applyTheme(t) {
   document.documentElement.setAttribute("data-theme", t);
@@ -2009,7 +2282,7 @@ function applyTheme(t) {
 function renderHeaderIcons() {
   const settings = $("openSettings");
   const logout = $("signOut");
-  if (settings) settings.innerHTML = `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.7 3.4 9.2 5.5a7.7 7.7 0 0 0-1.6.9L5.6 5.7 3.4 9.5l1.6 1.4a7.9 7.9 0 0 0 0 1.9l-1.6 1.4 2.2 3.8 2-.7a7.7 7.7 0 0 0 1.6.9l.5 2.1h4.4l.5-2.1a7.7 7.7 0 0 0 1.6-.9l2 .7 2.2-3.8-1.6-1.4a7.9 7.9 0 0 0 0-1.9l1.6-1.4-2.2-3.8-2 .7a7.7 7.7 0 0 0-1.6-.9l-.5-2.1H9.7Z"></path><circle cx="12" cy="12" r="3.1"></circle></svg><span class="label">Settings</span>`;
+  if (settings) settings.innerHTML = `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.7 3.4 9.2 5.5a7.7 7.7 0 0 0-1.6.9L5.6 5.7 3.4 9.5l1.6 1.4a7.9 7.9 0 0 0 0 1.9l-1.6 1.4 2.2 3.8 2-.7a7.7 7.7 0 0 0 1.6.9l.5 2.1h4.4l.5-2.1a7.7 7.7 0 0 0 1.6-.9l2 .7 2.2-3.8-1.6-1.4a7.9 7.9 0 0 0 0-1.9l1.6-1.4-2.2-3.8-2 .7a7.7 7.7 0 0 0-1.6-.9l-.5-2.1H9.7Z"></path><circle cx="12" cy="12" r="3.1"></circle></svg>`;
   if (logout) logout.innerHTML = `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 17 15 12 10 7"></path><path d="M15 12H3"></path><path d="M15 4h3a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-3"></path></svg>`;
 }
 $("themeToggle").onclick = () => {
