@@ -680,10 +680,6 @@ MIT — do whatever you want with it. Credit appreciated but not required.
 
 ## Credits
 
-- 🎨 [Microsoft Fluent Emoji](https://github.com/microsoft/fluentui-emoji) — 3D emoji set, MIT licensed, served via [jsDelivr](https://www.jsdelivr.com/)
-- 🔥 [Firebase](https://firebase.google.com) — auth, database, hosting, push
-- 🤖 Built with [Claude](https://claude.com)
-
----
-
-**Built for ABSORA WG. Roast responsibly.** 🧹
+- [Microsoft Fluent Emoji](https://github.com/microsoft/fluentui-emoji) — 3D emoji set, MIT licensed, served via [jsDelivr](https://www.jsdelivr.com/)
+- [Firebase](https://firebase.google.com) — auth, database, hosting, push
+- Animated and static interface icons: [Flaticon](https://www.flaticon.com/) — used with attribution as required by the free license.
