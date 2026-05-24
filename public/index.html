@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Tidy Team">
-<title>Tidy Team 🧹</title>
+<title>Tidy Team</title>
 <script>
   (function() {
     const t = localStorage.getItem("theme") || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
@@ -260,6 +260,36 @@
     backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-radius:16px; padding:10px; min-height:68px; }
   .brief-stat .v { font-size:20px; font-weight:850; line-height:1; }
   .brief-stat .l { font-size:10px; line-height:1.25; opacity:0.78; margin-top:7px; text-transform:uppercase; letter-spacing:0.06em; }
+  .shield-run { margin:-4px 0 14px; padding:12px; border-radius:20px; background:var(--card);
+    border:1px solid var(--border); box-shadow:var(--shadow-sm); display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; overflow:hidden; }
+  .shield-run-copy { min-width:0; }
+  .shield-run-kicker { color:var(--muted); font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:3px; }
+  .shield-run-title-row { display:flex; align-items:center; gap:7px; min-width:0; }
+  .shield-run-title { color:var(--text); font-size:15px; font-weight:900; letter-spacing:-0.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .shield-info-btn { width:22px; height:22px; flex:0 0 auto; border-radius:999px; border:1px solid var(--border);
+    background:var(--bg); color:var(--muted); display:grid; place-items:center; font-size:12px; line-height:1; font-weight:950;
+    box-shadow:var(--shadow-sm); cursor:pointer; }
+  .shield-info-btn:hover { color:var(--text); border-color:rgba(99,102,241,0.38); background:var(--primary-soft); }
+  .shield-run-sub { color:var(--muted); margin-top:4px; font-size:11px; line-height:1.35; font-weight:650; }
+  .shield-tip { grid-column:1 / -1; padding:10px 11px; border-radius:14px; border:1px solid var(--border);
+    background:var(--bg); color:var(--muted); font-size:11px; line-height:1.45; font-weight:650; }
+  .shield-tip strong { color:var(--text); font-weight:850; }
+  .shield-track { display:flex; align-items:center; gap:6px; flex:0 0 auto; }
+  .shield-step { width:32px; height:32px; border-radius:999px; display:grid; place-items:center;
+    background:var(--bg); border:1px solid var(--border); opacity:0.72; }
+  .shield-step.done { background:linear-gradient(135deg, rgba(99,102,241,0.18), rgba(16,185,129,0.18)); opacity:1; border-color:rgba(16,185,129,0.24); }
+  .shield-step img { width:26px; height:26px; object-fit:contain; display:block; border-radius:999px; }
+  .shield-step.empty::after { content:""; width:8px; height:8px; border-radius:999px; background:var(--border-strong); }
+  .shield-prize { width:46px; height:46px; border-radius:16px; display:grid; place-items:center; background:#fff;
+    border:1px solid var(--border); box-shadow:var(--shadow-sm); position:relative; }
+  .shield-prize.locked { opacity:1; background:color-mix(in srgb, var(--card) 84%, #fff); }
+  .shield-prize.locked img { opacity:0.72; }
+  .shield-prize.used { opacity:0.72; }
+  .shield-prize img { width:38px; height:38px; object-fit:contain; display:block; }
+  .shield-prize::before { content:""; position:absolute; left:-9px; width:5px; height:2px; border-radius:999px; background:var(--border-strong); }
+  .shield-run.ready { border-color:rgba(16,185,129,0.32); box-shadow:0 12px 28px rgba(16,185,129,0.10); }
+  .shield-run.ready .shield-prize { box-shadow:0 0 0 4px rgba(16,185,129,0.10), var(--shadow-sm); }
+  .shield-run.used .shield-run-title { color:var(--muted); }
 
   /* Tabs */
   .pill-tabs { position:fixed; left:50%; bottom:calc(24px + env(safe-area-inset-bottom)); transform:translateX(-50%);
@@ -362,6 +392,9 @@
   .lb-row .pts small { color:var(--muted); font-weight:500; }
   .lb-row .pts.neg { color:var(--danger-text); }
   .lb-row .streak { color:var(--warn-text); font-size:12px; margin-left:8px; }
+  .shield-badge { display:inline-flex; align-items:center; gap:4px; border-radius:999px;
+    background:var(--primary-soft); color:var(--primary-text); padding:2px 7px;
+    font-size:10px; font-weight:900; margin-left:7px; vertical-align:2px; text-transform:uppercase; letter-spacing:0.03em; }
 
   /* Stats */
   .stats-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
@@ -438,7 +471,13 @@
   .chore-row { display:flex; gap:8px; align-items:center; margin-bottom:6px; }
   .chore-row input { flex:1; background:var(--card); color:var(--text); border:1px solid var(--border);
     border-radius:10px; padding:11px 13px; font-size:14px; }
+  .chore-row select { width:96px; background:var(--card); color:var(--text); border:1px solid var(--border);
+    border-radius:10px; padding:10px 9px; font-size:12px; font-weight:800; }
   .chore-row button { padding:8px 11px; }
+  .difficulty-pill { display:inline-flex; align-items:center; border:1px solid var(--border); background:var(--bg);
+    color:var(--muted); border-radius:999px; padding:2px 7px; font-size:10px; font-weight:850; text-transform:uppercase; letter-spacing:0.04em; }
+  .difficulty-pill.easy { color:var(--success-text); background:var(--success-soft); border-color:transparent; }
+  .difficulty-pill.hard { color:var(--danger-text); background:var(--danger-soft); border-color:transparent; }
 
   .sheet-close { position:absolute; top:14px; right:14px; font-size:22px; background:none;
     border:none; color:var(--muted); cursor:pointer; line-height:1; padding:6px; }
@@ -450,6 +489,60 @@
     font-size:14px; font-weight:500; box-shadow:var(--shadow-lg);
     transition:transform .25s cubic-bezier(0.4,0,0.2,1); z-index:100; max-width:90vw; }
   .toast.show { transform:translateX(-50%) translateY(0); }
+  .celebration-bg { position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+    padding:22px; background:rgba(15,23,42,0.42); z-index:120; }
+  .celebration-bg.open { display:flex; }
+  .celebration-card { width:min(360px, 100%); position:relative; overflow:hidden; text-align:center; border-radius:28px;
+    background:var(--card); color:var(--text); border:1px solid var(--border); box-shadow:var(--shadow-lg);
+    padding:32px 22px 22px; transform:translateY(12px) scale(0.96); opacity:0; animation:popIn .34s cubic-bezier(.2,.9,.2,1) forwards; }
+  .celebration-card::before { content:""; position:absolute; inset:0 0 auto; height:126px; background:
+    linear-gradient(135deg, rgba(99,102,241,0.92), rgba(16,185,129,0.78)); opacity:0.96; }
+  .celebration-sparks { position:absolute; inset:0 0 auto; height:126px; pointer-events:none; z-index:1; overflow:hidden; }
+  .celebration-sparks img { position:absolute; width:22px; height:22px; object-fit:contain; opacity:0.82; filter:drop-shadow(0 8px 12px rgba(15,23,42,0.18)); }
+  .celebration-sparks img:nth-child(1) { left:18%; top:24px; width:20px; height:20px; transform:rotate(-12deg); }
+  .celebration-sparks img:nth-child(2) { right:18%; top:28px; width:24px; height:24px; transform:rotate(10deg); }
+  .celebration-sparks img:nth-child(3) { left:26%; bottom:20px; width:16px; height:16px; opacity:0.68; transform:rotate(8deg); }
+  .celebration-sparks img:nth-child(4) { right:28%; bottom:18px; width:18px; height:18px; opacity:0.72; transform:rotate(-10deg); }
+  .celebration-sparks img:nth-child(5) { left:8%; top:58px; width:18px; height:18px; opacity:0.74; transform:rotate(14deg); }
+  .celebration-sparks img:nth-child(6) { right:8%; top:58px; width:18px; height:18px; opacity:0.74; transform:rotate(-14deg); }
+  .celebration-icon { position:relative; z-index:1; width:88px; height:88px; margin:-6px auto 22px; display:grid; place-items:center;
+    border-radius:26px; background:#fff; box-shadow:0 18px 34px rgba(15,23,42,0.22); animation:floatReward 1.6s ease-in-out infinite; }
+  .celebration-icon img { width:58px; height:58px; object-fit:contain; display:block; margin:auto; }
+  .celebration-title { position:relative; z-index:1; margin:0 0 8px; font-size:24px; font-weight:900; letter-spacing:-0.03em; }
+  .celebration-text { margin:0 auto 16px; color:var(--muted); line-height:1.45; font-size:14px; max-width:280px; font-weight:650; }
+  .celebration-progress { display:flex; align-items:center; justify-content:center; gap:7px; margin:14px 0 18px; }
+  .celebration-progress span { width:30px; height:30px; border-radius:999px; display:grid; place-items:center;
+    background:var(--bg); border:1px solid var(--border); overflow:hidden; }
+  .celebration-progress span.done { background:#fff; border-color:rgba(16,185,129,0.30); box-shadow:0 0 0 4px rgba(16,185,129,0.08); }
+  .celebration-progress img { width:26px; height:26px; object-fit:contain; display:block; margin:auto; border-radius:999px; }
+  .celebration-card .btn { width:100%; justify-content:center; }
+  .release-bg { position:fixed; inset:0; display:none; align-items:flex-end; justify-content:center;
+    padding:18px 14px calc(18px + env(safe-area-inset-bottom)); background:rgba(15,23,42,0.42); z-index:118; }
+  .release-bg.open { display:flex; }
+  .release-card { width:min(460px, 100%); max-height:min(78vh, 620px); overflow:auto; position:relative; border-radius:28px;
+    background:var(--card); color:var(--text); border:1px solid var(--border); box-shadow:var(--shadow-lg);
+    transform:translateY(18px); opacity:0; animation:sheetRise .28s cubic-bezier(.2,.9,.2,1) forwards; }
+  .release-hero { position:relative; overflow:hidden; padding:24px 22px 20px; color:#fff; background:
+    linear-gradient(135deg, rgba(67,56,202,0.96), rgba(99,102,241,0.92) 52%, rgba(16,185,129,0.90)); }
+  .release-hero::after { content:""; position:absolute; right:-54px; top:-58px; width:160px; height:160px; border-radius:999px; background:rgba(255,255,255,0.14); }
+  .release-kicker { position:relative; z-index:1; display:inline-flex; align-items:center; gap:7px; font-size:11px; font-weight:900;
+    letter-spacing:0.08em; text-transform:uppercase; opacity:0.84; }
+  .release-title { position:relative; z-index:1; margin:8px 0 6px; font-size:28px; font-weight:950; letter-spacing:-0.04em; }
+  .release-sub { position:relative; z-index:1; margin:0; color:rgba(255,255,255,0.84); font-size:14px; line-height:1.45; max-width:330px; }
+  .release-close { position:absolute; z-index:2; right:14px; top:14px; width:34px; height:34px; border-radius:999px; border:1px solid rgba(255,255,255,0.28);
+    background:rgba(255,255,255,0.16); color:#fff; font-size:22px; line-height:1; cursor:pointer; display:grid; place-items:center; }
+  .release-body { padding:18px 18px 20px; }
+  .release-list { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
+  .release-item { display:grid; grid-template-columns:42px 1fr; gap:11px; align-items:center; padding:11px; border-radius:18px;
+    background:var(--bg); border:1px solid var(--border); }
+  .release-icon { width:42px; height:42px; border-radius:15px; display:grid; place-items:center; background:#fff; box-shadow:var(--shadow-sm); overflow:hidden; }
+  .release-icon img { width:30px; height:30px; object-fit:contain; display:block; }
+  .release-copy b { display:block; color:var(--text); font-size:14px; line-height:1.2; }
+  .release-copy span { display:block; color:var(--muted); margin-top:3px; font-size:12px; line-height:1.35; font-weight:650; }
+  .release-card .btn { width:100%; justify-content:center; }
+  @keyframes sheetRise { to { opacity:1; transform:translateY(0); } }
+  @keyframes popIn { to { opacity:1; transform:translateY(0) scale(1); } }
+  @keyframes floatReward { 0%,100% { transform:translateY(0) rotate(-1deg); } 50% { transform:translateY(-4px) rotate(1deg); } }
 
   .legend { font-size:12px; color:var(--muted); margin-top:8px; line-height:1.5; }
   .credit-line { color:var(--muted); font-size:11px; line-height:1.45; text-align:center; margin:18px 4px 2px; }
@@ -481,8 +574,29 @@
   .action-list button.primary:hover { background:#5558e6; }
   .action-list button.danger { color:var(--danger-text); border-color:var(--danger-soft); }
   .action-list button.snooze { color:var(--snooze-text); border-color:var(--snooze-soft); }
+  .action-list button.swap { color:var(--primary-text); border-color:var(--primary-soft); }
   .action-list button.success { background:var(--success); color:#fff; border-color:var(--success); }
   .action-list button:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+
+  /* Swap requests */
+  .swap-card { margin:0 0 12px; padding:12px; border-radius:18px; background:var(--card);
+    border:1px solid var(--border); box-shadow:var(--shadow-sm); }
+  .swap-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .swap-head h3 { margin:0; color:var(--muted); font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:0.08em; }
+  .swap-head span { color:var(--muted); font-size:11px; font-weight:800; }
+  .swap-item { display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center; padding:10px;
+    background:var(--bg); border:1px solid var(--border); border-radius:14px; }
+  .swap-copy { color:var(--text); font-size:13px; font-weight:780; line-height:1.35; }
+  .swap-copy small { display:block; margin-top:3px; color:var(--muted); font-size:11px; font-weight:650; }
+  .swap-actions { display:flex; gap:6px; }
+  .swap-actions button { min-height:34px; padding:7px 10px; border-radius:12px; font-size:11px; }
+  .swap-options { display:flex; flex-direction:column; gap:8px; }
+  .swap-option { width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:13px; border-radius:16px; background:var(--card); border:1px solid var(--border); color:var(--text);
+    cursor:pointer; text-align:left; }
+  .swap-option:hover { background:var(--card-hover); }
+  .swap-option b { display:block; font-size:14px; }
+  .swap-option span { display:block; margin-top:3px; color:var(--muted); font-size:12px; font-weight:650; }
 
   /* RPS */
   .rps-arena { text-align:center; padding:6px; }
@@ -512,11 +626,51 @@
   .section-title { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:16px 4px 10px; }
   .section-title h2 { margin:0; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
   .section-title span { color:var(--muted); font-size:12px; font-weight:650; }
+  .week-tools { display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+  .view-switch { display:inline-flex; gap:4px; padding:4px; border-radius:999px; background:var(--card); border:1px solid var(--border); box-shadow:var(--shadow-sm); }
+  .view-switch button { border:none; background:transparent; color:var(--muted); border-radius:999px; padding:7px 10px;
+    font-size:11px; font-weight:850; cursor:pointer; transition:all .15s ease; }
+  .view-switch button.active { background:var(--text); color:var(--bg); box-shadow:var(--shadow-sm); }
+  .planner-view { display:flex; flex-direction:column; gap:10px; }
+  .planner-card { padding:12px; border-radius:20px; background:var(--card); border:1px solid var(--border); box-shadow:var(--shadow-sm); }
+  .planner-card.current { border-color:rgba(16,185,129,0.28); background:linear-gradient(180deg, var(--success-soft), var(--card) 42%); }
+  .planner-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+  .planner-week { min-width:0; }
+  .planner-week b { display:block; color:var(--text); font-size:14px; font-weight:900; letter-spacing:-0.01em; }
+  .planner-week span { display:block; color:var(--muted); margin-top:2px; font-size:11px; font-weight:750; }
+  .planner-badge { color:var(--primary-text); background:var(--primary-soft); border-radius:999px; padding:4px 8px; font-size:10px; font-weight:900; white-space:nowrap; }
+  .planner-nav { display:flex; align-items:center; gap:6px; flex:0 0 auto; }
+  .planner-nav button { width:30px; height:30px; display:grid; place-items:center; border-radius:12px; border:1px solid var(--border);
+    background:var(--bg); color:var(--text); font-size:16px; font-weight:900; cursor:pointer; box-shadow:var(--shadow-sm); }
+  .planner-nav button:disabled { opacity:0.38; cursor:not-allowed; }
+  .planner-nav button:not(:disabled):active { transform:scale(0.94); }
+  .planner-list { display:flex; flex-direction:column; gap:7px; }
+  .planner-assignment { display:grid; grid-template-columns:32px 1fr auto; align-items:center; gap:9px;
+    padding:8px; border-radius:14px; background:var(--bg); border:1px solid var(--border); }
+  .planner-assignment.me { background:var(--primary-soft); border-color:rgba(99,102,241,0.24); }
+  .planner-avatar { width:32px; height:32px; display:grid; place-items:center; border-radius:12px; background:var(--card); box-shadow:var(--shadow-sm); }
+  .planner-avatar .e3d { width:27px !important; height:27px !important; }
+  .planner-copy { min-width:0; }
+  .planner-copy b { display:block; color:var(--text); font-size:13px; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .planner-copy span { display:block; color:var(--muted); font-size:11px; font-weight:750; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .planner-actions { display:flex; align-items:center; gap:6px; }
+  .planner-actions button { border:1px solid var(--border); background:var(--card); color:var(--text); border-radius:999px;
+    padding:7px 9px; font-size:10px; font-weight:900; cursor:pointer; white-space:nowrap; box-shadow:var(--shadow-sm); }
+  .planner-actions button:hover { background:var(--card-hover); }
+  @media (max-width: 560px) {
+    .planner-assignment { grid-template-columns:32px 1fr; }
+    .planner-actions { grid-column:1 / -1; justify-content:flex-end; }
+  }
   .activity-card { margin:0 0 14px; padding:12px; border-radius:22px; background:var(--card);
     border:1px solid var(--border); box-shadow:var(--shadow-sm); }
   .activity-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
   .activity-head h2 { margin:0; font-size:12px; color:var(--muted); font-weight:850; letter-spacing:0.08em; text-transform:uppercase; }
   .activity-head span { color:var(--muted); font-size:11px; font-weight:750; }
+  .activity-filters { display:flex; gap:6px; overflow-x:auto; padding:0 0 8px; scrollbar-width:none; }
+  .activity-filters::-webkit-scrollbar { display:none; }
+  .activity-filters button { border:1px solid var(--border); background:var(--bg); color:var(--muted);
+    border-radius:999px; padding:6px 10px; font-size:11px; font-weight:800; white-space:nowrap; cursor:pointer; }
+  .activity-filters button.active { background:var(--text); color:var(--bg); border-color:var(--text); }
   .activity-list { display:flex; flex-direction:column; gap:8px; }
   .activity-item { display:grid; grid-template-columns:34px 1fr; gap:10px; align-items:center; padding:9px;
     border-radius:16px; background:var(--bg); border:1px solid color-mix(in srgb, var(--border) 72%, transparent); }
@@ -525,7 +679,43 @@
   .activity-copy { min-width:0; }
   .activity-copy .line { font-size:13px; font-weight:760; color:var(--text); line-height:1.25; }
   .activity-copy .meta { margin-top:3px; color:var(--muted); font-size:11px; font-weight:650; }
+  .activity-count { display:inline-flex; align-items:center; justify-content:center; min-width:22px; height:18px;
+    padding:0 6px; border-radius:999px; background:var(--primary-soft); color:var(--primary-text);
+    font-size:10px; font-weight:900; margin-left:5px; vertical-align:1px; }
   .activity-empty { padding:10px; color:var(--muted); font-size:12px; text-align:center; }
+  .fairness-card { margin:0 0 14px; padding:14px; border-radius:22px; background:var(--card);
+    border:1px solid var(--border); box-shadow:var(--shadow-sm); overflow:hidden; }
+  .fairness-top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:12px; }
+  .fairness-kicker { margin:0 0 4px; font-size:11px; color:var(--muted); font-weight:850; letter-spacing:0.08em; text-transform:uppercase; }
+  .fairness-title { margin:0; font-size:18px; font-weight:900; letter-spacing:-0.02em; color:var(--text); }
+  .fairness-copy { margin:5px 0 0; color:var(--muted); font-size:12px; line-height:1.45; }
+  .balance-month { flex:0 0 auto; border:1px solid var(--border); background:var(--bg); color:var(--text-soft);
+    border-radius:999px; padding:8px 10px; font-size:11px; font-weight:850; white-space:nowrap; }
+  .balance-list { display:flex; flex-direction:column; gap:8px; }
+  .balance-title { margin:0 0 8px; color:var(--muted); font-size:11px; font-weight:850;
+    text-transform:uppercase; letter-spacing:0.08em; }
+  .balance-row { display:grid; grid-template-columns:minmax(96px, 1fr) auto; gap:10px; align-items:center;
+    padding:10px; border-radius:16px; background:var(--bg); border:1px solid var(--border); }
+  .balance-name { min-width:0; color:var(--text); font-size:13px; font-weight:850; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .balance-mix { margin-top:5px; display:flex; gap:5px; flex-wrap:wrap; }
+  .mix-pill { display:inline-flex; align-items:center; gap:3px; border-radius:999px; padding:3px 7px;
+    background:var(--card); border:1px solid var(--border); color:var(--muted); font-size:10px; font-weight:850; }
+  .mix-pill.hard { color:var(--danger-text); background:var(--danger-soft); border-color:transparent; }
+  .mix-pill.easy { color:var(--success-text); background:var(--success-soft); border-color:transparent; }
+  .balance-status { justify-self:end; border-radius:999px; padding:6px 9px; font-size:11px; font-weight:900;
+    color:var(--text-soft); background:var(--card); border:1px solid var(--border); white-space:nowrap; }
+  .balance-status.heavy { color:var(--danger-text); background:var(--danger-soft); border-color:transparent; }
+  .balance-status.light { color:var(--success-text); background:var(--success-soft); border-color:transparent; }
+  .balance-status.balanced { color:var(--primary-text); background:var(--primary-soft); border-color:transparent; }
+  .fairness-details { margin-top:12px; border-top:1px solid var(--border); padding-top:10px; }
+  .fairness-details summary { list-style:none; cursor:pointer; color:var(--muted); font-size:12px; font-weight:850;
+    display:flex; align-items:center; justify-content:center; gap:6px; }
+  .fairness-details summary::-webkit-details-marker { display:none; }
+  .fairness-details summary::after { content:"+"; width:18px; height:18px; display:grid; place-items:center;
+    border-radius:999px; background:var(--bg); color:var(--text-soft); font-size:13px; line-height:1; }
+  .fairness-details[open] summary::after { content:"−"; }
+  .fairness-explain { margin:10px 0 0; color:var(--muted); font-size:12px; line-height:1.5; text-align:center; }
+  .fairness-explain b { color:var(--text-soft); }
   .latest-activity { margin:-4px 0 14px; padding:9px 11px; border-radius:16px; background:var(--card);
     border:1px solid var(--border); box-shadow:var(--shadow-sm); color:var(--muted); font-size:12px; font-weight:680;
     display:flex; align-items:center; justify-content:space-between; gap:10px; cursor:pointer; }
@@ -590,8 +780,8 @@
 <div class="splash-loading" id="loading">
   <div class="loading-card">
     <img src="/icons/loading.gif" alt="">
-    <h1>Getting your house ready</h1>
-    <p>Syncing your household, scores, and chore drama.</p>
+    <h1 id="loadingTitle">Getting your house ready</h1>
+    <p id="loadingText">Syncing your household, scores, and chore drama.</p>
   </div>
 </div>
 
@@ -688,6 +878,7 @@
   <div id="treatBannerSlot"></div>
 
   <section class="home-brief" id="homeBrief" aria-label="Weekly household summary"></section>
+  <section class="shield-run" id="shieldRun" aria-label="Streak shield status"></section>
   <section class="latest-activity" id="latestActivity" aria-label="Latest household activity"></section>
 
   <div class="pill-tabs">
@@ -708,8 +899,15 @@
     <div class="progress"><div id="weekProgress" style="width:0%"></div></div>
     <div class="section-title">
       <h2>Assigned chores</h2>
-      <span id="weekMiniSummary">0 open</span>
+      <div class="week-tools">
+        <span id="weekMiniSummary">0 open</span>
+        <div class="view-switch" aria-label="Week view mode">
+          <button id="weekListView" type="button" class="active">List</button>
+          <button id="weekCalendarView" type="button">Planner</button>
+        </div>
+      </div>
     </div>
+    <div id="swapRequestSlot"></div>
     <div class="card no-pad">
       <div id="schedule"></div>
     </div>
@@ -720,6 +918,7 @@
 
   <div class="tab" id="tab-board" style="display:none">
     <section class="activity-card" id="activityFeed" aria-label="Recent household activity"></section>
+    <section class="fairness-card" id="fairnessMeter" aria-label="Household fairness meter"></section>
     <div class="card">
       <h2>🏆 Leaderboard · all-time</h2>
       <div id="leaderboard"></div>
@@ -757,8 +956,8 @@
 <!-- INFO POPOVER -->
 <div class="info-pop" id="infoPop">
   <p class="legend">
-    ⏰ <b>Reminder Wed</b> · 🚨 <b>Overdue Thu+</b> · 💤 <b>Snooze</b> 24h or 48h (max 48h/week, deadline shifts).<br>
-    🎯 Done on time <b>+10</b> · Done late <b>+5</b> · Missed <b>−5</b> · 🥇 Lowest scorer of the month buys treats!
+    ⏰ <b>Reminder Wed</b> · 🚨 <b>Needs action Thu+</b> · 💤 <b>Snooze</b> 24h or 48h (max 48h/week, deadline shifts).<br>
+    🎯 Done on time <b>+10</b> · Done late <b>+5</b> · Missed <b>−5</b> · 🛡️ 3 on-time weeks earns one monthly late-forgiveness shield.
   </p>
 </div>
 
@@ -854,6 +1053,7 @@ Kitchen</textarea>
     <label>Chores</label>
     <div id="choresEdit"></div>
     <button class="btn full" id="addChoreBtn" style="margin-top:6px;">➕ Add chore</button>
+    <p class="legend">Difficulty affects fairness workload only: Easy = 6, Normal = 10, Hard = 14. Points stay fixed for everyone.</p>
   </div>
 
   <div class="field">
@@ -870,6 +1070,7 @@ Kitchen</textarea>
   <div class="field">
     <label>Rotation start (a Monday)</label>
     <input type="date" id="anchor">
+    <p class="legend" style="margin-top:6px;">Scores and penalties start from May 11, 2026. Older test weeks are ignored.</p>
   </div>
 
   <button class="btn primary full" id="saveClose">Done</button>
@@ -919,6 +1120,16 @@ Kitchen</textarea>
   <p class="legend" style="margin-top:14px;">Snoozing pushes your deadline. Roommates will see you've snoozed. Past the snooze deadline without finishing → −5 pts.</p>
 </div>
 
+<!-- SWAP -->
+<div class="sheet-bg" id="swapBg"></div>
+<div class="sheet" id="swapSheet">
+  <button class="sheet-close" id="closeSwap">×</button>
+  <h2>🔁 Request chore swap</h2>
+  <p class="legend" id="swapIntro" style="margin-top:0;"></p>
+  <div class="swap-options" id="swapOptions"></div>
+  <p class="legend" style="margin-top:14px;">The schedule only changes after the other roommate approves. Declined or pending swaps leave the rotation untouched.</p>
+</div>
+
 <!-- RPS -->
 <div class="sheet-bg" id="rpsBg"></div>
 <div class="sheet" id="rpsSheet">
@@ -928,10 +1139,27 @@ Kitchen</textarea>
 </div>
 
 <div class="toast" id="toast"></div>
+<div class="celebration-bg" id="celebrationBg" role="dialog" aria-modal="true" aria-live="polite">
+  <div class="celebration-card" id="celebrationCard"></div>
+</div>
+<div class="release-bg" id="releaseBg" role="dialog" aria-modal="true" aria-live="polite">
+  <section class="release-card" aria-labelledby="releaseTitle">
+    <button class="release-close" id="closeRelease" type="button" aria-label="Close release notes">×</button>
+    <div class="release-hero">
+      <div class="release-kicker" id="releaseVersion"></div>
+      <h2 class="release-title" id="releaseTitle"></h2>
+      <p class="release-sub" id="releaseSubtitle"></p>
+    </div>
+    <div class="release-body">
+      <div class="release-list" id="releaseList"></div>
+      <button class="btn primary" id="releaseDone" type="button"></button>
+    </div>
+  </section>
+</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged, setPersistence, indexedDBLocalPersistence, browserLocalPersistence }
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, indexedDBLocalPersistence, browserLocalPersistence }
   from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, serverTimestamp, deleteField, deleteDoc }
   from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
@@ -948,6 +1176,35 @@ const firebaseConfig = {
   measurementId: "G-FXN6342XRW",
 };
 const VAPID_KEY = "BDz6t2aisLP14bveuYuNAC8pRmWP7cWX2InPd8WCWpvTbISXonIrseEIpOyRMfDki4snD3pY5IxHIs9JE7KG9LQ";
+const APP_VERSION = "2026-05-22.2";
+const RELEASE_NOTES = {
+  version: APP_VERSION,
+  title: "Freshly mopped. Slightly judgemental.",
+  subtitle: "Tidy Team got smarter, because apparently chores needed a product roadmap.",
+  button: "Show me the cleaner chaos",
+  items: [
+    {
+      icon: "/icons/calendar.gif",
+      title: "Rotation planner",
+      body: "Preview future weeks before Alex suddenly remembers they are 'busy' on kitchen day.",
+    },
+    {
+      icon: "/icons/swap.gif",
+      title: "Chore swaps",
+      body: "Request a swap for a specific week. Friendship survives. The bathroom still gets cleaned.",
+    },
+    {
+      icon: "/icons/fire-insurance.gif",
+      title: "Streak Shield",
+      body: "Clean weeks can unlock one late-forgiveness shield. A tiny mercy system for mostly responsible adults.",
+    },
+    {
+      icon: "/icons/activity-feed.gif",
+      title: "Cleaner activity feed",
+      body: "Nudges, completions, and house drama now read like events, not a spreadsheet having a bad day.",
+    },
+  ],
+};
 const SNOOZE_CAP_HOURS = 48;
 const HOUR_MS = 3600000;
 const DAY_MS = 86400000;
@@ -955,7 +1212,18 @@ const MIN_MEMBERS = 1;
 const MAX_MEMBERS = 8;
 const MIN_CHORES = 1;
 const MAX_CHORES = 10;
+const SCORE_BASELINE = "2026-05-11";
+const POINTS = { done:10, late:5, missed:-5 };
+const SHIELD_STREAK_WEEKS = 3;
+const DIFFICULTY = {
+  easy: { label:"Easy", weight:6 },
+  normal: { label:"Normal", weight:10 },
+  hard: { label:"Hard", weight:14 },
+};
 const BUG_REPORT_EMAIL = "mukulsachdeva1997@gmail.com";
+let shieldTipOpen = false;
+let weekViewMode = "list";
+let swapReturnMonday = null;
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -997,56 +1265,73 @@ function emojiHtml(emoji, size = 28, extraStyle = "") {
 // ----- LINES (roast/celebration) -----
 const LINES = {
   loser_savage: [
-    { en: "{name} ({pts} pts). Did you forget the app exists, or is laziness your entire personality?", de: "{name} ({pts} Punkte). App vergessen oder ist Faulheit dein ganzer Charakter?" },
-    { en: "{name}, {pts} pts. The dust bunnies have a Slack channel about you.", de: "{name}, {pts} Punkte. Die Staubmäuse haben eine Slack-Gruppe über dich." },
-    { en: "{name} scored {pts}. Even the trash takes itself out at this point.", de: "{name} hat {pts} Punkte. Selbst der Müll bringt sich mittlerweile selbst raus." },
-    { en: "Congratulations {name}, {pts} pts of pure horizontal achievement.", de: "Glückwunsch {name}, {pts} Punkte für reine horizontale Leistung." },
-    { en: "{name} ({pts} pts). Marie Kondo wouldn't spark joy looking at you.", de: "{name} ({pts} Punkte). Marie Kondo würde bei deinem Anblick die Freude verlieren." },
-    { en: "{name}: {pts} pts. Productivity called. It hung up.", de: "{name}: {pts} Punkte. Die Produktivität rief an. Hat dann aufgelegt." },
-    { en: "{name}, {pts} pts. The bathroom filed a missing person report on you.", de: "{name}, {pts} Punkte. Das Badezimmer hat dich als vermisst gemeldet." },
-    { en: "{name} ({pts} pts) — Olympic torch carrier of doing nothing.", de: "{name} ({pts} Punkte) — Olympia-Goldmedaille im Nichtstun." },
-    { en: "{name}: {pts}. Born to delegate, forced to be assigned.", de: "{name}: {pts}. Zum Delegieren geboren, zum Putzen verdammt." },
-    { en: "{name} ({pts} pts). The chore wheel turned. Your brain did not.", de: "{name} ({pts} Punkte). Der Putzplan hat sich gedreht. Dein Hirn nicht." },
-    { en: "{name}: {pts} pts. We checked — yes, you actually live here.", de: "{name}: {pts} Punkte. Wir haben nachgeschaut — ja, du wohnst tatsächlich hier." },
-    { en: "{name} ({pts} pts). The sponge is filing a restraining order.", de: "{name} ({pts} Punkte). Der Schwamm beantragt eine einstweilige Verfügung." },
-    { en: "{name}, {pts} pts of pure performance art: 'man avoiding bucket'.", de: "{name}, {pts} Punkte reine Performance-Kunst: 'Mensch vermeidet Eimer'." },
-    { en: "{name} scored {pts}. Even your snooze button needs a break.", de: "{name} hat {pts} Punkte. Sogar dein Snooze-Knopf braucht eine Pause." },
-    { en: "{name}: {pts}. Putzplan was a suggestion, apparently.", de: "{name}: {pts}. Putzplan war wohl nur ein Vorschlag." },
+    "{name} ({pts} pts). Did you forget the app exists, or is laziness your entire personality?",
+    "{name}, {pts} pts. The dust bunnies have a Slack channel about you.",
+    "{name} scored {pts}. Even the trash takes itself out at this point.",
+    "Congratulations {name}, {pts} pts of pure horizontal achievement.",
+    "{name} ({pts} pts). Marie Kondo wouldn't spark joy looking at you.",
+    "{name}: {pts} pts. Productivity called. It hung up.",
+    "{name}, {pts} pts. The bathroom filed a missing person report on you.",
+    "{name} ({pts} pts). Olympic torch carrier of doing nothing.",
+    "{name}: {pts}. Born to delegate, forced to be assigned.",
+    "{name} ({pts} pts). The chore wheel turned. Your brain did not.",
+    "{name}: {pts} pts. We checked. Yes, you actually live here.",
+    "{name} ({pts} pts). The sponge is filing a restraining order.",
+    "{name}, {pts} pts of pure performance art: 'person avoiding bucket'.",
+    "{name} scored {pts}. Even your snooze button needs a break.",
+    "{name}: {pts}. The chore list was apparently just a mood board.",
+    "{name} ({pts} pts). Cleaning called, but you left it on read.",
+    "{name}: {pts} pts. Your future responsibilities are still buffering.",
+    "{name} ({pts} pts). The mop has standards. You did not meet them.",
   ],
   loser_mild: [
-    { en: "{name} ({pts} pts). Last but not lazy. OK, slightly lazy. Pizza on you.", de: "{name} ({pts} Punkte). Letzter, aber nicht faul. Naja, etwas faul. Pizza geht auf dich." },
-    { en: "{name} came last with {pts}. Honourable defeat. Now pay up.", de: "{name} ist Letzter mit {pts} Punkten. Ehrenvolle Niederlage. Jetzt bezahl mal." },
-    { en: "{name}: {pts} pts. So close. So tragic. So pizza-buying.", de: "{name}: {pts} Punkte. So nah dran. So tragisch. So pizzakaufend." },
-    { en: "{name} ({pts} pts) — the silver of last places. Wallet open.", de: "{name} ({pts} Punkte) — der Vize-Verlierer. Geldbeutel auf." },
-    { en: "{name}, {pts} pts. Bare minimum achieved. Punishment incoming.", de: "{name}, {pts} Punkte. Minimum erreicht. Bestrafung folgt." },
-    { en: "{name}: {pts}. Effort detected. Loserdom confirmed.", de: "{name}: {pts}. Anstrengung erkannt. Verlierer bestätigt." },
-    { en: "{name} ({pts} pts). You tried. The trophy disagrees.", de: "{name} ({pts} Punkte). Du hast es versucht. Der Pokal widerspricht." },
+    "{name} ({pts} pts). Last but not lazy. OK, slightly lazy. Pizza on you.",
+    "{name} came last with {pts}. Honourable defeat. Now pay up.",
+    "{name}: {pts} pts. So close. So tragic. So pizza-buying.",
+    "{name} ({pts} pts). The silver medal of last place. Wallet open.",
+    "{name}, {pts} pts. Bare minimum achieved. Punishment incoming.",
+    "{name}: {pts}. Effort detected. Loserdom confirmed.",
+    "{name} ({pts} pts). You tried. The trophy disagrees.",
+    "{name}: {pts} pts. Not a disaster. Still buying treats.",
+    "{name} ({pts} pts). Respectable failure. Delicious consequence.",
   ],
   winner: [
-    { en: "{name} ({pts} pts). Apartment dominance. We'll allow it.", de: "{name} ({pts} Punkte). Wohnungs-Dominanz. Akzeptiert." },
-    { en: "{name}: {pts}. Marie Kondo took notes.", de: "{name}: {pts}. Marie Kondo hat sich Notizen gemacht." },
-    { en: "All hail {name} ({pts} pts) of unhinged competence.", de: "Alle gehorcht {name} ({pts} Punkte) — übertriebene Kompetenz." },
-    { en: "{name} ({pts} pts). The kitchen wrote a sonnet.", de: "{name} ({pts} Punkte). Die Küche hat ein Sonett geschrieben." },
-    { en: "{name}: {pts} pts. Show-off energy. Keep it.", de: "{name}: {pts} Punkte. Angeber-Energie. Bitte beibehalten." },
-    { en: "{name} ({pts} pts). Chore game so strong it's borderline aggressive.", de: "{name} ({pts} Punkte). So gutes Putz-Game, fast aggressiv." },
-    { en: "{name} scored {pts}. The bathroom is genuinely emotional.", de: "{name} hat {pts} Punkte. Das Bad ist emotional bewegt." },
-    { en: "{name}, {pts} pts. Insufferable in the best way.", de: "{name}, {pts} Punkte. Unerträglich auf die beste Art." },
-    { en: "{name} ({pts} pts) — peak roommate. Try to be more annoying about it.", de: "{name} ({pts} Punkte) — Spitzen-Mitbewohner. Versuch nervig zu sein damit." },
-    { en: "{name}: {pts}. The trash bag thanks you personally.", de: "{name}: {pts}. Der Müllbeutel dankt dir persönlich." },
-    { en: "{name} ({pts} pts). Cleaning influencer. Disgusting.", de: "{name} ({pts} Punkte). Putz-Influencer. Widerlich." },
-    { en: "{name}: {pts} pts of weaponised tidiness.", de: "{name}: {pts} Punkte bewaffneter Sauberkeit." },
+    "{name} ({pts} pts). Apartment dominance. We'll allow it.",
+    "{name}: {pts}. Marie Kondo took notes.",
+    "All hail {name} ({pts} pts) of unhinged competence.",
+    "{name} ({pts} pts). The kitchen wrote a sonnet.",
+    "{name}: {pts} pts. Show-off energy. Keep it.",
+    "{name} ({pts} pts). Chore game so strong it's borderline aggressive.",
+    "{name} scored {pts}. The bathroom is genuinely emotional.",
+    "{name}, {pts} pts. Insufferable in the best way.",
+    "{name} ({pts} pts). Peak roommate. Try to be more annoying about it.",
+    "{name}: {pts}. The trash bag thanks you personally.",
+    "{name} ({pts} pts). Cleaning influencer. Disgusting.",
+    "{name}: {pts} pts of weaponised tidiness.",
+    "{name} ({pts} pts). Calm down, the rest of us have families.",
+    "{name}: {pts}. Absolutely unnecessary levels of competence.",
   ],
   mid: [
-    { en: "{name} ({pts} pts). Reliable. Boring. Acceptable.", de: "{name} ({pts} Punkte). Zuverlässig. Langweilig. Akzeptabel." },
-    { en: "{name}: {pts}. Mid-tier excellence.", de: "{name}: {pts}. Mittelmäßige Exzellenz." },
-    { en: "{name} ({pts} pts) — the diplomatic middle child.", de: "{name} ({pts} Punkte) — das diplomatische mittlere Kind." },
-    { en: "{name}: {pts} pts. Doing enough to not get roasted. Almost.", de: "{name}: {pts} Punkte. Genug, um nicht gegrillt zu werden. Fast." },
-    { en: "{name} ({pts} pts). Existing. Cleaning. Functional.", de: "{name} ({pts} Punkte). Existiert. Putzt. Funktioniert." },
-    { en: "{name}: {pts}. Solidly forgettable.", de: "{name}: {pts}. Solide vergesslich." },
-    { en: "{name} ({pts} pts). The grey area, personified.", de: "{name} ({pts} Punkte). Die Grauzone, personifiziert." },
-    { en: "{name}: {pts} pts. Could be worse. Could be a lot better.", de: "{name}: {pts} Punkte. Könnte schlimmer sein. Könnte deutlich besser sein." },
-    { en: "{name} ({pts} pts). Not the hero. Not the villain. The padding.", de: "{name} ({pts} Punkte). Weder Held noch Bösewicht. Das Füllmaterial." },
-    { en: "{name}: {pts}. Beige energy. Maintained.", de: "{name}: {pts}. Beige Energie. Beibehalten." },
+    "{name} ({pts} pts). Reliable. Boring. Acceptable.",
+    "{name}: {pts}. Mid-tier excellence.",
+    "{name} ({pts} pts). The diplomatic middle child.",
+    "{name}: {pts} pts. Doing enough to not get roasted. Almost.",
+    "{name} ({pts} pts). Existing. Cleaning. Functional.",
+    "{name}: {pts}. Solidly forgettable.",
+    "{name} ({pts} pts). The grey area, personified.",
+    "{name}: {pts} pts. Could be worse. Could be a lot better.",
+    "{name} ({pts} pts). Not the hero. Not the villain. The padding.",
+    "{name}: {pts}. Beige energy. Maintained.",
+    "{name} ({pts} pts). Competent enough to avoid a meeting.",
+    "{name}: {pts} pts. Perfectly medium. Somehow impressive.",
+  ],
+  tied: [
+    "{name} ({pts} pts). Locked in a tie. The scoreboard refuses to pick a favorite.",
+    "{name}: {pts} pts. Equal points, equal suspicion.",
+    "{name} ({pts} pts). Nobody is winning. Nobody is safe.",
+    "{name}: {pts}. The leaderboard shrugged.",
+    "{name} ({pts} pts). Perfectly tied, emotionally unresolved.",
+    "{name}: {pts} pts. The drama is pending review.",
   ],
 };
 
@@ -1060,10 +1345,91 @@ function toast(msg) {
   const t = $("toast"); t.textContent = msg; t.classList.add("show");
   clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 2400);
 }
+let releaseNotesShownThisSession = false;
+let releaseNotesDemoOpen = false;
+function releaseNotesKey() {
+  return `tidy-team-release-notes-${APP_VERSION}`;
+}
+function closeReleaseNotes() {
+  $("releaseBg")?.classList.remove("open");
+  if (!releaseNotesDemoOpen) localStorage.setItem(releaseNotesKey(), "1");
+  releaseNotesDemoOpen = false;
+}
+function showReleaseNotes({ demo = false } = {}) {
+  const bg = $("releaseBg");
+  if (!bg) return;
+  releaseNotesDemoOpen = demo;
+  $("releaseVersion").textContent = `New in v${RELEASE_NOTES.version}`;
+  $("releaseTitle").textContent = RELEASE_NOTES.title;
+  $("releaseSubtitle").textContent = RELEASE_NOTES.subtitle;
+  $("releaseDone").textContent = RELEASE_NOTES.button;
+  $("releaseList").innerHTML = RELEASE_NOTES.items.map((item) => `
+    <article class="release-item">
+      <div class="release-icon" aria-hidden="true"><img src="${esc(item.icon)}" alt=""></div>
+      <div class="release-copy">
+        <b>${esc(item.title)}</b>
+        <span>${esc(item.body)}</span>
+      </div>
+    </article>
+  `).join("");
+  bg.classList.add("open");
+}
+function maybeShowReleaseNotes() {
+  if (releaseNotesShownThisSession) return;
+  const demo = ["localhost", "127.0.0.1"].includes(location.hostname)
+    && new URLSearchParams(location.search).get("demo") === "release";
+  if (!demo && localStorage.getItem(releaseNotesKey())) return;
+  releaseNotesShownThisSession = true;
+  setTimeout(() => showReleaseNotes({ demo }), 750);
+}
+let celebrationTimer;
+let demoCelebrationShown = false;
+function closeCelebration() {
+  $("celebrationBg")?.classList.remove("open");
+  clearTimeout(celebrationTimer);
+}
+function showStreakCelebration({ title, text, progress, unlocked = false }) {
+  const bg = $("celebrationBg");
+  const card = $("celebrationCard");
+  if (!bg || !card) return;
+  const icon = unlocked ? "/icons/shield.png" : "/icons/fire.gif";
+  const steps = Array.from({ length: SHIELD_STREAK_WEEKS }, (_, i) => {
+    const done = i < Math.min(progress, SHIELD_STREAK_WEEKS);
+    return `<span class="${done ? "done" : ""}">${done ? `<img src="/icons/fire.gif" alt="">` : ""}</span>`;
+  }).join("");
+  card.innerHTML = `
+    <div class="celebration-sparks" aria-hidden="true">
+      <img src="/icons/fire.gif" alt="">
+      <img src="/icons/fire.gif" alt="">
+      <img src="/icons/fire.gif" alt="">
+      <img src="/icons/fire.gif" alt="">
+      <img src="/icons/fire.gif" alt="">
+      <img src="/icons/fire.gif" alt="">
+    </div>
+    <div class="celebration-icon"><img src="${icon}" alt=""></div>
+    <h2 class="celebration-title">${esc(title)}</h2>
+    <p class="celebration-text">${esc(text)}</p>
+    <div class="celebration-progress" aria-label="${Math.min(progress, SHIELD_STREAK_WEEKS)} of ${SHIELD_STREAK_WEEKS} clean weeks">${steps}</div>
+    <button class="btn primary" id="closeCelebration" type="button">${unlocked ? "Shield ready" : "Nice"}</button>`;
+  bg.classList.add("open");
+  $("closeCelebration").onclick = closeCelebration;
+  clearTimeout(celebrationTimer);
+  celebrationTimer = setTimeout(closeCelebration, 60000);
+}
+function maybeShowDemoCelebration() {
+  if (demoCelebrationShown) return;
+  if (!["localhost", "127.0.0.1"].includes(location.hostname)) return;
+  if (new URLSearchParams(location.search).get("demo") !== "streak") return;
+  demoCelebrationShown = true;
+  setTimeout(() => showStreakCelebration({
+    title: "Clean week logged",
+    text: "Well done, Alex. 2 more clean weeks to earn your shield.",
+    progress: 1,
+  }), 650);
+}
 function hashStr(s) { let h = 5381; for (let i = 0; i < s.length; i++) h = (((h << 5) + h) + s.charCodeAt(i)) | 0; return Math.abs(h); }
 function pickLine(category, seed) { const pool = LINES[category] || LINES.mid; return pool[hashStr(seed) % pool.length]; }
-function fillLine(line, vars) { const fill = (s) => s.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? ""); return { en: fill(line.en), de: fill(line.de) }; }
-function pickLanguage(seed) { return (hashStr(seed + ":lang") % 2) === 0 ? "en" : "de"; }
+function fillLine(line, vars) { return String(line).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? ""); }
 function dayKey(d = new Date()) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
 function genHouseholdId() {
   const rand = (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36)).replace(/[^a-z0-9]/gi, "").toLowerCase().substring(0, 8);
@@ -1093,16 +1459,49 @@ function weekIndexFromAnchor(monday) {
   const a = mondayOf(new Date(household.anchor + "T00:00:00"));
   return Math.floor((monday - a) / (7*DAY_MS));
 }
-function personForChore(monday, choreIdx) {
+function scoreStartMonday() {
+  const rotationStart = mondayOf(new Date((household.anchor || SCORE_BASELINE) + "T00:00:00"));
+  const baselineStart = mondayOf(new Date(SCORE_BASELINE + "T00:00:00"));
+  return rotationStart > baselineStart ? rotationStart : baselineStart;
+}
+function isBeforeScoreStart(monday) {
+  return mondayOf(monday) < scoreStartMonday();
+}
+function basePersonForChore(monday, choreIdx) {
   const n = household.people.length;
   if (n === 0) return -1;
   const wi = weekIndexFromAnchor(monday);
   const off = ((wi % n) + n) % n;
   return (choreIdx + off) % n;
 }
+function personForChore(monday, choreIdx) {
+  const n = household.people.length;
+  if (n === 0) return -1;
+  const week = isoWeekKey(monday);
+  const override = household?.assignmentOverrides?.[week]?.[`c${choreIdx}`];
+  if (Number.isInteger(override) && override >= 0 && override < n) return override;
+  return basePersonForChore(monday, choreIdx);
+}
 function meIdx() {
   if (!user || !household) return -1;
   return household.people.findIndex(p => (p.email || "").toLowerCase() === user.email.toLowerCase());
+}
+function personLabel(idx) {
+  const p = household?.people?.[idx];
+  return p ? (p.name || p.email?.split("@")[0] || "Someone") : "Someone";
+}
+function personIndexByEmail(email) {
+  const wanted = (email || "").toLowerCase();
+  if (!wanted || !household?.people) return -1;
+  return household.people.findIndex(p => (p.email || "").toLowerCase() === wanted);
+}
+function personLabelByEmail(email, fallbackIdx) {
+  const idx = personIndexByEmail(email);
+  return idx >= 0 ? personLabel(idx) : personLabel(fallbackIdx);
+}
+function shieldKeyForPerson(idx) {
+  const p = household?.people?.[idx];
+  return (p?.email || `person-${idx}`).toLowerCase().replace(/[^a-z0-9]/g, "_");
 }
 function inviteUrl() {
   if (!householdId) return "";
@@ -1124,6 +1523,29 @@ let createMyEmoji = "🦁";
 let addMemberEmoji = "🐼";
 let firstHouseholdLoad = true;
 let authReady = false;
+let activeActivityFilter = "all";
+let updateHoldUntil = 0;
+let queuedSplash = null;
+let updateSplashTimer = null;
+
+function prepareAppVersionNotice() {
+  const key = "tidy-team-app-version";
+  const previous = localStorage.getItem(key);
+  if (previous && previous !== APP_VERSION) {
+    $("loadingTitle").textContent = "Updating Tidy Team";
+    $("loadingText").textContent = "New chores, fixes, and tiny bits of household drama are loading now.";
+    updateHoldUntil = Date.now() + 1800;
+  }
+  localStorage.setItem(key, APP_VERSION);
+}
+function registerAppShellWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  navigator.serviceWorker.register("/firebase-messaging-sw.js")
+    .then((reg) => reg.update?.())
+    .catch(() => {});
+}
+prepareAppVersionNotice();
+registerAppShellWorker();
 
 // AUTH
 $("signInBtn").onclick = async () => {
@@ -1131,9 +1553,9 @@ $("signInBtn").onclick = async () => {
   showSplash("loading");
   try { await signInWithPopup(auth, provider); showSplash("loading"); }
   catch (e) {
-    if (e.code === "auth/popup-blocked" || e.code === "auth/popup-closed-by-user") {
-      await signInWithRedirect(auth, provider);
-    } else { showSplash("splash"); toast("Sign-in failed: " + e.code); }
+    showSplash("splash");
+    const interrupted = e.code === "auth/popup-blocked" || e.code === "auth/popup-closed-by-user" || e.code === "auth/cancelled-popup-request";
+    toast(interrupted ? "Sign-in was interrupted. Please try again." : "Sign-in failed: " + (e.code || e.message));
   }
 };
 $("signOut").onclick = () => signOut(auth);
@@ -1144,11 +1566,6 @@ $("leaveBlocked").onclick = async () => {
   history.replaceState({}, "", location.pathname);
   decideRoute();
 };
-getRedirectResult(auth).catch((e) => {
-  console.warn("Redirect sign-in failed", e);
-  toast("Sign-in redirect failed: " + (e.code || e.message));
-});
-
 setTimeout(() => {
   if (!authReady && $("loading").style.display !== "none") {
     console.warn("Firebase auth is taking longer than expected");
@@ -1168,8 +1585,20 @@ onAuthStateChanged(auth, async (u) => {
 });
 
 function showSplash(which) {
+  if (which !== "loading" && updateHoldUntil > Date.now()) {
+    queuedSplash = which;
+    clearTimeout(updateSplashTimer);
+    updateSplashTimer = setTimeout(() => {
+      const next = queuedSplash || which;
+      queuedSplash = null;
+      updateHoldUntil = 0;
+      showSplash(next);
+    }, updateHoldUntil - Date.now());
+    return;
+  }
   ["loading","splash","noHousehold","blocked","app"].forEach(id => $(id).style.display = "none");
   show(which);
+  if (which !== "loading") maybeShowReleaseNotes();
 }
 
 async function decideRoute() {
@@ -1280,6 +1709,84 @@ function relativeTime(ts) {
   const days = Math.floor(hours / 24);
   return `${days}d ago`;
 }
+function activityMatchesFilter(item, filter) {
+  if (filter === "all") return true;
+  if (filter === "done") return item.type === "done" || item.type === "undo" || item.type === "shield-used";
+  if (filter === "nudges") return item.type === "nudge";
+  if (filter === "snoozes") return item.type === "snooze";
+  if (filter === "house") return item.type?.startsWith("member-") || item.type?.startsWith("chore-") || item.type?.startsWith("swap-") || item.type === "treat-paid" || item.type === "rps";
+  return true;
+}
+function compactActivityItems(items) {
+  return items.reduce((acc, item) => {
+    const last = acc[acc.length - 1];
+    const sameActor = (last?.actor?.email || "") === (item.actor?.email || "");
+    if (last && sameActor && last.type === item.type && last.text === item.text) {
+      last.count = (last.count || 1) + 1;
+      last.firstAt = item.at;
+    } else {
+      acc.push({ ...item, count: 1, firstAt: item.at });
+    }
+    return acc;
+  }, []);
+}
+function activityChoreFromText(text) {
+  const s = String(text || "");
+  let match = s.match(/completed (.+?) for /);
+  if (match) return match[1];
+  match = s.match(/undid (.+)$/);
+  if (match) return match[1];
+  match = s.match(/nudged .+ about (.+)$/);
+  if (match) return match[1];
+  match = s.match(/snoozed (.+?) for \d+h/);
+  if (match) return match[1];
+  return "";
+}
+function activityPointsFromText(text) {
+  const match = String(text || "").match(/\(([+-]?\d+)\)/);
+  return match ? Number(match[1]) : null;
+}
+function formatActivityText(item) {
+  const actor = item.actor || {};
+  const actorName = actor.name || actor.email || "Someone";
+  const chore = item.chore || activityChoreFromText(item.text);
+  if (item.type === "done") {
+    const points = item.points ?? activityPointsFromText(item.text) ?? POINTS.done;
+    return `${actorName} completed ${chore || "a chore"} and earned ${points} points`;
+  }
+  if (item.type === "undo") return `${actorName} undid ${chore || "a chore"}`;
+  if (item.type === "nudge") {
+    const target = item.targetName || String(item.text || "").match(/nudged (.+?) about/)?.[1] || "a roommate";
+    return `${actorName} nudged ${target} about ${chore || "a chore"}`;
+  }
+  if (item.type === "snooze") return `${actorName} snoozed ${chore || "a chore"} for ${item.hours || "some"}h`;
+  if (item.type === "shield-used") {
+    return `${actorName} used a Streak Shield on ${chore || "a chore"} and kept full points`;
+  }
+  if (item.type === "swap-request") {
+    return `${actorName} requested a swap: ${item.fromChore || "their chore"} ↔ ${item.toChore || "another chore"}`;
+  }
+  if (item.type === "swap-approved") {
+    return `${actorName} approved a swap: ${item.fromChore || "one chore"} ↔ ${item.toChore || "another chore"}`;
+  }
+  if (item.type === "swap-declined") {
+    return `${actorName} declined a swap: ${item.fromChore || "one chore"} ↔ ${item.toChore || "another chore"}`;
+  }
+  return `${actorName} ${item.text || "updated the household"}`;
+}
+function choreDifficulty(chore) {
+  const value = household?.choreMeta?.[chore]?.difficulty || "normal";
+  return DIFFICULTY[value] ? value : "normal";
+}
+function choreScore(chore) {
+  return DIFFICULTY[choreDifficulty(chore)] || DIFFICULTY.normal;
+}
+function choreMetaWithDifficulty(chore, difficulty) {
+  return {
+    ...(household?.choreMeta || {}),
+    [chore]: { ...(household?.choreMeta?.[chore] || {}), difficulty: DIFFICULTY[difficulty] ? difficulty : "normal" },
+  };
+}
 
 // CREATE / JOIN
 $("openCreate").onclick = () => openCreateSheet();
@@ -1322,11 +1829,12 @@ $("createSubmit").onclick = async () => {
     emoji: i === 0 ? createMyEmoji : EMOJIS[(i * 7) % EMOJIS.length],
     phone: "",
   }));
+  const choreMeta = Object.fromEntries(chores.map(chore => [chore, { difficulty: "normal" }]));
   const newHid = genHouseholdId();
   const now = Date.now();
   const firstActivityId = `${now}-created`;
   const data = {
-    name, memberEmails: allEmails, people, chores,
+    name, memberEmails: allEmails, people, chores, choreMeta,
     anchor: mondayStr(new Date()), history: {}, treats: {}, emailTo: "",
     activity: {
       [firstActivityId]: {
@@ -1368,6 +1876,7 @@ function choreStatus(monday, choreIdx) {
   const sun = addDays(monday, 6); sun.setHours(23,59,59,999);
   const shiftHours = h?.shiftHours || 0;
   const effectiveDeadline = sun.getTime() + shiftHours * HOUR_MS;
+  if (isBeforeScoreStart(monday)) return { state:"prestart", h, effectiveDeadline };
   const snoozedUntil = h?.snoozedUntil || 0;
   const daysIn = Math.floor((today - monday) / DAY_MS);
   if (h?.completedAt) return { state:"done", h, onTime: h.completedAt <= effectiveDeadline, effectiveDeadline };
@@ -1396,29 +1905,170 @@ function weekSummary(monday = viewMonday) {
   return totals;
 }
 
+function choreIndicesForPerson(monday, personIdx) {
+  return household.chores
+    .map((_, idx) => idx)
+    .filter(idx => personForChore(monday, idx) === personIdx);
+}
+function weeklyOnTimeSuccess(monday, personIdx) {
+  const assigned = choreIndicesForPerson(monday, personIdx);
+  if (!assigned.length) return false;
+  return assigned.every(choreIdx => {
+    const st = choreStatus(monday, choreIdx);
+    return st.state === "done" && st.onTime;
+  });
+}
+function streakBeforeWeek(personIdx, beforeMonday = viewMonday) {
+  let streak = 0;
+  const startM = scoreStartMonday();
+  for (let m = addDays(mondayOf(beforeMonday), -7); m >= startM; m = addDays(m, -7)) {
+    if (weeklyOnTimeSuccess(m, personIdx)) streak++;
+    else break;
+  }
+  return streak;
+}
+function shieldRecord(monthKey, personIdx) {
+  return household?.shields?.[monthKey]?.[shieldKeyForPerson(personIdx)] || null;
+}
+function hasShieldAvailable(personIdx, monday = viewMonday) {
+  if (personIdx < 0) return false;
+  const mk = monthKeyOf(addDays(monday, 6));
+  return streakBeforeWeek(personIdx, monday) >= SHIELD_STREAK_WEEKS && !shieldRecord(mk, personIdx)?.usedAt;
+}
+function shieldRunStatus(personIdx, monday = viewMonday) {
+  const mk = monthKeyOf(addDays(monday, 6));
+  const record = shieldRecord(mk, personIdx);
+  const ready = hasShieldAvailable(personIdx, monday);
+  const streak = streakBeforeWeek(personIdx, monday);
+  return {
+    ready,
+    used: !!record?.usedAt,
+    streak,
+    progress: Math.min(SHIELD_STREAK_WEEKS, streak),
+    remaining: Math.max(0, SHIELD_STREAK_WEEKS - streak),
+    usedChore: record?.usedChore || "",
+  };
+}
+function cleanWeekProgressAfterCompletion(personIdx, completedChoreIdx, completedOnTime) {
+  if (!completedOnTime) return null;
+  const assigned = choreIndicesForPerson(viewMonday, personIdx);
+  if (!assigned.length) return null;
+  const cleanAfterThis = assigned.every(idx => {
+    if (idx === completedChoreIdx) return true;
+    const st = choreStatus(viewMonday, idx);
+    return st.state === "done" && st.onTime;
+  });
+  if (!cleanAfterThis) return null;
+  const progress = Math.min(SHIELD_STREAK_WEEKS, streakBeforeWeek(personIdx, viewMonday) + 1);
+  return {
+    progress,
+    remaining: Math.max(0, SHIELD_STREAK_WEEKS - progress),
+    unlocked: progress >= SHIELD_STREAK_WEEKS,
+  };
+}
+
+function swapsForWeek(week = isoWeekKey(viewMonday), status = "pending") {
+  return Object.values(household?.swaps || {})
+    .filter(s => s && s.week === week && (!status || s.status === status))
+    .sort((a, b) => (b.requestedAt || 0) - (a.requestedAt || 0));
+}
+function pendingSwapForChore(choreIdx, week = isoWeekKey(viewMonday)) {
+  return swapsForWeek(week).find(s => s.fromChoreIdx === choreIdx || s.toChoreIdx === choreIdx) || null;
+}
+function canRequestSwap(choreIdx, monday = viewMonday) {
+  if (!household?.chores?.length) return false;
+  const weekMonday = mondayOf(monday);
+  if (weekMonday < mondayOf(new Date())) return false;
+  if (personForChore(weekMonday, choreIdx) !== meIdx()) return false;
+  if (choreStatus(weekMonday, choreIdx).state === "done") return false;
+  if (pendingSwapForChore(choreIdx, isoWeekKey(weekMonday))) return false;
+  return household.chores.some((_, i) => i !== choreIdx
+    && personForChore(weekMonday, i) !== meIdx()
+    && choreStatus(weekMonday, i).state !== "done"
+    && !pendingSwapForChore(i, isoWeekKey(weekMonday)));
+}
+
 function renderHomeBrief() {
   const s = weekSummary(viewMonday);
   const me = meIdx();
+  const beforeStart = isBeforeScoreStart(viewMonday);
   const currentMonth = scoresMonth(monthKeyOf(new Date()));
   const myMonth = me >= 0 ? currentMonth[me] : null;
+  const shieldReady = hasShieldAvailable(me, viewMonday);
   const diff = Math.round((viewMonday - mondayOf(new Date())) / (7 * DAY_MS));
-  const scope = diff === 0 ? "This week" : diff === 1 ? "Next week" : diff === -1 ? "Last week" : diff > 1 ? `In ${diff} weeks` : `${Math.abs(diff)} weeks ago`;
-  const mood = s.missed ? "Damage control time" : s.urgent ? "A few chores need attention" : s.done === s.chores && s.chores ? "Clean sweep" : "Household game plan";
+  const scope = beforeStart ? "Before launch" : diff === 0 ? "This week" : diff === 1 ? "Next week" : diff === -1 ? "Last week" : diff > 1 ? `In ${diff} weeks` : `${Math.abs(diff)} weeks ago`;
+  const mood = beforeStart ? "Scores start May 11" : s.missed ? "Damage control time" : s.urgent ? "A few chores need attention" : s.done === s.chores && s.chores ? "Clean sweep" : "Household game plan";
   $("homeBrief").style.setProperty("--pct", s.pct);
   $("homeBrief").innerHTML = `
     <div class="brief-top">
       <div>
         <div class="brief-kicker">${esc(scope)}</div>
         <div class="brief-title">${esc(mood)}</div>
-        <div class="brief-sub">${s.open} open · ${s.done}/${s.chores || 0} done${s.snoozed ? ` · ${s.snoozed} snoozed` : ""}</div>
+        <div class="brief-sub">${s.open} open · ${s.done}/${s.chores || 0} done${s.snoozed ? ` · ${s.snoozed} snoozed` : ""}${shieldReady ? " · 🛡️ shield ready" : ""}</div>
       </div>
       <div class="brief-ring" aria-label="${s.pct}% complete"><span>${s.pct}%</span></div>
     </div>
     <div class="brief-grid">
       <div class="brief-stat"><div class="v">${s.mine}</div><div class="l">your chores</div></div>
       <div class="brief-stat"><div class="v">${s.urgent + s.missed}</div><div class="l">needs action</div></div>
-      <div class="brief-stat"><div class="v">${myMonth ? myMonth.pts : 0}</div><div class="l">your month pts</div></div>
+      <div class="brief-stat"><div class="v">${shieldReady ? "🛡️" : (myMonth ? myMonth.pts : 0)}</div><div class="l">${shieldReady ? "shield ready" : "your month pts"}</div></div>
     </div>`;
+}
+
+function renderShieldRun() {
+  const el = $("shieldRun");
+  if (!el) return;
+  const me = meIdx();
+  const statusMonday = mondayOf(new Date());
+  if (me < 0 || isBeforeScoreStart(statusMonday)) {
+    el.style.display = "none";
+    return;
+  }
+  el.style.display = "";
+  const status = shieldRunStatus(me, statusMonday);
+  const nm = personLabel(me);
+  let title = `${status.progress}/${SHIELD_STREAK_WEEKS} clean weeks`;
+  let sub = status.remaining === 1
+    ? "One more on-time week unlocks your late-forgiveness shield."
+    : `${status.remaining} more on-time weeks unlock your late-forgiveness shield.`;
+  if (status.ready) {
+    title = "Shield ready";
+    sub = "Your next late completion this month keeps full points. Missed chores are never protected.";
+  }
+  if (status.used) {
+    title = "Shield used this month";
+    sub = status.usedChore ? `Protected ${status.usedChore}. Build another clean run next month.` : "Build another clean run next month.";
+  }
+  const steps = Array.from({ length: SHIELD_STREAK_WEEKS }, (_, i) => {
+    const done = i < status.progress || status.ready || status.used;
+    return `<span class="shield-step ${done ? "done" : "empty"}">${done ? `<img src="/icons/fire.gif" alt="">` : ""}</span>`;
+  }).join("");
+  el.className = `shield-run ${status.ready ? "ready" : ""} ${status.used ? "used" : ""}`;
+  el.innerHTML = `
+    <div class="shield-run-copy">
+      <div class="shield-run-kicker">${esc(nm)}'s clean run</div>
+      <div class="shield-run-title-row">
+        <div class="shield-run-title">${esc(title)}</div>
+        <button class="shield-info-btn" id="shieldInfoBtn" type="button" aria-label="How Streak Shield works" aria-expanded="${shieldTipOpen ? "true" : "false"}">?</button>
+      </div>
+      <div class="shield-run-sub">${esc(sub)}</div>
+    </div>
+    <div class="shield-track">
+      ${steps}
+      <span class="shield-prize ${status.ready ? "" : "locked"} ${status.used ? "used" : ""}"><img src="/icons/shield.png" alt=""></span>
+    </div>
+    ${shieldTipOpen ? `
+      <div class="shield-tip">
+        <strong>Streak Shield:</strong> finish every assigned chore on time for ${SHIELD_STREAK_WEEKS} clean weeks to unlock one monthly shield. It protects your first late completion, so you keep full points. Missed chores are never protected.
+      </div>` : ""}`;
+  const infoBtn = $("shieldInfoBtn");
+  if (infoBtn) {
+    infoBtn.onclick = (event) => {
+      event.stopPropagation();
+      shieldTipOpen = !shieldTipOpen;
+      renderShieldRun();
+    };
+  }
 }
 
 function renderLatestActivity() {
@@ -1429,8 +2079,7 @@ function renderLatestActivity() {
     el.innerHTML = `<span class="latest-copy"><strong>Latest:</strong> No activity yet</span><span class="latest-go">Board</span>`;
   } else {
     const actor = latest.actor || {};
-    const actorName = actor.name || actor.email || "Someone";
-    el.innerHTML = `<span class="latest-copy"><strong>Latest:</strong> ${esc(latest.icon || "•")} ${esc(actorName)} ${esc(latest.text || "updated the household")} · ${esc(relativeTime(latest.at))}</span><span class="latest-go">Board</span>`;
+    el.innerHTML = `<span class="latest-copy"><strong>Latest:</strong> ${esc(latest.icon || "•")} ${esc(formatActivityText(latest))} · ${esc(relativeTime(latest.at))}</span><span class="latest-go">Board</span>`;
   }
   el.onclick = () => {
     const boardBtn = document.querySelector('.pill-tabs button[data-tab="board"]');
@@ -1441,42 +2090,170 @@ function renderLatestActivity() {
 function renderActivityFeed() {
   const feed = $("activityFeed");
   if (!feed) return;
-  const items = activityItems().slice(0, 5);
-  const count = activityItems().length;
+  const allItems = activityItems();
+  const filtered = compactActivityItems(allItems.filter(item => activityMatchesFilter(item, activeActivityFilter)));
+  const items = filtered.slice(0, 5);
+  const count = filtered.length;
+  const filters = [
+    ["all", "All"],
+    ["done", "Done"],
+    ["nudges", "Nudges"],
+    ["snoozes", "Snoozes"],
+    ["house", "House"],
+  ];
+  const emptyLabel = filters.find(([id]) => id === activeActivityFilter)?.[1].toLowerCase() || "matching";
   const body = items.length
     ? `<div class="activity-list">${items.map(item => {
         const actor = item.actor || {};
-        const actorName = actor.name || actor.email || "Someone";
         const actorEmoji = actor.emoji || "👤";
+        const repeated = item.count > 1 ? `<span class="activity-count">×${item.count}</span>` : "";
         return `
           <div class="activity-item">
             <div class="activity-icon">${esc(item.icon || "•")}</div>
             <div class="activity-copy">
-              <div class="line">${emojiHtml(actorEmoji, 15)} ${esc(actorName)} ${esc(item.text || "updated the household")}</div>
+              <div class="line">${emojiHtml(actorEmoji, 15)} ${esc(formatActivityText(item))}${repeated}</div>
               <div class="meta">${esc(relativeTime(item.at))}</div>
             </div>
           </div>`;
       }).join("")}</div>`
-    : `<div class="activity-empty">No activity yet. Complete, snooze, or nudge a chore to start the timeline.</div>`;
+    : `<div class="activity-empty">No ${activeActivityFilter === "all" ? "" : emptyLabel + " "}activity yet.</div>`;
   feed.innerHTML = `
     <div class="activity-head">
       <h2>House activity</h2>
       <span>${count ? `${Math.min(count, 5)} recent` : "live log"}</span>
     </div>
+    <div class="activity-filters">${filters.map(([id, label]) => `<button data-activity-filter="${id}" class="${activeActivityFilter === id ? "active" : ""}">${label}</button>`).join("")}</div>
     ${body}`;
+  feed.querySelectorAll("[data-activity-filter]").forEach(btn => btn.onclick = () => {
+    activeActivityFilter = btn.dataset.activityFilter;
+    renderActivityFeed();
+  });
+}
+
+function renderSwapRequests() {
+  const slot = $("swapRequestSlot");
+  if (!slot) return;
+  const week = isoWeekKey(viewMonday);
+  const swaps = swapsForWeek(week);
+  if (!swaps.length) {
+    slot.innerHTML = "";
+    return;
+  }
+  const myEmail = (user?.email || "").toLowerCase();
+  slot.innerHTML = `
+    <section class="swap-card" aria-label="Pending chore swaps">
+      <div class="swap-head">
+        <h3>Swap requests</h3>
+        <span>${swaps.length} pending</span>
+      </div>
+      ${swaps.map(s => {
+        const fromChore = household.chores[s.fromChoreIdx] || s.fromChore || "a chore";
+        const toChore = household.chores[s.toChoreIdx] || s.toChore || "another chore";
+        const requester = personLabelByEmail(s.requesterEmail, s.requesterIdx);
+        const target = personLabelByEmail(s.targetEmail, s.targetIdx);
+        const isTarget = (s.targetEmail || "").toLowerCase() === myEmail;
+        const isRequester = (s.requesterEmail || "").toLowerCase() === myEmail;
+        const action = isTarget
+          ? `<div class="swap-actions"><button class="btn success" data-swap-approve="${esc(s.id)}">Approve</button><button class="btn danger" data-swap-decline="${esc(s.id)}">Decline</button></div>`
+          : `<div class="swap-actions"><span class="status-pill snoozed">${isRequester ? "waiting" : "pending"}</span></div>`;
+        return `<div class="swap-item">
+          <div class="swap-copy">🔁 ${esc(requester)} wants ${esc(target)} to swap <b>${esc(fromChore)}</b> with <b>${esc(toChore)}</b>
+            <small>${esc(relativeTime(s.requestedAt))}</small>
+          </div>
+          ${action}
+        </div>`;
+      }).join("")}
+    </section>`;
+  slot.querySelectorAll("[data-swap-approve]").forEach(btn => btn.onclick = () => approveSwap(btn.dataset.swapApprove));
+  slot.querySelectorAll("[data-swap-decline]").forEach(btn => btn.onclick = () => declineSwap(btn.dataset.swapDecline));
+}
+
+function renderRotationPlanner() {
+  const monday = viewMonday;
+  const sun = addDays(monday, 6);
+  const isCurrent = +monday === +mondayOf(new Date());
+  return `<div class="planner-view">
+    <section class="planner-card ${isCurrent ? "current" : ""}">
+      <div class="planner-head">
+        <div class="planner-week">
+          <b>${isCurrent ? "This week's rotation" : "Planned rotation"}</b>
+          <span>${fmt(monday)} - ${fmt(sun)}</span>
+        </div>
+        <div class="planner-nav">
+          <button type="button" id="plannerPrev" aria-label="Previous planner week" ${+addDays(monday, -7) < +scoreStartMonday() ? "disabled" : ""}>‹</button>
+          <span class="planner-badge">${isoWeekKey(monday)}</span>
+          <button type="button" id="plannerNext" aria-label="Next planner week">›</button>
+        </div>
+      </div>
+      <div class="planner-list">
+        ${household.chores.map((chore, choreIdx) => {
+          const personIdx = personForChore(monday, choreIdx);
+          const person = household.people[personIdx];
+          if (!person) return "";
+          const isMe = personIdx === meIdx();
+          const pending = pendingSwapForChore(choreIdx, isoWeekKey(monday));
+          const difficulty = choreScore(chore).label;
+          const action = pending
+            ? `<span class="status-pill snoozed">swap pending</span>`
+            : canRequestSwap(choreIdx, monday)
+              ? `<button type="button" data-planner-swap="${choreIdx}" data-planner-week="${+monday}">Request swap</button>`
+              : "";
+          return `
+            <div class="planner-assignment ${isMe ? "me" : ""}">
+              <div class="planner-avatar">${emojiHtml(person.emoji, 27)}</div>
+              <div class="planner-copy">
+                <b>${esc(chore)}</b>
+                <span>${esc(person.name || person.email.split("@")[0])}${isMe ? " · you" : ""} · ${esc(difficulty)} workload</span>
+              </div>
+              <div class="planner-actions">${action}</div>
+            </div>`;
+        }).join("")}
+      </div>
+    </section>
+  </div>
+  <p class="legend" style="text-align:center;margin:10px 4px 0;">Use the week arrows above to preview future rotations and request swaps.</p>`;
 }
 
 // WEEK
 function renderWeek() {
   const wrap = $("schedule"); wrap.innerHTML = "";
   renderHomeBrief();
+  renderShieldRun();
   renderLatestActivity();
+  renderSwapRequests();
   const summary = weekSummary(viewMonday);
   $("weekMiniSummary").textContent = `${summary.open} open · ${summary.done} done`;
+  $("weekListView")?.classList.toggle("active", weekViewMode === "list");
+  $("weekCalendarView")?.classList.toggle("active", weekViewMode === "planner");
+  const beforeStart = isBeforeScoreStart(viewMonday);
+  if (beforeStart) {
+    $("weekProgress").style.width = "0%";
+    wrap.innerHTML = `<div style="padding:18px;color:var(--muted);text-align:center;font-size:13px;">Real scoring starts from May 11 – May 17. Older test weeks are ignored.</div>`;
+  }
   if (!household.chores.length) { wrap.innerHTML = `<div style="padding:18px;color:var(--muted);text-align:center;font-size:13px;">No chores yet — add some in ⚙️ Settings.</div>`; $("weekProgress").style.width="0%"; return; }
   let doneCount = 0;
   const me = meIdx();
-  household.chores.forEach((chore, i) => {
+  if (!beforeStart && weekViewMode === "planner") {
+    doneCount = household.chores.filter((_, i) => choreStatus(viewMonday, i).state === "done").length;
+    wrap.innerHTML = renderRotationPlanner();
+    wrap.querySelectorAll("[data-planner-swap]").forEach(btn => {
+      btn.onclick = () => {
+        const previousMonday = viewMonday;
+        viewMonday = new Date(Number(btn.dataset.plannerWeek));
+        openSwapSheet(Number(btn.dataset.plannerSwap), previousMonday);
+      };
+    });
+    $("plannerPrev").onclick = () => {
+      const previous = addDays(viewMonday, -7);
+      if (previous < scoreStartMonday()) return;
+      viewMonday = previous;
+      renderWeek();
+    };
+    $("plannerNext").onclick = () => {
+      viewMonday = addDays(viewMonday, 7);
+      renderWeek();
+    };
+  } else if (!beforeStart) household.chores.forEach((chore, i) => {
     const personIdx = personForChore(viewMonday, i);
     const p = household.people[personIdx];
     if (!p) return;
@@ -1485,29 +2262,33 @@ function renderWeek() {
     if (st.state === "done") doneCount++;
 
     let pill = "";
-    if (st.state === "done") pill = `<span class="status-pill done">✓ done${st.onTime ? "" : " (late)"}</span>`;
+    if (st.state === "done") pill = `<span class="status-pill done">${st.h?.shieldUsed ? "🛡️ shielded" : `✓ done${st.onTime ? "" : " (late)"}`}</span>`;
     else if (st.state === "snoozed") pill = `<span class="status-pill snoozed">💤 ${fmtTime(st.snoozedUntil)}</span>`;
-    else if (st.state === "missed") pill = `<span class="status-pill missed">−5 missed</span>`;
-    else if (st.state === "urgent") pill = `<span class="status-pill urgent">overdue</span>`;
+    else if (st.state === "missed") pill = `<span class="status-pill missed">${POINTS.missed} missed</span>`;
+    else if (st.state === "urgent") pill = `<span class="status-pill urgent">needs action</span>`;
     else if (st.state === "late") pill = `<span class="status-pill late">due soon</span>`;
+    const pendingSwap = pendingSwapForChore(i);
+    if (pendingSwap) pill += `<span class="status-pill snoozed">swap pending</span>`;
 
     const row = document.createElement("div");
     row.className = "chore" + (st.state === "done" ? " done" : "") + (isMe ? " is-me" : "") + ((st.state === "urgent" || st.state === "late" || st.state === "missed") ? " urgent-now" : "") + (st.state === "snoozed" ? " snoozed-now" : "");
     const deadline = fmtTime(st.effectiveDeadline);
-    const pointsHint = st.state === "done" ? (st.onTime ? "+10 pts" : "+5 pts") : st.state === "missed" ? "-5 pts" : "up to +10 pts";
+    const difficulty = choreDifficulty(chore);
+    const difficultyInfo = choreScore(chore);
+    const pointsHint = st.state === "done" ? (st.onTime || st.h?.shieldUsed ? `+${POINTS.done} pts` : `+${POINTS.late} pts`) : st.state === "missed" ? `${POINTS.missed} pts` : `up to +${POINTS.done} pts`;
     row.innerHTML = `
       <div class="who">${emojiHtml(p.emoji, 38)}</div>
       <div class="info">
         <div class="name">${esc(chore)}${pill}</div>
         <div class="person ${isMe ? "me" : ""}">${esc(p.name || p.email)}${isMe ? " · you" : ""}</div>
-        <div class="meta"><span class="mini-pill">${esc(pointsHint)}</span><span>deadline ${esc(deadline)}</span></div>
+        <div class="meta"><span class="mini-pill">${esc(pointsHint)}</span><span class="difficulty-pill ${difficulty === "normal" ? "" : difficulty}">${esc(difficultyInfo.label)} workload</span><span>deadline ${esc(deadline)}</span></div>
       </div>
       <div class="chev">›</div>`;
     row.onclick = () => openActionSheet(i);
     wrap.appendChild(row);
   });
 
-  $("weekProgress").style.width = `${(doneCount/household.chores.length)*100}%`;
+  if (!beforeStart) $("weekProgress").style.width = `${(doneCount/household.chores.length)*100}%`;
   const sun = addDays(viewMonday, 6);
   $("weekRange").textContent = `${fmt(viewMonday)} – ${fmt(sun)}`;
   const thisM = mondayOf(new Date());
@@ -1517,6 +2298,7 @@ function renderWeek() {
   else if (diff > 1) title = `In ${diff} weeks`; else if (diff < -1) title = `${Math.abs(diff)} weeks ago`;
   $("weekTitle").textContent = title;
   $("todayBadge").style.display = diff === 0 ? "" : "none";
+  $("prev").disabled = +addDays(viewMonday, -7) < +scoreStartMonday();
 }
 
 // ACTION SHEET
@@ -1538,10 +2320,10 @@ function renderActionSheet() {
   const isCurrent = +viewMonday === +mondayOf(new Date());
 
   let pill = "";
-  if (st.state === "done") pill = `<span class="status-pill done">✓ done${st.onTime ? "" : " (late)"}</span>`;
+  if (st.state === "done") pill = `<span class="status-pill done">${st.h?.shieldUsed ? "🛡️ shielded" : `✓ done${st.onTime ? "" : " (late)"}`}</span>`;
   else if (st.state === "snoozed") pill = `<span class="status-pill snoozed">💤 until ${fmtTime(st.snoozedUntil)}</span>`;
-  else if (st.state === "missed") pill = `<span class="status-pill missed">−5 missed</span>`;
-  else if (st.state === "urgent") pill = `<span class="status-pill urgent">overdue</span>`;
+  else if (st.state === "missed") pill = `<span class="status-pill missed">${POINTS.missed} missed</span>`;
+  else if (st.state === "urgent") pill = `<span class="status-pill urgent">needs action</span>`;
   else if (st.state === "late") pill = `<span class="status-pill late">due soon</span>`;
 
   const usedSnooze = st.h?.shiftHours || 0;
@@ -1553,6 +2335,9 @@ function renderActionSheet() {
       actions += `<button class="primary" data-act="done"><span class="ai">✓</span> Mark done</button>`;
       if (isCurrent && st.state !== "missed" && st.state !== "upcoming" && usedSnooze < SNOOZE_CAP_HOURS) {
         actions += `<button class="snooze" data-act="snooze"><span class="ai">💤</span> Snooze (${SNOOZE_CAP_HOURS - usedSnooze}h left)</button>`;
+      }
+      if (canRequestSwap(i)) {
+        actions += `<button class="swap" data-act="swap"><span class="ai">🔁</span> Request swap</button>`;
       }
     } else if (!isMe && (st.state === "urgent" || st.state === "missed") && isCurrent) {
       actions += `<button class="danger" data-act="nudge"><span class="ai">📣</span> Nudge ${esc(p.name || p.email.split("@")[0])}</button>`;
@@ -1575,7 +2360,8 @@ function renderActionSheet() {
     if (a === "done") { markDone(i); closeActionSheet(); }
     else if (a === "undo") { undoDone(i); closeActionSheet(); }
     else if (a === "snooze") { closeActionSheet(); openSnooze(i); }
-    else if (a === "nudge") { nudge(i); closeActionSheet(); }
+    else if (a === "nudge") { closeActionSheet(); nudge(i); }
+    else if (a === "swap") { closeActionSheet(); openSwapSheet(i); }
   });
 }
 
@@ -1586,24 +2372,63 @@ async function markDone(choreIdx) {
   const before = choreStatus(viewMonday, choreIdx);
   const completedAt = Date.now();
   const onTime = completedAt <= before.effectiveDeadline;
-  const pts = onTime ? 10 : 5;
   const p = household.people[personIdx];
   const chore = household.chores[choreIdx];
-  await patch({
-    [`history.${key}`]: { ...existing, completedAt, byUid: user.uid, byIdx: personIdx, byEmail: user.email },
-    ...activityUpdate("done", `completed ${chore} for ${p.name || p.email.split("@")[0]} (+${pts})`, "✅", { chore, week: isoWeekKey(viewMonday) }),
-  });
-  toast(`+${pts} pts to ${p.emoji} ${p.name || p.email.split("@")[0]}`);
+  const week = isoWeekKey(viewMonday);
+  const shieldMonth = monthKeyOf(addDays(viewMonday, 6));
+  const shieldKey = shieldKeyForPerson(personIdx);
+  const usesShield = !onTime && hasShieldAvailable(personIdx, viewMonday);
+  const pts = onTime || usesShield ? POINTS.done : POINTS.late;
+  const cleanProgress = cleanWeekProgressAfterCompletion(personIdx, choreIdx, onTime);
+  const historyEntry = { ...existing, completedAt, byUid: user.uid, byIdx: personIdx, byEmail: user.email };
+  if (usesShield) {
+    historyEntry.shieldUsed = true;
+    historyEntry.shieldMonth = shieldMonth;
+    historyEntry.shieldKey = shieldKey;
+  }
+  const updates = {
+    [`history.${key}`]: historyEntry,
+    ...activityUpdate(
+      usesShield ? "shield-used" : "done",
+      usesShield ? `used a Streak Shield on ${chore}` : `completed ${chore} and earned ${pts} points`,
+      usesShield ? "🛡️" : "✅",
+      { chore, week, points: pts, shieldUsed: usesShield }
+    ),
+  };
+  if (usesShield) {
+    updates[`shields.${shieldMonth}.${shieldKey}`] = { usedAt: completedAt, usedWeek: week, usedChore: chore, usedByUid: user.uid };
+  }
+  await patch(updates);
+  if (usesShield) {
+    toast(`🛡️ Shield used — +${pts} pts to ${p.emoji} ${p.name || p.email.split("@")[0]}`);
+  } else if (cleanProgress) {
+    const name = p.name || p.email.split("@")[0];
+    showStreakCelebration(cleanProgress.unlocked
+      ? {
+          title: "Shield unlocked",
+          text: `Well done, ${name}. Your clean run earned one late-forgiveness shield for this month.`,
+          progress: cleanProgress.progress,
+          unlocked: true,
+        }
+      : {
+          title: "Clean week logged",
+          text: `Well done, ${name}. ${cleanProgress.remaining} more clean ${cleanProgress.remaining === 1 ? "week" : "weeks"} to earn your shield.`,
+          progress: cleanProgress.progress,
+        });
+  } else {
+    toast(`+${pts} pts to ${p.emoji} ${p.name || p.email.split("@")[0]}`);
+  }
 }
 async function undoDone(choreIdx) {
   const key = `${isoWeekKey(viewMonday)}-c${choreIdx}`;
   const existing = household.history?.[key] || {};
-  const { completedAt, byUid, byIdx, byEmail, ...rest } = existing;
+  const { completedAt, byUid, byIdx, byEmail, shieldUsed, shieldMonth, shieldKey, ...rest } = existing;
   const chore = household.chores[choreIdx];
+  const updates = shieldUsed && shieldMonth && shieldKey ? { [`shields.${shieldMonth}.${shieldKey}`]: deleteField() } : {};
   if (Object.keys(rest).length === 0) {
-    await patch({ [`history.${key}`]: deleteField(), ...activityUpdate("undo", `undid ${chore}`, "↩", { chore, week: isoWeekKey(viewMonday) }) });
+    await patch({ [`history.${key}`]: deleteField(), ...updates, ...activityUpdate("undo", `undid ${chore}`, "↩", { chore, week: isoWeekKey(viewMonday) }) });
   } else {
-    await patch({ [`history.${key}`]: rest, ...activityUpdate("undo", `undid ${chore}`, "↩", { chore, week: isoWeekKey(viewMonday) }) });
+    await patch({ [`history.${key}`]: rest, ...updates, ...activityUpdate("undo", `undid ${chore}`, "↩", { chore, week: isoWeekKey(viewMonday) }) });
   }
 }
 
@@ -1645,14 +2470,129 @@ async function doSnooze(choreIdx, hours) {
   closeSnoozeSheet();
 }
 
+function openSwapSheet(fromChoreIdx, returnMonday = null) {
+  swapReturnMonday = returnMonday;
+  const fromChore = household.chores[fromChoreIdx];
+  const options = household.chores
+    .map((chore, idx) => ({ chore, idx, personIdx: personForChore(viewMonday, idx), status: choreStatus(viewMonday, idx) }))
+    .filter(opt => opt.idx !== fromChoreIdx
+      && opt.personIdx !== meIdx()
+      && opt.status.state !== "done"
+      && !pendingSwapForChore(opt.idx));
+  $("swapIntro").textContent = options.length
+    ? `Pick which chore you want to trade "${fromChore}" with. The other roommate must approve it.`
+    : `No swappable chores are available right now.`;
+  $("swapOptions").innerHTML = options.length ? options.map(opt => {
+    const p = household.people[opt.personIdx];
+    const difficulty = choreScore(opt.chore).label;
+    return `<button class="swap-option" data-swap-target="${opt.idx}">
+      <span>
+        <b>${esc(opt.chore)}</b>
+        <span>${emojiHtml(p?.emoji || "👤", 16)} ${esc(p?.name || p?.email?.split("@")[0] || "Someone")} · ${esc(difficulty)} workload</span>
+      </span>
+      <strong>↔</strong>
+    </button>`;
+  }).join("") : `<div class="activity-empty">Try again after a chore is undone or a pending swap is resolved.</div>`;
+  $("swapOptions").querySelectorAll("[data-swap-target]").forEach(btn => btn.onclick = () => requestSwap(fromChoreIdx, Number(btn.dataset.swapTarget)));
+  $("swapBg").classList.add("open");
+  $("swapSheet").classList.add("open");
+}
+function closeSwapSheet() {
+  $("swapBg").classList.remove("open");
+  $("swapSheet").classList.remove("open");
+  if (swapReturnMonday) {
+    viewMonday = swapReturnMonday;
+    swapReturnMonday = null;
+    renderWeek();
+  }
+}
+async function requestSwap(fromChoreIdx, toChoreIdx) {
+  if (!canRequestSwap(fromChoreIdx)) { toast("Swap not available now"); closeSwapSheet(); return; }
+  if (pendingSwapForChore(toChoreIdx)) { toast("That chore already has a pending swap"); closeSwapSheet(); return; }
+  const requesterIdx = meIdx();
+  const targetIdx = personForChore(viewMonday, toChoreIdx);
+  const requester = household.people[requesterIdx];
+  const target = household.people[targetIdx];
+  const fromChore = household.chores[fromChoreIdx];
+  const toChore = household.chores[toChoreIdx];
+  const now = Date.now();
+  const id = `swap-${now}-${Math.random().toString(36).slice(2, 6)}`;
+  await patch({
+    [`swaps.${id}`]: {
+      id,
+      week: isoWeekKey(viewMonday),
+      status: "pending",
+      fromChoreIdx,
+      toChoreIdx,
+      requesterIdx,
+      targetIdx,
+      requesterEmail: requester?.email || user.email,
+      targetEmail: target?.email || "",
+      fromChore,
+      toChore,
+      requestedAt: now,
+    },
+    ...activityUpdate("swap-request", `requested a swap: ${fromChore} ↔ ${toChore}`, "🔁", { fromChore, toChore, week: isoWeekKey(viewMonday), targetName: personLabel(targetIdx) }),
+  });
+  closeSwapSheet();
+  toast(`Swap request sent to ${personLabel(targetIdx)}`);
+}
+async function approveSwap(id) {
+  const swap = household?.swaps?.[id];
+  if (!swap || swap.status !== "pending") return;
+  if ((swap.targetEmail || "").toLowerCase() !== (user.email || "").toLowerCase()) {
+    toast("Only the target roommate can approve");
+    return;
+  }
+  const requesterIdx = personIndexByEmail(swap.requesterEmail);
+  const targetIdx = personIndexByEmail(swap.targetEmail);
+  const fromChore = household.chores[swap.fromChoreIdx];
+  const toChore = household.chores[swap.toChoreIdx];
+  if (requesterIdx < 0 || targetIdx < 0 || fromChore !== swap.fromChore || toChore !== swap.toChore) {
+    await patch({
+      [`swaps.${id}.status`]: "expired",
+      [`swaps.${id}.resolvedAt`]: Date.now(),
+      ...activityUpdate("swap-expired", `expired a swap because household settings changed`, "⚠️", { week: swap.week }),
+    });
+    toast("Swap expired because household settings changed.");
+    return;
+  }
+  const now = Date.now();
+  await patch({
+    [`swaps.${id}.status`]: "approved",
+    [`swaps.${id}.resolvedAt`]: now,
+    [`assignmentOverrides.${swap.week}.c${swap.fromChoreIdx}`]: targetIdx,
+    [`assignmentOverrides.${swap.week}.c${swap.toChoreIdx}`]: requesterIdx,
+    ...activityUpdate("swap-approved", `approved a swap: ${fromChore} ↔ ${toChore}`, "✅", { fromChore, toChore, week: swap.week }),
+  });
+  toast("Swap approved. Schedule updated.");
+}
+async function declineSwap(id) {
+  const swap = household?.swaps?.[id];
+  if (!swap || swap.status !== "pending") return;
+  if ((swap.targetEmail || "").toLowerCase() !== (user.email || "").toLowerCase()) {
+    toast("Only the target roommate can decline");
+    return;
+  }
+  const fromChore = household.chores[swap.fromChoreIdx] || swap.fromChore || "one chore";
+  const toChore = household.chores[swap.toChoreIdx] || swap.toChore || "another chore";
+  await patch({
+    [`swaps.${id}.status`]: "declined",
+    [`swaps.${id}.resolvedAt`]: Date.now(),
+    ...activityUpdate("swap-declined", `declined a swap: ${fromChore} ↔ ${toChore}`, "✋", { fromChore, toChore, week: swap.week }),
+  });
+  toast("Swap declined");
+}
+
 async function nudge(choreIdx) {
+  closeTransientSheets();
   const personIdx = personForChore(viewMonday, choreIdx);
   const p = household.people[personIdx];
   const chore = household.chores[choreIdx];
   const me = meIdx() >= 0 ? household.people[meIdx()] : null;
   const meName = me?.name || me?.email.split("@")[0] || "";
   const targetName = p.name || p.email.split("@")[0];
-  const msg = `${p.emoji} hey ${targetName}! gentle nudge — "${chore}" is overdue 🧹${me ? ` — ${me.emoji} ${meName}` : ""}`;
+  const msg = `${p.emoji} hey ${targetName}! gentle nudge — "${chore}" needs attention 🧹${me ? ` — ${me.emoji} ${meName}` : ""}`;
   if (p.phone) {
     const cleaned = p.phone.replace(/[^\d+]/g, "");
     window.open(`https://wa.me/${cleaned.replace(/^\+/, "")}?text=${encodeURIComponent(msg)}`, "_blank");
@@ -1660,7 +2600,7 @@ async function nudge(choreIdx) {
     navigator.clipboard?.writeText(msg);
     toast("Nudge copied — paste into WhatsApp");
   }
-  await patch(activityUpdate("nudge", `nudged ${targetName} about ${chore}`, "📣", { chore, targetEmail: p.email, week: isoWeekKey(viewMonday) }));
+  await patch(activityUpdate("nudge", `nudged ${targetName} about ${chore}`, "📣", { chore, targetName, targetEmail: p.email, week: isoWeekKey(viewMonday) }));
 }
 
 // SCORING
@@ -1669,8 +2609,8 @@ function iterateWeeks(fromMonday, toMonday, fn) {
   while (m <= stop) { fn(new Date(m)); m = addDays(m, 7); }
 }
 function computeScores(filterFn) {
-  const totals = household.people.map(() => ({ pts:0, done:0, onTime:0, late:0, missed:0, snoozed:0 }));
-  const anchor = mondayOf(new Date(household.anchor + "T00:00:00"));
+  const totals = household.people.map(() => ({ pts:0, done:0, onTime:0, late:0, missed:0, snoozed:0, shielded:0 }));
+  const anchor = scoreStartMonday();
   const thisM = mondayOf(new Date());
   iterateWeeks(anchor, thisM, (m) => {
     if (!filterFn(m)) return;
@@ -1680,9 +2620,11 @@ function computeScores(filterFn) {
       const st = choreStatus(m, c);
       if (st.state === "done") {
         totals[idx].done++;
-        if (st.onTime) { totals[idx].pts += 10; totals[idx].onTime++; } else { totals[idx].pts += 5; totals[idx].late++; }
+        if (st.onTime) { totals[idx].pts += POINTS.done; totals[idx].onTime++; }
+        else if (st.h?.shieldUsed) { totals[idx].pts += POINTS.done; totals[idx].late++; totals[idx].shielded++; }
+        else { totals[idx].pts += POINTS.late; totals[idx].late++; }
         if (st.h?.shiftHours) totals[idx].snoozed++;
-      } else if (st.state === "missed") { totals[idx].pts -= 5; totals[idx].missed++; }
+      } else if (st.state === "missed") { totals[idx].pts += POINTS.missed; totals[idx].missed++; }
     }
   });
   return totals;
@@ -1691,15 +2633,19 @@ function scoresAllTime() {
   const totals = computeScores(() => true);
   const streaks = household.people.map(() => 0);
   const thisM = mondayOf(new Date());
+  const startM = scoreStartMonday();
   for (let p = 0; p < household.people.length; p++) {
     for (let w = 0; w < 52; w++) {
       const m = addDays(thisM, -7*w);
-      let cIdx = -1;
-      for (let c = 0; c < household.chores.length; c++) if (personForChore(m, c) === p) { cIdx = c; break; }
-      if (cIdx < 0) continue;
-      const st = choreStatus(m, cIdx);
-      if (w === 0 && st.state !== "done") continue;
-      if (st.state === "done" && st.onTime) streaks[p]++; else break;
+      if (m < startM) break;
+      const assigned = choreIndicesForPerson(m, p);
+      if (!assigned.length) continue;
+      const cleanWeek = assigned.every(c => {
+        const st = choreStatus(m, c);
+        return st.state === "done" && st.onTime;
+      });
+      if (w === 0 && !cleanWeek) continue;
+      if (cleanWeek) streaks[p]++; else break;
     }
   }
   return household.people.map((p, i) => ({ ...p, idx:i, ...totals[i], streak:streaks[i] }));
@@ -1708,28 +2654,118 @@ function scoresMonth(monthKey) {
   return computeScores((m) => monthKeyOf(addDays(m, 6)) === monthKey);
 }
 
-function categoryFor(rank, lastRank, pts) {
-  if (rank === 0) return "winner";
-  if (rank === lastRank && lastRank > 0) return pts <= 0 ? "loser_savage" : "loser_mild";
-  return "mid";
+function monthFairness(monthKey = monthKeyOf(new Date())) {
+  const rows = household.people.map((p, idx) => ({ ...p, idx, assigned:0, workload:0, easy:0, normal:0, hard:0, done:0, missed:0, pending:0 }));
+  const thisM = mondayOf(new Date());
+  const startM = scoreStartMonday();
+  const monthStart = mondayOf(new Date(`${monthKey}-01T00:00:00`));
+  const from = monthStart > startM ? monthStart : startM;
+  iterateWeeks(from, thisM, (m) => {
+    if (monthKeyOf(addDays(m, 6)) !== monthKey) return;
+    household.chores.forEach((_, c) => {
+      const idx = personForChore(m, c);
+      if (idx < 0 || !rows[idx]) return;
+      const chore = household.chores[c];
+      const difficulty = choreDifficulty(chore);
+      const score = choreScore(chore);
+      rows[idx].assigned++;
+      rows[idx].workload += score.weight;
+      rows[idx][difficulty]++;
+      const st = choreStatus(m, c);
+      if (st.state === "done") rows[idx].done++;
+      else if (st.state === "missed") rows[idx].missed++;
+      else rows[idx].pending++;
+    });
+  });
+  const workloads = rows.map(r => r.workload);
+  const maxWorkload = Math.max(0, ...workloads);
+  const activeWorkloads = workloads.filter(n => n > 0);
+  const realMinWorkload = activeWorkloads.length ? Math.min(...activeWorkloads) : 0;
+  const realSpread = maxWorkload - realMinWorkload;
+  const avg = rows.length ? workloads.reduce((sum, n) => sum + n, 0) / rows.length : 0;
+  rows.forEach(r => {
+    const delta = r.workload - avg;
+    r.balance = delta >= 5 ? "heavy" : delta <= -5 ? "light" : "balanced";
+    r.balanceLabel = r.balance === "heavy" ? "Heavy so far" : r.balance === "light" ? "Light so far" : "Balanced";
+  });
+  const title = realSpread <= 4 ? "Rotation is balanced so far" : realSpread <= 10 ? "Small workload gap so far" : "Uneven month so far";
+  const copy = "Automatic rotation stays on. This view only explains who has had harder or lighter chores this month.";
+  return { rows, spread: realSpread, title, copy, maxWorkload };
+}
+
+function renderFairnessMeter() {
+  const el = $("fairnessMeter");
+  if (!el) return;
+  const f = monthFairness();
+  el.innerHTML = `
+    <div class="fairness-top">
+      <div>
+        <p class="fairness-kicker">Rotation balance</p>
+        <h2 class="fairness-title">${esc(f.title)}</h2>
+        <p class="fairness-copy">${esc(f.copy)}</p>
+      </div>
+      <div class="balance-month">${esc(monthName(monthKeyOf(new Date())))}</div>
+    </div>
+    <div class="balance-list">
+      <p class="balance-title">This month so far</p>
+      ${f.rows.map(r => {
+        const nm = r.name || r.email.split("@")[0];
+        return `<div class="balance-row">
+          <div>
+            <div class="balance-name">${emojiHtml(r.emoji, 14)} ${esc(nm)}</div>
+            <div class="balance-mix">
+              <span class="mix-pill hard">Hard ${r.hard}</span>
+              <span class="mix-pill">Normal ${r.normal}</span>
+              <span class="mix-pill easy">Easy ${r.easy}</span>
+            </div>
+          </div>
+          <div class="balance-status ${r.balance}">${esc(r.balanceLabel)}</div>
+        </div>`;
+      }).join("")}
+    </div>
+    <details class="fairness-details">
+      <summary>How rotation balance works</summary>
+      <p class="fairness-explain">
+        This compares the difficulty mix each person has received this month.
+        Easy, normal, and hard labels do not change points; they only make the rotation easier to understand.
+        The app keeps rotating chores automatically.
+      </p>
+    </details>`;
+}
+
+function leaderboardState(data, idx) {
+  const row = data[idx];
+  const rank = 1 + data.filter(d => d.pts > row.pts).length;
+  const sameScoreCount = data.filter(d => d.pts === row.pts).length;
+  const maxPts = data[0]?.pts ?? 0;
+  const minPts = data[data.length - 1]?.pts ?? 0;
+  const topCount = data.filter(d => d.pts === maxPts).length;
+  const bottomCount = data.filter(d => d.pts === minPts).length;
+  const isTied = sameScoreCount > 1;
+  const isUniqueWinner = row.pts === maxPts && topCount === 1 && data.length > 1;
+  const isUniqueLoser = row.pts === minPts && bottomCount === 1 && data.length > 1;
+  const category = isUniqueWinner ? "winner" : isUniqueLoser ? (row.pts <= 0 ? "loser_savage" : "loser_mild") : isTied ? "tied" : "mid";
+  const marker = isUniqueWinner ? "👑" : isUniqueLoser ? "🍕" : isTied ? `=${rank}` : String(rank);
+  return { category, marker, isUniqueLoser };
 }
 
 function renderBoard() {
   renderActivityFeed();
+  renderFairnessMeter();
   const data = scoresAllTime().sort((a,b) => b.pts - a.pts || b.onTime - a.onTime);
   const lastIdx = data.length - 1;
   const dk = dayKey();
   $("leaderboard").innerHTML = data.map((d, i) => {
-    const cat = categoryFor(i, lastIdx, d.pts);
+    const state = leaderboardState(data, i);
+    const cat = state.category;
     const seed = `${dk}:lb:${d.idx}:${cat}`;
-    const line = fillLine(pickLine(cat, seed), { name: d.name || d.email.split("@")[0], pts: d.pts });
-    const lang = pickLanguage(seed);
-    const tagline = lang === "en" ? line.en : line.de;
+    const tagline = fillLine(pickLine(cat, seed), { name: d.name || d.email.split("@")[0], pts: d.pts });
+    const shieldReady = hasShieldAvailable(d.idx, mondayOf(new Date()));
     return `
-    <div class="lb-row r${i+1} ${i === lastIdx && data.length > 1 ? "last" : ""}" style="flex-wrap:wrap;">
-      <div class="rank">${i === 0 ? "👑" : i === lastIdx && data.length > 1 ? "🍕" : i+1}</div>
+    <div class="lb-row r${i+1} ${state.isUniqueLoser ? "last" : ""}" style="flex-wrap:wrap;">
+      <div class="rank">${esc(state.marker)}</div>
       <div class="who">${emojiHtml(d.emoji, 36)}</div>
-      <div class="name">${esc(d.name || d.email.split("@")[0])}${d.streak >= 2 ? `<span class="streak">🔥 ${d.streak}</span>` : ""}
+      <div class="name">${esc(d.name || d.email.split("@")[0])}${d.streak >= 2 ? `<span class="streak">🔥 ${d.streak}</span>` : ""}${shieldReady ? `<span class="shield-badge">🛡️ shield</span>` : ""}
         <div style="font-size:11px;color:var(--muted);font-weight:400;font-style:italic;margin-top:3px;line-height:1.35;">${esc(tagline)}</div>
       </div>
       <div class="pts ${d.pts < 0 ? "neg" : ""}">${d.pts}<small> pts</small></div>
@@ -1742,6 +2778,7 @@ function renderBoard() {
     if (d.done >= 4) lines.push(`${emojiHtml(d.emoji, 16)} <b>${esc(nm)}</b> — Reliable (${d.done} done)`);
     if (d.streak >= 4) lines.push(`${emojiHtml(d.emoji, 16)} <b>${esc(nm)}</b> — On fire 🔥 (${d.streak}-week streak)`);
     if (d.onTime >= 8) lines.push(`${emojiHtml(d.emoji, 16)} <b>${esc(nm)}</b> — Punctual ⭐ (${d.onTime} on-time)`);
+    if (d.shielded >= 1) lines.push(`${emojiHtml(d.emoji, 16)} <b>${esc(nm)}</b> — Shield bearer 🛡️ (${d.shielded} late chore protected)`);
     if (d.missed >= 3) lines.push(`${emojiHtml(d.emoji, 16)} <b>${esc(nm)}</b> — Slacker 🐢 (${d.missed} missed)`);
     if (d.snoozed >= 4) lines.push(`${emojiHtml(d.emoji, 16)} <b>${esc(nm)}</b> — Snoozer 💤 (${d.snoozed} snoozes used)`);
   });
@@ -1767,12 +2804,13 @@ function renderStats() {
   $("perPersonMonth").innerHTML = sorted.map(p => `
     <div class="lb-row">
       <div class="who">${emojiHtml(p.emoji, 36)}</div>
-      <div class="name">${esc(p.name || p.email.split("@")[0])}<div style="font-size:11px;color:var(--muted);font-weight:400;">${p.done} done · ${p.onTime} on-time · ${p.missed} missed${p.snoozed?" · "+p.snoozed+"× 💤":""}</div></div>
+      <div class="name">${esc(p.name || p.email.split("@")[0])}<div style="font-size:11px;color:var(--muted);font-weight:400;">${p.done} done · ${p.onTime} on-time · ${p.missed} missed${p.shielded?" · "+p.shielded+"× 🛡️":""}${p.snoozed?" · "+p.snoozed+"× 💤":""}</div></div>
       <div class="pts ${p.pts < 0 ? "neg" : ""}">${p.pts}<small> pts</small></div>
     </div>`).join("");
 
   const treats = household.treats || {};
-  const keys = Object.keys(treats).sort().reverse();
+  const firstScoreMonth = monthKeyOf(scoreStartMonday());
+  const keys = Object.keys(treats).filter(k => k >= firstScoreMonth).sort().reverse();
   $("pastMonths").innerHTML = keys.length ? keys.map(k => {
     const t = treats[k];
     if (t.tied && t.tied.length > 1 && (t.loserIdx === undefined || t.loserIdx === null)) {
@@ -1783,9 +2821,7 @@ function renderStats() {
     const cat = t.loserPts <= 0 ? "loser_savage" : "loser_mild";
     const seed = `${k}:treat:${t.loserIdx}:${cat}`;
     const nm = loser.name || loser.email.split("@")[0];
-    const line = fillLine(pickLine(cat, seed), { name: nm, pts: t.loserPts });
-    const lang = pickLanguage(seed + ":past");
-    const tag = lang === "en" ? line.en : line.de;
+    const tag = fillLine(pickLine(cat, seed), { name: nm, pts: t.loserPts });
     return `<div class="lb-row ${t.paid ? "" : "last"}" style="flex-wrap:wrap;">
       <div class="who">${emojiHtml(loser.emoji, 36)}</div>
       <div class="name">${monthName(k)}
@@ -1819,7 +2855,8 @@ async function maybeSettleLastMonth() {
 function renderTreatBanner() {
   const slot = $("treatBannerSlot"); slot.innerHTML = "";
   const treats = household.treats || {};
-  const keys = Object.keys(treats).sort().reverse();
+  const firstScoreMonth = monthKeyOf(scoreStartMonday());
+  const keys = Object.keys(treats).filter(k => k >= firstScoreMonth).sort().reverse();
   if (!keys.length) return;
   const k = keys[0]; const t = treats[k];
   if (t.paid) return;
@@ -1856,8 +2893,7 @@ function renderTreatBanner() {
     slot.innerHTML = `<div class="treat-banner">
       <img class="pizza" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Pizza/3D/pizza_3d.png" alt="">
       <h3>${emojiHtml(loser.emoji, 24)} ${esc(nm)}'s treat!</h3>
-      <p style="font-weight:600; margin:6px 0 2px;">${esc(line.en)}</p>
-      <p style="font-style:italic; opacity:0.78; margin:2px 0;">${esc(line.de)}</p>
+      <p style="font-weight:600; margin:6px 0 2px;">${esc(line)}</p>
       <p style="font-size:11px; opacity:0.65; margin-top:8px;">${monthName(k)} · ${t.loserPts} pts</p>
       <div class="actions"><button class="btn primary" data-paid="${k}">✅ Mark paid</button></div>
     </div>`;
@@ -1915,6 +2951,7 @@ function renderRps() {
     const cMap = { rock:"🪨", paper:"📄", scissors:"✂️" };
     const winnerP = winner === 0 ? p0 : (winner === 1 ? p1 : null);
     const winNm = winnerP ? (winnerP.name || winnerP.email.split("@")[0]) : "";
+    const revealScore = `<div class="rps-score">${emojiHtml(p0.emoji, 24)} ${rpsState.wins[0]} &nbsp;·&nbsp; ${rpsState.wins[1]} ${emojiHtml(p1.emoji, 24)}</div>`;
     body.innerHTML = `<h3>Round ${rpsState.round} reveal</h3>
       <div class="rps-reveal">
         <div class="side ${winner === 0 ? "win" : ""}">${emojiHtml(p0.emoji, 54, "display:block;margin:0 auto;")}${emojiHtml(cMap[rpsState.picks[0]], 54, "display:block;margin:8px auto 0;")}</div>
@@ -1922,7 +2959,7 @@ function renderRps() {
         <div class="side ${winner === 1 ? "win" : ""}">${emojiHtml(p1.emoji, 54, "display:block;margin:0 auto;")}${emojiHtml(cMap[rpsState.picks[1]], 54, "display:block;margin:8px auto 0;")}</div>
       </div>
       <div class="turn">${winner === -1 ? "Tie — replay round" : `${emojiHtml(winnerP.emoji, 18)} ${esc(winNm)} wins the round`}</div>
-      ${score}
+      ${revealScore}
       <button class="btn primary lg full" id="rpsNext" style="margin-top:14px;">${shouldEndRps() ? "See result" : "Next round"}</button>`;
     $("rpsNext").onclick = () => {
       if (shouldEndRps()) finishRps();
@@ -1950,7 +2987,11 @@ function renderRps() {
   }
 }
 function rpsWinner(a,b) { if (a===b) return -1; const beats={rock:"scissors",paper:"rock",scissors:"paper"}; return beats[a]===b ? 0 : 1; }
-function shouldEndRps() { return rpsState.wins[0] >= 2 || rpsState.wins[1] >= 2 || rpsState.round >= 3; }
+function shouldEndRps() {
+  return rpsState.wins[0] >= 2
+    || rpsState.wins[1] >= 2
+    || (rpsState.round >= 3 && rpsState.wins[0] !== rpsState.wins[1]);
+}
 function finishRps() { rpsState.phase = "done"; renderRps(); }
 
 // REPORT
@@ -2035,11 +3076,18 @@ function renderSettings() {
   }).join("");
 
   const choresEdit = $("choresEdit");
-  choresEdit.innerHTML = household.chores.map((c, i) => `
-    <div class="chore-row">
+  choresEdit.innerHTML = household.chores.map((c, i) => {
+    const difficulty = choreDifficulty(c);
+    return `<div class="chore-row">
       <input type="text" data-chore-idx="${i}" value="${esc(c)}">
+      <select data-chore-difficulty="${i}" aria-label="Difficulty for ${esc(c)}">
+        <option value="easy" ${difficulty === "easy" ? "selected" : ""}>Easy</option>
+        <option value="normal" ${difficulty === "normal" ? "selected" : ""}>Normal</option>
+        <option value="hard" ${difficulty === "hard" ? "selected" : ""}>Hard</option>
+      </select>
       <button class="btn danger" data-remove-chore="${i}" ${household.chores.length <= MIN_CHORES ? "disabled" : ""}>×</button>
-    </div>`).join("");
+    </div>`;
+  }).join("");
 
   $("inviteBox").textContent = inviteUrl();
   $("anchor").value = household.anchor;
@@ -2063,8 +3111,21 @@ function renderSettings() {
 
   choresEdit.querySelectorAll("[data-chore-idx]").forEach(inp => inp.onchange = e => {
     const i = +e.target.dataset.choreIdx;
-    const chores = [...household.chores]; chores[i] = e.target.value;
-    patch({ chores });
+    const oldName = household.chores[i];
+    const newName = e.target.value.trim() || oldName;
+    const chores = [...household.chores];
+    chores[i] = newName;
+    const choreMeta = { ...(household.choreMeta || {}) };
+    if (oldName !== newName) {
+      choreMeta[newName] = choreMeta[oldName] || { difficulty: "normal" };
+      delete choreMeta[oldName];
+    }
+    patch({ chores, choreMeta });
+  });
+  choresEdit.querySelectorAll("[data-chore-difficulty]").forEach(sel => sel.onchange = e => {
+    const i = +e.target.dataset.choreDifficulty;
+    const chore = household.chores[i];
+    patch({ choreMeta: choreMetaWithDifficulty(chore, e.target.value) });
   });
   choresEdit.querySelectorAll("[data-remove-chore]").forEach(b => b.onclick = () => removeChore(+b.dataset.removeChore));
 
@@ -2100,7 +3161,9 @@ async function removeChore(i) {
   if (!confirm(`Remove chore "${household.chores[i]}"?`)) return;
   const removed = household.chores[i];
   const chores = household.chores.filter((_, idx) => idx !== i);
-  await patch({ chores, ...activityUpdate("chore-removed", `removed ${removed}`, "−", { chore: removed }) });
+  const choreMeta = { ...(household.choreMeta || {}) };
+  delete choreMeta[removed];
+  await patch({ chores, choreMeta, ...activityUpdate("chore-removed", `removed ${removed}`, "−", { chore: removed }) });
 }
 
 function openEmojiPicker(idx) {
@@ -2145,7 +3208,11 @@ async function addChore() {
   const name = prompt("New chore name?");
   if (!name || !name.trim()) return;
   const chore = name.trim();
-  await patch({ chores: [...household.chores, chore], ...activityUpdate("chore-added", `added ${chore}`, "🧹", { chore }) });
+  await patch({
+    chores: [...household.chores, chore],
+    choreMeta: { ...(household.choreMeta || {}), [chore]: { difficulty: "normal" } },
+    ...activityUpdate("chore-added", `added ${chore}`, "🧹", { chore }),
+  });
 }
 
 async function leaveHousehold() {
@@ -2168,6 +3235,10 @@ async function leaveHousehold() {
 
 const openSettings = () => { renderSettings(); $("sheetBg").classList.add("open"); $("sheet").classList.add("open"); };
 const closeSettings = () => { $("sheetBg").classList.remove("open"); $("sheet").classList.remove("open"); };
+function closeTransientSheets() {
+  ["actionBg","actionSheet","snoozeBg","snoozeSheet","swapBg","swapSheet","rpsBg","rpsSheet","emojiBg","emojiSheet","addBg","addSheet"].forEach(id => $(id)?.classList.remove("open"));
+  actionChoreIdx = null;
+}
 
 function updateMeSubtitle() {
   const me = meIdx();
@@ -2181,28 +3252,41 @@ function updateMeSubtitle() {
 
 // NOTIFICATIONS
 let messaging = null;
+let enablingNotifications = false;
+function friendlyNotificationTitle(title) {
+  const clean = (title || "").trim();
+  return !clean || clean.toLowerCase() === "tidy team" || clean === "🧹 Tidy Team" ? "Tidy Team update" : clean;
+}
 async function setupMessaging() {
   if (!(await isSupported().catch(() => false))) return;
   messaging = getMessaging(app);
   onMessage(messaging, (payload) => {
     const { title, body } = payload.notification || {};
-    if (Notification.permission === "granted") new Notification(title || "Tidy Team", { body: body || "" });
+    if (Notification.permission === "granted") new Notification(friendlyNotificationTitle(title), { body: body || "" });
   });
 }
 async function enableNotifications() {
+  if (enablingNotifications) return;
   if (!("Notification" in window)) { toast("Not supported"); return; }
+  enablingNotifications = true;
   const perm = await Notification.requestPermission();
-  if (perm !== "granted") { updateNotifStatus(); return; }
-  if (!messaging) await setupMessaging();
   try {
-    const reg = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
-    const token = await getToken(messaging, { vapidKey: VAPID_KEY, serviceWorkerRegistration: reg });
-    if (token) {
-      await setDoc(doc(db, "users", user.uid), { fcmToken: token, fcmUpdated: serverTimestamp() }, { merge: true });
-      new Notification("🧹 Tidy Team", { body: "Notifications enabled!" });
-      toast("Notifications on");
+    if (perm === "granted") {
+      if (!messaging) await setupMessaging();
+      const reg = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
+      const token = await getToken(messaging, { vapidKey: VAPID_KEY, serviceWorkerRegistration: reg });
+      if (token) {
+        await setDoc(doc(db, "users", user.uid), { fcmToken: token, fcmUpdated: serverTimestamp() }, { merge: true });
+        const welcomeKey = `notif-welcome-${user.uid}`;
+        if (!localStorage.getItem(welcomeKey)) {
+          new Notification("Notifications ready", { body: "Tidy Team can now remind you while the app is open." });
+          localStorage.setItem(welcomeKey, "1");
+        }
+        toast("Notifications on");
+      }
     }
   } catch (e) { toast("Couldn't get token: " + (e.code || e.message)); }
+  finally { enablingNotifications = false; }
   updateNotifStatus();
 }
 function updateNotifStatus() {
@@ -2223,8 +3307,12 @@ function checkLocalReminders() {
     const lk = `notif-${householdId}-${isoWeekKey(m)}-c${i}-${st.state}`;
     if (localStorage.getItem(lk)) continue;
     if (st.state === "late") { new Notification("⏰ Chore reminder", { body: `Your chore "${household.chores[i]}" is due in a few days.` }); localStorage.setItem(lk, "1"); }
-    else if (st.state === "urgent") { new Notification("🚨 Overdue!", { body: `"${household.chores[i]}" is overdue. Roommates can nudge you.` }); localStorage.setItem(lk, "1"); }
-    else if (st.state === "missed") { new Notification("💔 Chore missed", { body: `"${household.chores[i]}" wasn't done — −5 pts this week.` }); localStorage.setItem(lk, "1"); }
+    else if (st.state === "urgent") { new Notification("🚨 Chore needs action", { body: `"${household.chores[i]}" is still open. Roommates can nudge you.` }); localStorage.setItem(lk, "1"); }
+    else if (st.state === "missed") {
+      const chore = household.chores[i];
+      new Notification("💔 Chore missed", { body: `"${chore}" wasn't done — ${POINTS.missed} pts this week.` });
+      localStorage.setItem(lk, "1");
+    }
   }
 }
 
@@ -2239,8 +3327,15 @@ document.querySelectorAll(".pill-tabs button").forEach(b => b.onclick = () => {
 });
 
 // WIRE UP
-$("prev").onclick = () => { viewMonday = addDays(viewMonday, -7); renderWeek(); };
+$("prev").onclick = () => {
+  const previous = addDays(viewMonday, -7);
+  if (previous < scoreStartMonday()) return;
+  viewMonday = previous;
+  renderWeek();
+};
 $("next").onclick = () => { viewMonday = addDays(viewMonday, 7); renderWeek(); };
+$("weekListView").onclick = () => { weekViewMode = "list"; renderWeek(); };
+$("weekCalendarView").onclick = () => { weekViewMode = "planner"; renderWeek(); };
 $("openSettings").onclick = openSettings;
 $("closeSettings").onclick = closeSettings;
 $("saveClose").onclick = closeSettings;
@@ -2249,6 +3344,8 @@ $("closeEmoji").onclick = closeEmojiSheet;
 $("emojiBg").onclick = closeEmojiSheet;
 $("closeSnooze").onclick = closeSnoozeSheet;
 $("snoozeBg").onclick = closeSnoozeSheet;
+$("closeSwap").onclick = closeSwapSheet;
+$("swapBg").onclick = closeSwapSheet;
 $("closeRps").onclick = closeRpsSheet;
 $("addMemberBtn").onclick = openAddMember;
 $("closeAdd").onclick = closeAddSheet;
@@ -2268,6 +3365,7 @@ $("copyReport").onclick = () => { const r = buildReport(); navigator.clipboard?.
 $("emailReport").onclick = () => { const r = buildReport(); const to = household.emailTo || ""; window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(r.subject)}&body=${encodeURIComponent(r.body)}`; };
 $("howItWorks").onclick = () => { $("infoPop").classList.toggle("open"); };
 document.querySelectorAll("[data-report-bug]").forEach(btn => btn.onclick = openBugReport);
+$("celebrationBg").onclick = (event) => { if (event.target === $("celebrationBg")) closeCelebration(); };
 
 function applyTheme(t) {
   document.documentElement.setAttribute("data-theme", t);
@@ -2295,6 +3393,8 @@ document.addEventListener("click", (e) => {
   const pop = $("infoPop"); const btn = $("howItWorks");
   if (pop.classList.contains("open") && !pop.contains(e.target) && e.target !== btn && !btn.contains(e.target)) pop.classList.remove("open");
 });
+$("closeRelease").onclick = closeReleaseNotes;
+$("releaseDone").onclick = closeReleaseNotes;
 
 function renderAll() {
   renderTreatBanner();
@@ -2304,6 +3404,8 @@ function renderAll() {
   if (active === "board") renderBoard();
   if (active === "stats") renderStats();
   checkLocalReminders();
+  maybeShowDemoCelebration();
+  maybeShowReleaseNotes();
 }
 
 setInterval(checkLocalReminders, 30 * 60 * 1000);

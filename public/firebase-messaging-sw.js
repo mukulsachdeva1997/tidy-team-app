@@ -1,7 +1,7 @@
 importScripts("https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js");
 
-const APP_CACHE = "tidy-team-shell-v2";
+const APP_CACHE = "tidy-team-shell-v3";
 const APP_SHELL = ["/", "/index.html", "/manifest.json"];
 
 firebase.initializeApp({
